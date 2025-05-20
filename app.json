@@ -10,6 +10,7 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": false,
+      "usesAppleSignIn": true,
       "icon": {
         "light": "./assets/icons/ios-light.png",
         "dark": "./assets/icons/ios-dark.png",
@@ -54,6 +55,14 @@
         "expo-image-picker",
         {
           "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ],
+      ["expo-apple-authentication"],
+      [
+        "react-native-maps",
+        {
+          "iosGoogleMapsApiKey": "AIzaSyD_x_jkpt33ZX96mrYSO4w65oRtLr9nxlo",
+          "androidGoogleMapsApiKey": "AIzaSyAHmtNmFT8nsIb519PlVAEN-Zgtm02ig1s"
         }
       ]
     ],
