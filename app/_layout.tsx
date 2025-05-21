@@ -7,14 +7,11 @@ import { StatusBar } from 'expo-status-bar';
 import { LogBox } from 'react-native';
 import { KeyboardProvider } from "react-native-keyboard-controller";
 import { configureReanimatedLogger, ReanimatedLogLevel } from 'react-native-reanimated';
-
 LogBox.ignoreAllLogs(true);
 configureReanimatedLogger({
   level: ReanimatedLogLevel.warn,
   strict: false,
 });
-
-
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const queryClient = new QueryClient();
@@ -34,14 +31,12 @@ export default function RootLayout() {
     // Async font loading only occurs in development.
     return null;
   }
-
   return (
     <QueryClientProvider client={queryClient}>
       <KeyboardProvider>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
           <Stack>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="+not-found" />
           </Stack>
           <StatusBar style="auto" />
         </ThemeProvider>
