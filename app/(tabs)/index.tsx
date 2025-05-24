@@ -14,4 +14,4 @@ const Page = () => {
   )
 }
 
-export default Page
+export default Page 
