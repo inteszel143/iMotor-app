@@ -36,7 +36,9 @@ export default function RootLayout() {
       <KeyboardProvider>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
           <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="index" options={{ headerShown: false, animation: "fade", gestureEnabled: false, }} />
+            <Stack.Screen name="LoginScreen" options={{ headerShown: false, animation: "fade", gestureEnabled: false, }} />
+            <Stack.Screen name="(tabs)" options={{ headerShown: false, animation: "fade", gestureEnabled: false, }} />
             <Stack.Screen name="NotificationPage" options={{ animation: "slide_from_right", headerShown: false }} />
           </Stack>
           <StatusBar style="auto" />

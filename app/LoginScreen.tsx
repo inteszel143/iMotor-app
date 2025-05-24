@@ -1,0 +1,236 @@
+import FloatingLabelInput from '@/components/FloatingLabelInputProps';
+import AppleSignin from '@/components/Login/AppleSignin';
+import GoogleSignin from '@/components/Login/GoogleSignin';
+import { darkTheme, lightTheme } from '@/constants/darkmode';
+import { mainStyle } from '@/constants/mainStyle';
+import { yupResolver } from "@hookform/resolvers/yup";
+import React from 'react';
+import { Controller, useForm } from "react-hook-form";
+import { Image, Pressable, Text, useColorScheme, View } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
+import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
+import * as yup from "yup";
+const Page = () => {
+
+    const colorScheme = useColorScheme();
+    const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+
+
+    const schema = yup.object().shape({
+        email: yup
+            .string()
+            .email("Please enter valid email.")
+            .required("This field is required."),
+        password: yup.string().required("This field is required."),
+        loading: yup.boolean(),
+        showPassword: yup.boolean(),
+        rememberMe: yup.boolean(),
+
+        errorShow: yup.boolean(),
+        errorMessage: yup.string().nullable(),
+    });
+
+
+
+    const { control, handleSubmit, setValue, watch, formState: { errors }, } = useForm({
+        resolver: yupResolver(schema),
+        defaultValues: {
+            email: "",
+            password: "",
+
+            errorMessage: '',
+            loading: false,
+            showPassword: true,
+            rememberMe: true,
+            errorShow: false,
+        }
+    });
+
+
+    return (
+        <View style={{ flex: 1, backgroundColor: theme.backgroundColor2 }}>
+
+            <KeyboardAwareScrollView
+                bottomOffset={heightPercentageToDP(8)}
+                contentContainerStyle={{ paddingBottom: heightPercentageToDP(4) }}
+            >
+                <View style={{
+                    paddingHorizontal: widthPercentageToDP(6)
+                }}>
+                    <View style={{
+                        alignItems: 'center',
+                        marginTop: heightPercentageToDP(9)
+                    }}>
+                        <Image
+                            source={require('@/assets/temp/iMotor.png')}
+                            resizeMode='contain'
+                            style={{
+                                width: widthPercentageToDP(30),
+                                height: heightPercentageToDP(9),
+                            }}
+                        />
+                        <Text style={{
+                            fontFamily: "poppinsBold",
+                            fontSize: heightPercentageToDP(3),
+                            color: theme.textColor
+                        }}>Welcome Back</Text>
+                        <Text style={{
+                            fontFamily: "poppinsMedium",
+                            fontSize: heightPercentageToDP(1.6),
+                            color: theme.sub
+                        }}>Log in to access your account</Text>
+
+                    </View>
+
+
+
+                    <View style={{ marginTop: heightPercentageToDP(3) }}>
+                        <Controller
+                            control={control}
+                            rules={{
+                                required: true,
+                            }}
+                            render={({ field: { onChange, onBlur, value } }) => (
+                                <FloatingLabelInput
+                                    label={"Email address"}
+                                    value={value}
+                                    onChangeText={onChange}
+                                    keyboardType="email-address"
+                                    autoCapitalize="none"
+                                    autoComplete="email"
+                                />
+                            )}
+                            name="email"
+                        />
+                    </View>
+                    {errors.email?.message && (
+                        <View style={mainStyle.errorView}>
+                            <Text style={mainStyle.errorText}>
+                                {(errors.email?.message)}
+                            </Text>
+                        </View>
+                    )}
+
+
+                    <View style={{ marginTop: heightPercentageToDP(3) }}>
+                        <Controller
+                            control={control}
+                            rules={{
+                                required: true,
+                            }}
+                            render={({ field: { onChange, onBlur, value } }) => (
+                                <FloatingLabelInput
+                                    label={"Password"}
+                                    value={value}
+                                    onChangeText={onChange}
+                                    autoCapitalize="none"
+                                    secureTextEntry={true}
+                                />
+                            )}
+                            name="password"
+                        />
+                    </View>
+                    {errors.password?.message && (
+                        <View style={mainStyle.errorView}>
+                            <Text style={mainStyle.errorText}>
+                                {(errors.password?.message)}
+                            </Text>
+                        </View>
+                    )}
+
+                    <View style={{
+                        alignItems: "flex-end",
+                        marginTop: heightPercentageToDP(1.5),
+                    }}>
+                        <Pressable>
+                            <Text style={{
+                                fontFamily: "poppinsMedium",
+                                fontSize: heightPercentageToDP(1.6),
+                                color: "#0a5ca8"
+                            }}>Forgot Password?</Text>
+                        </Pressable>
+                    </View>
+
+
+                    {/* LOGIN BUTTON */}
+                    <Pressable style={{
+                        backgroundColor: "#0a5ca8",
+                        height: heightPercentageToDP(6.5),
+                        marginTop: heightPercentageToDP(2),
+                        alignItems: "center",
+                        justifyContent: 'center',
+                        borderRadius: widthPercentageToDP(2),
+                    }}>
+                        <Text style={{
+                            fontFamily: "poppinsBold",
+                            fontSize: heightPercentageToDP(1.6),
+                            color: "#FFFFFF",
+                        }}>Login</Text>
+                    </Pressable>
+                    {/* LOGIN BUTTON */}
+
+                    <View style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        alignSelf: 'center',
+                        marginTop: heightPercentageToDP(3),
+                        gap: widthPercentageToDP(2),
+                    }}>
+                        <View style={{
+                            width: widthPercentageToDP(28),
+                            height: 1,
+                            backgroundColor: "gray",
+                        }} />
+                        <Text style={{
+                            fontFamily: 'poppinsRegular',
+                            fontSize: heightPercentageToDP(1.6),
+                            color: theme.textColor
+                        }}>or login with</Text>
+                        <View style={{
+                            width: widthPercentageToDP(28),
+                            height: 1,
+                            backgroundColor: "gray",
+                        }} />
+                    </View>
+
+
+
+                    {/* SOCIAL */}
+                    <View style={{
+                        marginTop: heightPercentageToDP(4)
+                    }}>
+                        <GoogleSignin />
+                        <AppleSignin />
+                    </View>
+                    {/* SOCIAL */}
+
+
+                    <View style={{
+                        alignItems: 'center',
+                        marginTop: heightPercentageToDP(3),
+                        paddingHorizontal: widthPercentageToDP(4),
+                    }}>
+                        <Pressable>
+                            <Text style={{
+                                fontFamily: "poppinsMedium",
+                                fontSize: heightPercentageToDP(1.6),
+                                color: theme.textColor
+                            }}>Don`t have an account? <Text style={{
+                                color: "#0a5ca8"
+                            }}>Create one</Text></Text>
+                        </Pressable>
+                        <Text style={{
+                            fontFamily: "poppinsMedium",
+                            fontSize: heightPercentageToDP(1.5),
+                            color: theme.sub,
+                            textAlign: 'center',
+                            marginTop: heightPercentageToDP(2),
+                        }}>By signing up I agree to the <Text style={{ color: "#0a5ca8" }}>Terms of Service</Text> and <Text style={{ color: "#0a5ca8" }}>Privacy Policy.</Text></Text>
+                    </View>
+                </View>
+            </KeyboardAwareScrollView>
+        </View>
+    )
+}
+
+export default Page
