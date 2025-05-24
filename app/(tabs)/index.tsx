@@ -1,4 +1,5 @@
 import BullAndSell from '@/components/Home/BullAndSell';
+import Category from '@/components/Home/Category';
 import Footer from '@/components/Home/Footer';
 import HomeHeader from '@/components/Home/HomeHeader';
 import PopularBoats from '@/components/Home/PopularBoats';
@@ -19,6 +20,7 @@ const Page = () => {
       <HomeHeader />
       <ScrollView showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: heightPercentageToDP(10) }}>
+        <Category />
         <PopularCars />
         <PopularMotors />
         <PopularTrucks />

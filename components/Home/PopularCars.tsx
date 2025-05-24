@@ -27,7 +27,9 @@ const PopularCars = () => {
         return;
     }
     return (
-        <View>
+        <View style={{
+            marginTop: heightPercentageToDP(2)
+        }}>
             <View style={{
                 paddingHorizontal: widthPercentageToDP(4),
                 paddingVertical: heightPercentageToDP(1.5),
