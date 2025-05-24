@@ -1,7 +1,7 @@
 import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { formatNumber } from '@/constants/format';
-import { useGetPopularCars } from '@/query/HomeQuery';
-import FastImage from "@d11/react-native-fast-image";
+import { useGetPopularBoats } from '@/query/HomeQuery';
+import FastImage from '@d11/react-native-fast-image';
 import { Entypo, Ionicons } from '@expo/vector-icons';
 import { useIsFocused } from '@react-navigation/native';
 import React, { memo } from 'react';
@@ -9,9 +9,11 @@ import { FlatList, Pressable, Text, useColorScheme, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import PendingHomeList from '../skeleton/PendingHomeList';
-const PopularCars = () => {
+
+const PopularBoats = () => {
+
     const isFocused = useIsFocused();
-    const { data, isPending } = useGetPopularCars(isFocused);
+    const { data, isPending } = useGetPopularBoats(isFocused);
 
     const colorScheme = useColorScheme();
     const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
@@ -26,6 +28,7 @@ const PopularCars = () => {
     if (data.length === 0) {
         return;
     }
+
     return (
         <View>
             <View style={{
@@ -39,7 +42,7 @@ const PopularCars = () => {
                     fontFamily: "poppinsSemiBold",
                     fontSize: heightPercentageToDP(2),
                     color: theme.textColor
-                }}>Popular in Cars</Text>
+                }}>Popular in Boats</Text>
                 <Pressable>
                     <View style={{
                         flexDirection: 'row',
@@ -55,6 +58,7 @@ const PopularCars = () => {
                     </View>
                 </Pressable>
             </View>
+
 
             <FlatList
                 data={data}
@@ -184,31 +188,6 @@ const PopularCars = () => {
                                                 alignItems: 'center',
                                                 gap: widthPercentageToDP(1),
                                             }}>
-                                                <Ionicons name='car-sport-outline' size={heightPercentageToDP(1.4)} color={theme.sub} />
-                                                <Text style={{
-                                                    fontFamily: "poppinsRegular",
-                                                    fontSize: heightPercentageToDP(1.4),
-                                                    color: theme.sub
-                                                }}>{item?.cars?.doors}</Text>
-                                            </View>
-
-                                            <View style={{
-                                                flexDirection: 'row',
-                                                alignItems: 'center',
-                                                gap: widthPercentageToDP(1),
-                                            }}>
-                                                <Ionicons name='brush-outline' size={heightPercentageToDP(1.4)} color={theme.sub} />
-                                                <Text style={{
-                                                    fontFamily: "poppinsRegular",
-                                                    fontSize: heightPercentageToDP(1.4),
-                                                    color: theme.sub
-                                                }}>{item?.cars?.exterior_color}</Text>
-                                            </View>
-                                            <View style={{
-                                                flexDirection: 'row',
-                                                alignItems: 'center',
-                                                gap: widthPercentageToDP(1),
-                                            }}>
                                                 <Ionicons name='pin-outline' size={heightPercentageToDP(1.4)} color={theme.sub} />
                                                 <Text style={{
                                                     fontFamily: "poppinsRegular",
@@ -230,4 +209,4 @@ const PopularCars = () => {
     )
 }
 
-export default memo(PopularCars)
+export default memo(PopularBoats)
