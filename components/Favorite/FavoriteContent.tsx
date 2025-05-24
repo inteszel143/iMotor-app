@@ -17,7 +17,7 @@ const FavoriteContent = () => {
             <View style={{
                 marginTop: heightPercentageToDP(15)
             }}>
-                <Ionicons name='albums-outline' size={heightPercentageToDP(10)} color={"#DADADA"} />
+                <Ionicons name='albums' size={heightPercentageToDP(10)} color={"#DADADA"} />
             </View>
 
             <Text style={{
@@ -39,16 +39,15 @@ const FavoriteContent = () => {
                 height: heightPercentageToDP(5.5),
                 marginTop: heightPercentageToDP(2),
                 width: widthPercentageToDP(40),
-                borderWidth: 0.5,
+                backgroundColor: "#0a5ca8",
                 alignItems: 'center',
                 justifyContent: 'center',
                 borderRadius: widthPercentageToDP(2),
-                borderColor: colorScheme === "dark" ? "#616161" : "#DADADA",
             }}>
                 <Text style={{
                     fontFamily: "poppinsMedium",
                     fontSize: heightPercentageToDP(1.4),
-                    color: theme.textColor
+                    color: "#FFFFFF"
                 }}>Continue Searching</Text>
             </Pressable>
         </View>

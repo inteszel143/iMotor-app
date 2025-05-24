@@ -49,7 +49,7 @@ export default function TabLayout() {
           title: 'Home',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
-              name={focused ? "compass" : "compass-outline"}
+              name={focused ? "compass-outline" : "compass-outline"}
               color={color}
             />
           ),
@@ -61,7 +61,7 @@ export default function TabLayout() {
           title: 'Favorites',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
-              name={focused ? "heart" : "heart-outline"}
+              name={focused ? "heart-outline" : "heart-outline"}
               color={color}
             />
           ),
@@ -71,7 +71,7 @@ export default function TabLayout() {
         name="new"
         options={{
           title: 'Place an ad',
-          tabBarIcon: ({ focused }) => (
+          tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
               name={focused ? "add-circle" : "add-circle"}
               color={"#0a5ca8"}
@@ -85,7 +85,7 @@ export default function TabLayout() {
           title: 'Messages',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
-              name={focused ? "chatbubble-ellipses-sharp" : "chatbubble-ellipses-outline"}
+              name={focused ? "chatbubble-ellipses-outline" : "chatbubble-ellipses-outline"}
               color={color}
             />
           ),
@@ -97,7 +97,7 @@ export default function TabLayout() {
           title: 'Profile',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
-              name={focused ? "settings" : "settings-outline"}
+              name={focused ? "settings-outline" : "settings-outline"}
               color={color}
             />
           ),
