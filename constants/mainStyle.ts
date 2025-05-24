@@ -42,7 +42,7 @@ export const mainStyle = StyleSheet.create({
         marginTop: heightPercentageToDP(1),
     },
     errorText: {
-        fontFamily: "MonRegular",
+        fontFamily: "poppinsRegular",
         fontSize: heightPercentageToDP(1.4),
         color: "red",
     },

@@ -1,3 +1,4 @@
+import { appOpenRefresh } from '@/apis/AuthService';
 import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
@@ -13,9 +14,17 @@ const Page = () => {
 
     const validateToken = async () => {
         const token = await SecureStore.getItemAsync('accessToken');
+        const refreshToken = await SecureStore.getItemAsync('refreshToken');
+
         if (token === null || token === "") {
             router.push('/LoginScreen');
         } else {
+            const params = {
+                refresh_token: refreshToken,
+            }
+            const response = await appOpenRefresh(params);
+            await SecureStore.setItemAsync('accessToken', response?.access_token);
+            await SecureStore.setItemAsync('refreshToken', response?.refresh_token);
             router.push('/(tabs)');
         }
     };

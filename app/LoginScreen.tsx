@@ -1,9 +1,14 @@
+import { postLogin } from '@/apis/AuthService';
 import FloatingLabelInput from '@/components/FloatingLabelInputProps';
 import AppleSignin from '@/components/Login/AppleSignin';
 import GoogleSignin from '@/components/Login/GoogleSignin';
+import Tloader from '@/components/Tloader';
 import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { mainStyle } from '@/constants/mainStyle';
+import { Ionicons } from '@expo/vector-icons';
 import { yupResolver } from "@hookform/resolvers/yup";
+import { router } from 'expo-router';
+import * as SecureStore from 'expo-secure-store';
 import React from 'react';
 import { Controller, useForm } from "react-hook-form";
 import { Image, Pressable, Text, useColorScheme, View } from 'react-native';
@@ -46,10 +51,28 @@ const Page = () => {
         }
     });
 
+    const onSubmit = async (data: any) => {
+        setValue('loading', true);
+        const params = {
+            email: data?.email,
+            password: data?.password,
+        };
+        const response = await postLogin(params);
+        if (response?.message === "Logged in successfully") {
+            await SecureStore.setItemAsync('accessToken', response?.access_token);
+            await SecureStore.setItemAsync('refreshToken', response?.refresh_token);
+            setValue('loading', false);
+            router.replace('/(tabs)');
+        } else {
+            setValue('loading', false);
+            setValue('errorShow', true);
+            setValue('errorMessage', response?.message);
+        }
+    }
 
     return (
         <View style={{ flex: 1, backgroundColor: theme.backgroundColor2 }}>
-
+            {watch('loading') && <Tloader />}
             <KeyboardAwareScrollView
                 bottomOffset={heightPercentageToDP(8)}
                 contentContainerStyle={{ paddingBottom: heightPercentageToDP(4) }}
@@ -59,7 +82,7 @@ const Page = () => {
                 }}>
                     <View style={{
                         alignItems: 'center',
-                        marginTop: heightPercentageToDP(9)
+                        marginTop: heightPercentageToDP(8)
                     }}>
                         <Image
                             source={require('@/assets/temp/iMotor.png')}
@@ -71,7 +94,7 @@ const Page = () => {
                         />
                         <Text style={{
                             fontFamily: "poppinsBold",
-                            fontSize: heightPercentageToDP(3),
+                            fontSize: heightPercentageToDP(2.5),
                             color: theme.textColor
                         }}>Welcome Back</Text>
                         <Text style={{
@@ -82,6 +105,32 @@ const Page = () => {
 
                     </View>
 
+                    {watch('errorShow') && <View style={{
+                        backgroundColor: "#FEE2E2",
+                        marginTop: heightPercentageToDP(2.5),
+                        borderRadius: widthPercentageToDP(2),
+                        paddingHorizontal: widthPercentageToDP(4),
+                        paddingVertical: heightPercentageToDP(1.5),
+                        justifyContent: "center",
+                    }}>
+                        <View style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            gap: widthPercentageToDP(3)
+                        }}>
+                            <Ionicons
+                                name="alert-circle-sharp"
+                                size={heightPercentageToDP(2.5)}
+                                color={"#B91C1C"}
+                            />
+                            <Text style={{
+                                flex: 1,
+                                fontFamily: "MonMedium",
+                                fontSize: heightPercentageToDP(1.5),
+                                color: "#B91C1C",
+                            }}>{(watch('errorMessage') as string)}</Text>
+                        </View>
+                    </View>}
 
 
                     <View style={{ marginTop: heightPercentageToDP(3) }}>
@@ -160,7 +209,7 @@ const Page = () => {
                         alignItems: "center",
                         justifyContent: 'center',
                         borderRadius: widthPercentageToDP(2),
-                    }}>
+                    }} onPress={handleSubmit(onSubmit)}>
                         <Text style={{
                             fontFamily: "poppinsBold",
                             fontSize: heightPercentageToDP(1.6),
@@ -213,14 +262,14 @@ const Page = () => {
                         <Pressable>
                             <Text style={{
                                 fontFamily: "poppinsMedium",
-                                fontSize: heightPercentageToDP(1.6),
+                                fontSize: heightPercentageToDP(1.5),
                                 color: theme.textColor
                             }}>Don`t have an account? <Text style={{
                                 color: "#0a5ca8"
                             }}>Create one</Text></Text>
                         </Pressable>
                         <Text style={{
-                            fontFamily: "poppinsMedium",
+                            fontFamily: "poppinsRegular",
                             fontSize: heightPercentageToDP(1.5),
                             color: theme.sub,
                             textAlign: 'center',
