@@ -18,7 +18,15 @@
       },
       "bundleIdentifier": "com.imotorapp37.iMotorapp",
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "CFBundleURLTypes": [
+          {
+            "CFBundleURLSchemes": [
+              "iweft",
+              "com.googleusercontent.apps.237084984780-oj2g0uh2v47fsh0a20fp01le3c8kslek"
+            ]
+          }
+        ]
       }
     },
     "android": {
@@ -29,7 +37,8 @@
       },
       "edgeToEdgeEnabled": true,
       "permissions": ["android.permission.RECORD_AUDIO"],
-      "package": "com.imotorapp37.iMotorapp"
+      "package": "com.imotorapp37.iMotorapp",
+      "googleServicesFile": "./assets/animate/google-services.json"
     },
     "web": {
       "bundler": "metro",

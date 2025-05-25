@@ -15,7 +15,6 @@ const Page = () => {
     const validateToken = async () => {
         const token = await SecureStore.getItemAsync('accessToken');
         const refreshToken = await SecureStore.getItemAsync('refreshToken');
-
         if (token === null || token === "") {
             router.push('/(tabs)');
             setLogin('login', 'not-log');
@@ -26,6 +25,7 @@ const Page = () => {
             const response = await appOpenRefresh(params);
             await SecureStore.setItemAsync('accessToken', response?.access_token);
             await SecureStore.setItemAsync('refreshToken', response?.refresh_token);
+            setLogin('login', 'log');
             router.push('/(tabs)');
         }
     };

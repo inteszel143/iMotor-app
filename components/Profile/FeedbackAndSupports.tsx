@@ -18,12 +18,12 @@ const FeedbackAndSupports = () => {
             await SecureStore.deleteItemAsync('refreshToken');
             removeLogin('login');
             setTimeout(() => {
-                router.push('/LoginScreen');
+                router.replace('/LoginScreen');
                 setLoader(false);
             }, 3000);
         } catch (error) {
             Alert.alert('Something went wrong', 'Logout Error', [
-                { text: 'OK' },
+                { text: 'OK', },
             ]);
             setLoader(false);
         }

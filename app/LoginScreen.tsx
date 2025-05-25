@@ -1,10 +1,11 @@
 import { postLogin } from '@/apis/AuthService';
 import FloatingLabelInput from '@/components/FloatingLabelInputProps';
 import AppleSignin from '@/components/Login/AppleSignin';
-import GoogleSignin from '@/components/Login/GoogleSignin';
+import GoogleSignIn from '@/components/Login/GoogleSignIn';
 import Tloader from '@/components/Tloader';
 import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { mainStyle } from '@/constants/mainStyle';
+import { setLogin } from '@/storage/useLoginStore';
 import { Ionicons } from '@expo/vector-icons';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { router } from 'expo-router';
@@ -62,6 +63,7 @@ const Page = () => {
         if (response?.message === "Logged in successfully") {
             await SecureStore.setItemAsync('accessToken', response?.access_token);
             await SecureStore.setItemAsync('refreshToken', response?.refresh_token);
+            setLogin('login', 'log');
             setValue('loading', false);
             router.replace('/(tabs)');
         } else {
@@ -257,7 +259,7 @@ const Page = () => {
                     <View style={{
                         marginTop: heightPercentageToDP(4)
                     }}>
-                        <GoogleSignin />
+                        <GoogleSignIn />
                         <AppleSignin />
                     </View>
                     {/* SOCIAL */}
