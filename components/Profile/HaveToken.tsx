@@ -9,7 +9,6 @@ import ProfileSetting from './ProfileSetting'
 import ProfileUI from './ProfileUI'
 
 const HaveToken = () => {
-
     const colorScheme = useColorScheme();
 
     return (
