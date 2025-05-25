@@ -68,6 +68,24 @@ export const appOpenRefresh = async (data: any) => {
     }
 }
 
+
+export const signInWithGoogle = async (data: any) => {
+    try {
+        const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/auth/google/callback`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+        const json = await response.json();
+        return json;
+
+    } catch (error) {
+        return Promise.reject(error);
+    }
+}
+
 export const postLogout = async () => {
     const token = await SecureStore.getItemAsync("accessToken");
     try {
