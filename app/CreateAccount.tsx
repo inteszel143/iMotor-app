@@ -12,12 +12,13 @@ import { Controller, useForm } from "react-hook-form";
 import { Image, Pressable, Text, useColorScheme, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as yup from "yup";
 const Page = () => {
 
     const colorScheme = useColorScheme();
     const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
-
+    const insets = useSafeAreaInsets();
 
     const schema = yup.object().shape({
         first_name: yup.string().required('This field is required.'),
@@ -91,9 +92,19 @@ const Page = () => {
                 <View style={{
                     paddingHorizontal: widthPercentageToDP(6)
                 }}>
+
+                    <View style={{
+                        alignItems: 'flex-end',
+                        paddingTop: insets?.top + heightPercentageToDP(1.5),
+                    }}>
+                        <Pressable onPress={() => router.back()}>
+                            <Ionicons name='close' size={heightPercentageToDP(3)} color={theme.textColor} />
+                        </Pressable>
+                    </View>
+
+
                     <View style={{
                         alignItems: 'center',
-                        marginTop: heightPercentageToDP(8)
                     }}>
                         <Image
                             source={require('@/assets/temp/iMotor.png')}

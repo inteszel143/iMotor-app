@@ -1,5 +1,6 @@
 import { appOpenRefresh } from '@/apis/AuthService';
 import { darkTheme, lightTheme } from '@/constants/darkmode';
+import { setLogin } from '@/storage/useLoginStore';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
@@ -11,13 +12,13 @@ const Page = () => {
     const router = useRouter();
     const colorScheme = useColorScheme();
     const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
-
     const validateToken = async () => {
         const token = await SecureStore.getItemAsync('accessToken');
         const refreshToken = await SecureStore.getItemAsync('refreshToken');
 
         if (token === null || token === "") {
-            router.push('/LoginScreen');
+            router.push('/(tabs)');
+            setLogin('login', 'not-log');
         } else {
             const params = {
                 refresh_token: refreshToken,

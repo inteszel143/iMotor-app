@@ -56,7 +56,7 @@ const Category = () => {
                 alignItems: 'center',
                 flexWrap: 'wrap',
                 justifyContent: 'space-between',
-                gap: widthPercentageToDP(2),
+                gap: widthPercentageToDP(2.5),
             }}>
                 {
                     data?.map((item, index) => (
@@ -67,7 +67,7 @@ const Category = () => {
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 borderRadius: widthPercentageToDP(1.5),
-                                paddingVertical: heightPercentageToDP(2.5),
+                                paddingVertical: heightPercentageToDP(3),
                                 borderColor: colorScheme === 'dark' ? '#616161' : '#DADADA'
                             }}
                             key={index}>

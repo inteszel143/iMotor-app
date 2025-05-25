@@ -1,33 +1,12 @@
 import { darkTheme, lightTheme } from '@/constants/darkmode';
-import { removeLogin } from '@/storage/useLoginStore';
 import { Entypo, Ionicons } from '@expo/vector-icons';
-import { router } from 'expo-router';
-import * as SecureStore from 'expo-secure-store';
-import React, { memo, useState } from 'react';
-import { Alert, Pressable, Text, useColorScheme, View } from 'react-native';
+import React, { memo } from 'react';
+import { Pressable, Text, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
-import Tloader from '../Tloader';
-const FeedbackAndSupports = () => {
+
+const NoFeedbackAndSupport = () => {
     const colorScheme = useColorScheme();
     const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
-    const [loader, setLoader] = useState<boolean>(false);
-    const handleLogout = async () => {
-        setLoader(true);
-        try {
-            await SecureStore.deleteItemAsync('accessToken');
-            await SecureStore.deleteItemAsync('refreshToken');
-            removeLogin('login');
-            setTimeout(() => {
-                router.push('/LoginScreen');
-                setLoader(false);
-            }, 3000);
-        } catch (error) {
-            Alert.alert('Something went wrong', 'Logout Error', [
-                { text: 'OK' },
-            ]);
-            setLoader(false);
-        }
-    };
 
     const data = [
         {
@@ -60,20 +39,12 @@ const FeedbackAndSupports = () => {
             value: "",
             route: "/ChangeDepartmentPage"
         },
-        {
-            icon: "enter-outline",
-            label: "Logout",
-            value: "",
-            route: "/ChangeDepartmentPage"
-        },
     ];
-
 
     return (
         <View style={{
             marginTop: heightPercentageToDP(2)
         }}>
-            {loader && <Tloader />}
             {
                 data?.map((item, index) => (
                     <View key={index}>
@@ -83,13 +54,7 @@ const FeedbackAndSupports = () => {
                                 justifyContent: 'center',
                                 paddingHorizontal: widthPercentageToDP(5),
                             }}
-                            onPress={() => {
-                                if (item?.label === "Logout") {
-                                    handleLogout();
-                                } else {
-                                    Alert.alert("Something went wrong")
-                                }
-                            }}
+
 
                         >
                             <View style={{
@@ -104,12 +69,12 @@ const FeedbackAndSupports = () => {
                                 }}>
                                     <Ionicons name={item?.icon as any}
                                         size={heightPercentageToDP(2.2)}
-                                        color={item?.label === "Logout" ? "red" : theme.textColor}
+                                        color={theme.textColor}
                                     />
                                     <Text style={{
                                         fontFamily: "poppinsMedium",
                                         fontSize: heightPercentageToDP(1.6),
-                                        color: item?.label === "Logout" ? "red" : theme.textColor
+                                        color: theme.textColor
                                     }}>{item?.label}</Text>
                                 </View>
                                 <View style={{
@@ -128,4 +93,4 @@ const FeedbackAndSupports = () => {
     )
 }
 
-export default memo(FeedbackAndSupports)
+export default memo(NoFeedbackAndSupport)
