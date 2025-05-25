@@ -1,5 +1,6 @@
 import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { Entypo, Ionicons } from '@expo/vector-icons';
+import { router } from 'expo-router';
 import React, { memo } from 'react';
 import { Pressable, Text, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
@@ -39,7 +40,7 @@ const NoCityAndLanguage = () => {
                                 justifyContent: 'center',
                                 paddingHorizontal: widthPercentageToDP(5),
                             }}
-
+                            onPress={() => router.push('/LoginScreen')}
                         >
                             <View style={{
                                 flexDirection: 'row',

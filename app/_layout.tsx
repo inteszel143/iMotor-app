@@ -37,7 +37,7 @@ export default function RootLayout() {
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
           <Stack>
             <Stack.Screen name="index" options={{ headerShown: false, animation: "fade", gestureEnabled: false, }} />
-            <Stack.Screen name="LoginScreen" options={{ headerShown: false, animation: "fade", gestureEnabled: false, }} />
+            <Stack.Screen name="LoginScreen" options={{ headerShown: false, animation: "slide_from_bottom", gestureEnabled: false, }} />
             <Stack.Screen name="(tabs)" options={{ headerShown: false, animation: "fade", gestureEnabled: false, }} />
             <Stack.Screen name="CreateAccount" options={{ animation: "slide_from_right", headerShown: false }} />
             <Stack.Screen name="EmailVerification" options={{ animation: "slide_from_right", headerShown: false }} />

@@ -1,5 +1,7 @@
 import { darkTheme, lightTheme } from '@/constants/darkmode';
+import { getLogin } from '@/storage/useLoginStore';
 import { Ionicons } from '@expo/vector-icons';
+import { router } from 'expo-router';
 import React, { memo } from 'react';
 import { Pressable, Text, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
@@ -8,7 +10,7 @@ const FavoriteContent = () => {
 
     const colorScheme = useColorScheme();
     const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
-
+    const login = getLogin('login');
     return (
         <View style={{
             alignItems: 'center',
@@ -43,7 +45,15 @@ const FavoriteContent = () => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 borderRadius: widthPercentageToDP(2),
-            }}>
+            }}
+                onPress={() => {
+                    if (login === "not-log") {
+                        router.push('/LoginScreen')
+                    } else {
+                        router.push('/(tabs)')
+                    }
+                }}
+            >
                 <Text style={{
                     fontFamily: "poppinsMedium",
                     fontSize: heightPercentageToDP(1.4),
