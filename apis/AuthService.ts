@@ -16,6 +16,40 @@ export const postLogin = async (data: any) => {
     }
 }
 
+export const signupEmail = async (data: any) => {
+    try {
+        const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/auth/client/signup`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+        const json = await response.json();
+        return json;
+
+    } catch (error) {
+        return Promise.reject(error);
+    }
+}
+
+export const emailVerification = async (data: any) => {
+    try {
+        const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/auth/verify_code`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+        const json = await response.json();
+        return json;
+
+    } catch (error) {
+        return Promise.reject(error);
+    }
+}
+
 
 export const appOpenRefresh = async (data: any) => {
     try {

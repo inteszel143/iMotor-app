@@ -67,11 +67,11 @@ const Category = () => {
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 borderRadius: widthPercentageToDP(1.5),
-                                paddingVertical: heightPercentageToDP(2),
+                                paddingVertical: heightPercentageToDP(2.5),
                                 borderColor: colorScheme === 'dark' ? '#616161' : '#DADADA'
                             }}
                             key={index}>
-                            <MaterialCommunityIcons name={item?.icon as any} size={heightPercentageToDP(3)} color={"#0a5ca8"} />
+                            <MaterialCommunityIcons name={item?.icon as any} size={heightPercentageToDP(2.5)} color={"#0a5ca8"} />
                             <Text style={{
                                 fontFamily: "poppinsMedium",
                                 fontSize: heightPercentageToDP(1.3),

@@ -1,7 +1,5 @@
-import { postLogin } from '@/apis/AuthService';
+import { signupEmail } from '@/apis/AuthService';
 import FloatingLabelInput from '@/components/FloatingLabelInputProps';
-import AppleSignin from '@/components/Login/AppleSignin';
-import GoogleSignin from '@/components/Login/GoogleSignin';
 import Tloader from '@/components/Tloader';
 import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { mainStyle } from '@/constants/mainStyle';
@@ -22,11 +20,14 @@ const Page = () => {
 
 
     const schema = yup.object().shape({
+        first_name: yup.string().required('This field is required.'),
+        last_name: yup.string().required('This field is required.'),
         email: yup
             .string()
             .email("Please enter valid email.")
             .required("This field is required."),
         password: yup.string().required("This field is required."),
+
         loading: yup.boolean(),
         showPassword: yup.boolean(),
         rememberMe: yup.boolean(),
@@ -34,12 +35,11 @@ const Page = () => {
         errorShow: yup.boolean(),
         errorMessage: yup.string().nullable(),
     });
-
-
-
     const { control, handleSubmit, setValue, watch, formState: { errors }, } = useForm({
         resolver: yupResolver(schema),
         defaultValues: {
+            first_name: "",
+            last_name: "",
             email: "",
             password: "",
 
@@ -54,15 +54,26 @@ const Page = () => {
     const onSubmit = async (data: any) => {
         setValue('loading', true);
         const params = {
+            first_name: data?.first_name,
+            last_name: data?.last_name,
             email: data?.email,
             password: data?.password,
         };
-        const response = await postLogin(params);
-        if (response?.message === "Logged in successfully") {
+        router.replace({
+            pathname: '/EmailVerification',
+            params: { email: data?.email }
+        });
+        const response = await signupEmail(params);
+        if (response?.message === "User registered successfully. Check your email for verification code.") {
             await SecureStore.setItemAsync('accessToken', response?.access_token);
             await SecureStore.setItemAsync('refreshToken', response?.refresh_token);
-            setValue('loading', false);
-            router.replace('/(tabs)');
+            setTimeout(() => {
+                setValue('loading', false);
+                router.push({
+                    pathname: '/EmailVerification',
+                    params: { email: data?.email }
+                });
+            }, 1000);
         } else {
             setValue('loading', false);
             setValue('errorShow', true);
@@ -96,15 +107,13 @@ const Page = () => {
                             fontFamily: "poppinsBold",
                             fontSize: heightPercentageToDP(2.5),
                             color: theme.textColor
-                        }}>Welcome Back</Text>
+                        }}>Create Account</Text>
                         <Text style={{
                             fontFamily: "poppinsMedium",
                             fontSize: heightPercentageToDP(1.6),
                             color: theme.sub
-                        }}>Log in to access your account</Text>
-
+                        }}>Sign up to explore all features. </Text>
                     </View>
-
                     {watch('errorShow') && <View style={{
                         backgroundColor: "#FEE2E2",
                         marginTop: heightPercentageToDP(2.5),
@@ -131,8 +140,56 @@ const Page = () => {
                             }}>{(watch('errorMessage') as string)}</Text>
                         </View>
                     </View>}
+                    <View style={{ marginTop: heightPercentageToDP(3) }}>
+                        <Controller
+                            control={control}
+                            rules={{
+                                required: true,
+                            }}
+                            render={({ field: { onChange, onBlur, value } }) => (
+                                <FloatingLabelInput
+                                    label={"First name"}
+                                    value={value}
+                                    onChangeText={onChange}
+                                    autoCapitalize="none"
+                                />
+                            )}
+                            name="first_name"
+                        />
+                        {errors.first_name?.message && (
+                            <View style={mainStyle.errorView}>
+                                <Text style={mainStyle.errorText}>
+                                    {(errors.first_name?.message)}
+                                </Text>
+                            </View>
+                        )}
+                    </View>
 
 
+                    <View style={{ marginTop: heightPercentageToDP(3) }}>
+                        <Controller
+                            control={control}
+                            rules={{
+                                required: true,
+                            }}
+                            render={({ field: { onChange, onBlur, value } }) => (
+                                <FloatingLabelInput
+                                    label={"Last name"}
+                                    value={value}
+                                    onChangeText={onChange}
+                                    autoCapitalize="none"
+                                />
+                            )}
+                            name="last_name"
+                        />
+                        {errors.last_name?.message && (
+                            <View style={mainStyle.errorView}>
+                                <Text style={mainStyle.errorText}>
+                                    {(errors.last_name?.message)}
+                                </Text>
+                            </View>
+                        )}
+                    </View>
                     <View style={{ marginTop: heightPercentageToDP(3) }}>
                         <Controller
                             control={control}
@@ -151,14 +208,14 @@ const Page = () => {
                             )}
                             name="email"
                         />
+                        {errors.email?.message && (
+                            <View style={mainStyle.errorView}>
+                                <Text style={mainStyle.errorText}>
+                                    {(errors.email?.message)}
+                                </Text>
+                            </View>
+                        )}
                     </View>
-                    {errors.email?.message && (
-                        <View style={mainStyle.errorView}>
-                            <Text style={mainStyle.errorText}>
-                                {(errors.email?.message)}
-                            </Text>
-                        </View>
-                    )}
 
 
                     <View style={{ marginTop: heightPercentageToDP(3) }}>
@@ -178,30 +235,16 @@ const Page = () => {
                             )}
                             name="password"
                         />
-                    </View>
-                    {errors.password?.message && (
-                        <View style={mainStyle.errorView}>
-                            <Text style={mainStyle.errorText}>
-                                {(errors.password?.message)}
-                            </Text>
-                        </View>
-                    )}
-
-                    <View style={{
-                        alignItems: "flex-end",
-                        marginTop: heightPercentageToDP(1.5),
-                    }}>
-                        <Pressable>
-                            <Text style={{
-                                fontFamily: "poppinsMedium",
-                                fontSize: heightPercentageToDP(1.6),
-                                color: "#0a5ca8"
-                            }}>Forgot Password?</Text>
-                        </Pressable>
+                        {errors.password?.message && (
+                            <View style={mainStyle.errorView}>
+                                <Text style={mainStyle.errorText}>
+                                    {(errors.password?.message)}
+                                </Text>
+                            </View>
+                        )}
                     </View>
 
 
-                    {/* LOGIN BUTTON */}
                     <Pressable style={{
                         backgroundColor: "#0a5ca8",
                         height: heightPercentageToDP(6.5),
@@ -209,65 +252,21 @@ const Page = () => {
                         alignItems: "center",
                         justifyContent: 'center',
                         borderRadius: widthPercentageToDP(2),
-                    }} onPress={handleSubmit(onSubmit)}>
+                    }}
+                        onPress={handleSubmit(onSubmit)}
+                    >
                         <Text style={{
                             fontFamily: "poppinsBold",
                             fontSize: heightPercentageToDP(1.6),
                             color: "#FFFFFF",
-                        }}>Login</Text>
+                        }}>Register</Text>
                     </Pressable>
-                    {/* LOGIN BUTTON */}
-
-                    <View style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        alignSelf: 'center',
-                        marginTop: heightPercentageToDP(3),
-                        gap: widthPercentageToDP(2),
-                    }}>
-                        <View style={{
-                            width: widthPercentageToDP(28),
-                            height: 1,
-                            backgroundColor: "gray",
-                        }} />
-                        <Text style={{
-                            fontFamily: 'poppinsRegular',
-                            fontSize: heightPercentageToDP(1.6),
-                            color: theme.textColor
-                        }}>or login with</Text>
-                        <View style={{
-                            width: widthPercentageToDP(28),
-                            height: 1,
-                            backgroundColor: "gray",
-                        }} />
-                    </View>
-
-
-
-                    {/* SOCIAL */}
-                    <View style={{
-                        marginTop: heightPercentageToDP(4)
-                    }}>
-                        <GoogleSignin />
-                        <AppleSignin />
-                    </View>
-                    {/* SOCIAL */}
-
 
                     <View style={{
                         alignItems: 'center',
                         marginTop: heightPercentageToDP(3),
                         paddingHorizontal: widthPercentageToDP(4),
                     }}>
-                        <Pressable onPress={() => router.push('/CreateAccount')}>
-                            <Text style={{
-                                fontFamily: "poppinsMedium",
-                                fontSize: heightPercentageToDP(1.5),
-                                color: theme.textColor
-                            }}>Don`t have an account? <Text style={{
-                                color: "#0a5ca8"
-                            }}>Create one</Text></Text>
-                        </Pressable>
                         <Text style={{
                             fontFamily: "poppinsRegular",
                             fontSize: heightPercentageToDP(1.5),
