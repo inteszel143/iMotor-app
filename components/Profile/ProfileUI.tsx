@@ -8,6 +8,7 @@ import React, { memo } from 'react';
 import { Image, Text, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import PendingList from '../skeleton/PendingList';
 
 const ProfileUI = () => {
     const insets = useSafeAreaInsets();
@@ -15,8 +16,24 @@ const ProfileUI = () => {
     const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
 
     const isFocused = useIsFocused();
-    const { data } = useGetUserData(isFocused);
+    const { data, isPending } = useGetUserData(isFocused);
 
+    if (isPending) {
+        return (
+            <View style={{
+                marginTop: insets?.top + heightPercentageToDP(2),
+                alignSelf: 'center',
+                width: widthPercentageToDP(90),
+                borderWidth: 0.5,
+                paddingVertical: heightPercentageToDP(3),
+                borderRadius: widthPercentageToDP(1.5),
+                borderColor: colorScheme === "dark" ? "#616161" : "#DADADA",
+                paddingHorizontal: widthPercentageToDP(4),
+            }}>
+                <PendingList />
+            </View>
+        )
+    }
 
     return (
         <View style={{

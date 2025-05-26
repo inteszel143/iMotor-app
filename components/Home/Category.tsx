@@ -67,7 +67,7 @@ const Category = () => {
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 borderRadius: widthPercentageToDP(1.5),
-                                paddingVertical: heightPercentageToDP(3),
+                                paddingVertical: heightPercentageToDP(4),
                                 borderColor: colorScheme === 'dark' ? '#616161' : '#DADADA'
                             }}
                             key={index}>

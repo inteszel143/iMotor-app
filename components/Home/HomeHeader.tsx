@@ -42,13 +42,16 @@ const HomeHeader = () => {
                         flexDirection: 'row',
                         alignItems: 'center',
                         gap: widthPercentageToDP(3),
-                    }}>
+                    }}
+                        onPress={() => router.push('/HomeFilterPage')}
+                    >
                         <Ionicons name={iconList[currentIconIndex] as any} size={widthPercentageToDP(5)} color={"#0a5ca8"} />
                         <Text
                             style={{
                                 flex: 1,
                                 fontFamily: "poppinsLight",
                                 fontSize: heightPercentageToDP(1.5),
+                                color: theme.textColor
                             }}
                         >Search for <Text style={{ fontFamily: "poppinsMedium", color: "#0a5ca8" }} >{searchList[currentSeatchIndex]}</Text></Text>
                     </Pressable>
