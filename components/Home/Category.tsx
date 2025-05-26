@@ -1,7 +1,7 @@
 import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React, { memo } from 'react';
-import { Pressable, Text, useColorScheme, View } from 'react-native';
+import { Platform, Pressable, Text, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 
 const Category = () => {
@@ -48,7 +48,7 @@ const Category = () => {
 
     return (
         <View style={{
-            marginTop: heightPercentageToDP(2),
+            marginTop: Platform.OS === "android" ? heightPercentageToDP(1) : heightPercentageToDP(2),
             paddingHorizontal: widthPercentageToDP(4),
         }}>
             <View style={{
@@ -62,7 +62,7 @@ const Category = () => {
                     data?.map((item, index) => (
                         <Pressable
                             style={{
-                                width: widthPercentageToDP(29),
+                                width: Platform?.OS === "android" ? widthPercentageToDP(28) : widthPercentageToDP(29),
                                 borderWidth: 0.5,
                                 alignItems: 'center',
                                 justifyContent: 'center',

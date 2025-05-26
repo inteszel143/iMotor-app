@@ -48,13 +48,14 @@ const Page = () => {
                         justifyContent: 'center',
                     }}>
                         <TextInput
-                            placeholder='What are you looking for ?'
-                            placeholderTextColor={"#9E9E9E"}
+                            placeholder="What are you looking for?"
+                            placeholderTextColor="#9E9E9E"
                             autoCapitalize="none"
                             onChangeText={(text) => setKeyboard(text)}
                             style={{
                                 fontFamily: "poppinsRegular",
                                 fontSize: heightPercentageToDP(1.4),
+                                color: colorScheme === "dark" ? "#FFFFFF" : "#000000",
                             }}
                         />
                     </View>
