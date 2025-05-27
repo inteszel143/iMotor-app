@@ -1,8 +1,8 @@
 import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { formatNumber } from '@/constants/format';
-import { useGetPopularTrucks } from '@/query/HomeQuery';
+import { useGetPopularMotors } from '@/query/HomeQuery';
 import FastImage from '@d11/react-native-fast-image';
-import { Entypo, Ionicons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { useIsFocused } from '@react-navigation/native';
 import { router } from 'expo-router';
 import React, { memo } from 'react';
@@ -11,11 +11,10 @@ import Animated, { FadeInDown } from 'react-native-reanimated';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import PendingHomeList from '../skeleton/PendingHomeList';
 
-const PopularTrucks = () => {
-
+const MotorSimilarAds = () => {
 
     const isFocused = useIsFocused();
-    const { data, isPending } = useGetPopularTrucks(isFocused);
+    const { data, isPending } = useGetPopularMotors(isFocused);
 
     const colorScheme = useColorScheme();
     const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
@@ -26,12 +25,15 @@ const PopularTrucks = () => {
                 <PendingHomeList />
             </View>
         )
-    }
+    };
     if (data.length === 0) {
         return;
     }
+
     return (
-        <View>
+        <View style={{
+            marginTop: heightPercentageToDP(2),
+        }}>
             <View style={{
                 paddingHorizontal: widthPercentageToDP(4),
                 paddingVertical: heightPercentageToDP(1.5),
@@ -43,21 +45,8 @@ const PopularTrucks = () => {
                     fontFamily: "poppinsSemiBold",
                     fontSize: heightPercentageToDP(2),
                     color: theme.textColor
-                }}>Popular in Heavy Vehicles</Text>
-                <Pressable>
-                    <View style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        gap: widthPercentageToDP(0.5)
-                    }}>
-                        <Text style={{
-                            fontFamily: "poppinsRegular",
-                            fontSize: heightPercentageToDP(1.4),
-                            color: theme.textColor
-                        }}>View all</Text>
-                        <Entypo name='chevron-thin-right' size={heightPercentageToDP(1.5)} color={theme.textColor} />
-                    </View>
-                </Pressable>
+                }}>Similar Ads</Text>
+
             </View>
 
 
@@ -84,7 +73,7 @@ const PopularTrucks = () => {
                                 borderTopRightRadius: widthPercentageToDP(1.5),
                             }}
                                 onPress={() => router.push({
-                                    pathname: '/ViewTruckPage',
+                                    pathname: '/ViewMotorPage',
                                     params: { id: item?.id }
                                 })}
                             >
@@ -217,4 +206,4 @@ const PopularTrucks = () => {
     )
 }
 
-export default memo(PopularTrucks)
+export default memo(MotorSimilarAds)

@@ -4,6 +4,7 @@ import { useGetPopularMotors } from '@/query/HomeQuery';
 import FastImage from '@d11/react-native-fast-image';
 import { Entypo, Ionicons } from '@expo/vector-icons';
 import { useIsFocused } from '@react-navigation/native';
+import { router } from 'expo-router';
 import React, { memo } from 'react';
 import { FlatList, Pressable, Text, useColorScheme, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
@@ -81,7 +82,12 @@ const PopularMotors = () => {
                                 borderColor: colorScheme === "dark" ? "#616161" : "#DADADA",
                                 borderTopLeftRadius: widthPercentageToDP(1.5),
                                 borderTopRightRadius: widthPercentageToDP(1.5),
-                            }}>
+                            }}
+                                onPress={() => router.push({
+                                    pathname: '/ViewMotorPage',
+                                    params: { id: item?.id }
+                                })}
+                            >
                                 <View>
                                     <View>
                                         <FastImage

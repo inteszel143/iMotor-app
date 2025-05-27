@@ -14,7 +14,7 @@ export const getCarSingle = async (id: string) => {
 
 export const getMotorSingle = async (id: string) => {
     try {
-        const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/client/all-car-view`, {
+        const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/client/single-motorcycle-view/${id}`, {
             method: 'GET',
             headers: {
             },

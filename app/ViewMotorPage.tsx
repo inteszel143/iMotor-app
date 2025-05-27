@@ -1,8 +1,8 @@
-import CarSimilarAds from '@/components/Ads/CarSimilarAds';
+import MotorSimilarAds from '@/components/Ads/MotorSimilarAds';
 import PendingView from '@/components/skeleton/PendingView';
 import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { formatNumber } from '@/constants/format';
-import { useGetCarSingle } from '@/query/SingleQuery';
+import { useGetMotorSingle } from '@/query/SingleQuery';
 import FastImage from '@d11/react-native-fast-image';
 import { Feather, Ionicons } from '@expo/vector-icons';
 import { useIsFocused } from '@react-navigation/native';
@@ -16,13 +16,12 @@ const Page = () => {
     const { id } = useLocalSearchParams();
     const isFocused = useIsFocused();
     const insets = useSafeAreaInsets();
-    const { data, isPending } = useGetCarSingle(isFocused, id as string);
+    const { data, isPending } = useGetMotorSingle(isFocused, id as string);
     const colorScheme = useColorScheme();
     const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
-
+    console.log(data)
     const scrollRef = useRef<ScrollView>(null);
     const [activeIndex, setActiveIndex] = useState(0);
-
     const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
         const index = Math.round(event.nativeEvent.contentOffset.x / widthPercentageToDP(100));
         setActiveIndex(index);
@@ -31,52 +30,48 @@ const Page = () => {
 
     const feature = [
         {
-            label: "Exterior Color",
-            value: data?.cars?.exterior_color
+            label: "Model",
+            value: data?.model
         },
         {
-            label: "Interior Color",
-            value: data?.cars?.interior_color
+            label: "Variant",
+            value: data?.variant
         },
         {
-            label: "Seating Capacity",
-            value: data?.cars?.seating_capacity
+            label: "Type",
+            value: data?.motorcycle?.type
         },
         {
-            label: "Doors",
-            value: data?.cars?.doors
+            label: "Model Year",
+            value: data?.model_year
         },
         {
-            label: "Horsepower",
-            value: data?.cars?.horse_power
+            label: "Kilometers",
+            value: data?.mileage
         },
         {
-            label: "Body Type",
-            value: data?.cars?.body_type
+            label: "Seller Type",
+            value: data?.motorcycle?.seller_type
         },
         {
-            label: "Fuel Type",
-            value: data?.cars?.fuel_type
+            label: "Usage",
+            value: data?.motorcycle?.usage
         },
         {
-            label: "Steering Side",
-            value: data?.cars?.steering_hand
+            label: "Final drive system",
+            value: data?.motorcycle?.final_drive_system
         },
         {
-            label: "No. of Cylinder",
-            value: data?.cars?.no_of_cylinders
+            label: "Wheels",
+            value: data?.motorcycle?.wheels
         },
         {
-            label: "Engine Capacity (cc)",
-            value: data?.cars?.engine_capacity
+            label: "Engine size",
+            value: data?.motorcycle?.engine_size
         },
         {
             label: "Warranty",
-            value: data?.cars?.warranty
-        },
-        {
-            label: "Transmission Type",
-            value: data?.cars?.transmission_type
+            value: data?.motorcycle?.warranty
         },
     ]
 
@@ -351,7 +346,7 @@ const Page = () => {
                         }
                     </View>
                 </View>
-                <CarSimilarAds />
+                <MotorSimilarAds />
             </ScrollView>
 
 

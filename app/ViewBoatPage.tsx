@@ -1,8 +1,8 @@
-import CarSimilarAds from '@/components/Ads/CarSimilarAds';
+import BoatSimilarAds from '@/components/Ads/BoatSimilarAds';
 import PendingView from '@/components/skeleton/PendingView';
 import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { formatNumber } from '@/constants/format';
-import { useGetCarSingle } from '@/query/SingleQuery';
+import { useGetBoatSingle } from '@/query/SingleQuery';
 import FastImage from '@d11/react-native-fast-image';
 import { Feather, Ionicons } from '@expo/vector-icons';
 import { useIsFocused } from '@react-navigation/native';
@@ -16,7 +16,7 @@ const Page = () => {
     const { id } = useLocalSearchParams();
     const isFocused = useIsFocused();
     const insets = useSafeAreaInsets();
-    const { data, isPending } = useGetCarSingle(isFocused, id as string);
+    const { data, isPending } = useGetBoatSingle(isFocused, id as string);
     const colorScheme = useColorScheme();
     const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
 
@@ -28,55 +28,58 @@ const Page = () => {
         setActiveIndex(index);
     };
 
-
     const feature = [
         {
-            label: "Exterior Color",
-            value: data?.cars?.exterior_color
+            label: "Variant",
+            value: data?.variant
         },
         {
-            label: "Interior Color",
-            value: data?.cars?.interior_color
+            label: "Model",
+            value: data?.model
         },
         {
-            label: "Seating Capacity",
-            value: data?.cars?.seating_capacity
+            label: "Model Year",
+            value: data?.model_year
         },
         {
-            label: "Doors",
-            value: data?.cars?.doors
+            label: "Kilometers",
+            value: data?.mileage
         },
         {
-            label: "Horsepower",
-            value: data?.cars?.horse_power
+            label: "Category",
+            value: data?.boats?.type_1
         },
         {
-            label: "Body Type",
-            value: data?.cars?.body_type
-        },
-        {
-            label: "Fuel Type",
-            value: data?.cars?.fuel_type
-        },
-        {
-            label: "Steering Side",
-            value: data?.cars?.steering_hand
-        },
-        {
-            label: "No. of Cylinder",
-            value: data?.cars?.no_of_cylinders
-        },
-        {
-            label: "Engine Capacity (cc)",
-            value: data?.cars?.engine_capacity
+            label: "Type",
+            value: data?.boats?.type_2
         },
         {
             label: "Warranty",
-            value: data?.cars?.warranty
+            value: data?.boats?.warranty
         },
         {
-            label: "Transmission Type",
-            value: data?.cars?.transmission_type
+            label: "Seller Type",
+            value: data?.boats?.seller_type
+        },
+        {
+            label: "Age",
+            value: data?.boats?.age
+        },
+        {
+            label: "Usage",
+            value: data?.boats?.usage
+        },
+        {
+            label: "Condition",
+            value: data?.boats?.condition
+        },
+        {
+            label: "Length",
+            value: data?.boats?.length
+        },
+        {
+            label: "Warranty",
+            value: data?.boats?.warranty
         },
     ]
 
@@ -351,7 +354,7 @@ const Page = () => {
                         }
                     </View>
                 </View>
-                <CarSimilarAds />
+                <BoatSimilarAds />
             </ScrollView>
 
 

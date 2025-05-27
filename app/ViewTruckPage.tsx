@@ -1,8 +1,8 @@
-import CarSimilarAds from '@/components/Ads/CarSimilarAds';
+import TruckSimilarAds from '@/components/Ads/TruckSimilarAds';
 import PendingView from '@/components/skeleton/PendingView';
 import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { formatNumber } from '@/constants/format';
-import { useGetCarSingle } from '@/query/SingleQuery';
+import { useGetTruckSingle } from '@/query/SingleQuery';
 import FastImage from '@d11/react-native-fast-image';
 import { Feather, Ionicons } from '@expo/vector-icons';
 import { useIsFocused } from '@react-navigation/native';
@@ -16,7 +16,7 @@ const Page = () => {
     const { id } = useLocalSearchParams();
     const isFocused = useIsFocused();
     const insets = useSafeAreaInsets();
-    const { data, isPending } = useGetCarSingle(isFocused, id as string);
+    const { data, isPending } = useGetTruckSingle(isFocused, id as string);
     const colorScheme = useColorScheme();
     const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
 
@@ -351,7 +351,7 @@ const Page = () => {
                         }
                     </View>
                 </View>
-                <CarSimilarAds />
+                <TruckSimilarAds />
             </ScrollView>
 
 

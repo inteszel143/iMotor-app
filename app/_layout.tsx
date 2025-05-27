@@ -44,6 +44,9 @@ export default function RootLayout() {
             <Stack.Screen name="SuccessAuth" options={{ animation: "slide_from_right", headerShown: false }} />
             <Stack.Screen name="NotificationPage" options={{ animation: "slide_from_right", headerShown: false }} />
             <Stack.Screen name="ViewCarPage" options={{ animation: "slide_from_right", headerShown: false }} />
+            <Stack.Screen name="ViewMotorPage" options={{ animation: "slide_from_right", headerShown: false }} />
+            <Stack.Screen name="ViewTruckPage" options={{ animation: "slide_from_right", headerShown: false }} />
+            <Stack.Screen name="ViewBoatPage" options={{ animation: "slide_from_right", headerShown: false }} />
 
             <Stack.Screen name="HomeFilterPage" options={{ headerShown: false, animation: "fade", }} />
           </Stack>
