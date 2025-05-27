@@ -2,13 +2,14 @@ import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { formatDate } from '@/constants/format';
 import { useGetUserData } from '@/query/UserQuery';
 import FastImage from '@d11/react-native-fast-image';
-import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useIsFocused } from '@react-navigation/native';
 import React, { memo } from 'react';
 import { Image, Text, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import PendingList from '../skeleton/PendingList';
+import EditProfileButton from './Button/EditProfileButton';
 
 const ProfileUI = () => {
     const insets = useSafeAreaInsets();
@@ -78,20 +79,8 @@ const ProfileUI = () => {
                                 resizeMode={FastImage.resizeMode.cover}
                             />
                     }
+                    <EditProfileButton />
 
-                    <View style={{
-                        position: 'absolute',
-                        bottom: 0,
-                        right: -widthPercentageToDP(2),
-                        width: widthPercentageToDP(7),
-                        height: widthPercentageToDP(7),
-                        backgroundColor: "#0a5ca8",
-                        borderRadius: widthPercentageToDP(50),
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                    }}>
-                        <MaterialIcons name='edit' size={heightPercentageToDP(1.8)} color={"#FFFFFF"} />
-                    </View>
                 </View>
                 <View>
                     <Text style={{

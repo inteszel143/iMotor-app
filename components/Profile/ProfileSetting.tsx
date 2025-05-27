@@ -1,7 +1,7 @@
 import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { Entypo, Ionicons } from '@expo/vector-icons';
 import React, { memo } from 'react';
-import { Pressable, Text, useColorScheme, View } from 'react-native';
+import { Alert, Pressable, Text, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 
 const ProfileSetting = () => {
@@ -20,13 +20,13 @@ const ProfileSetting = () => {
             icon: "settings-outline",
             label: "Account settings",
             value: "",
-            route: "/ChangeDepartmentPage"
+            route: null
         },
         {
             icon: "notifications-outline",
             label: "Notification settings",
             value: "",
-            route: "/ManageNotification"
+            route: null
         },
         {
             icon: "shield-checkmark-outline",
@@ -35,7 +35,6 @@ const ProfileSetting = () => {
             route: "/ActivityLogsPage"
         },
     ];
-
 
     return (
         <View style={{
@@ -50,7 +49,12 @@ const ProfileSetting = () => {
                                 justifyContent: 'center',
                                 paddingHorizontal: widthPercentageToDP(5),
                             }}
-
+                            onPress={() => {
+                                if (item?.route === null) {
+                                    Alert.alert("Feature Coming Soon", "We’re working hard to bring this page to life. Stay tuned for updates!")
+                                } else {
+                                }
+                            }}
                         >
                             <View style={{
                                 flexDirection: 'row',

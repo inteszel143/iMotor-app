@@ -1,7 +1,7 @@
 import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { Entypo, Ionicons } from '@expo/vector-icons';
 import React, { memo } from 'react';
-import { Pressable, Text, useColorScheme, View } from 'react-native';
+import { Alert, Pressable, Text, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 
 const Appointment = () => {
@@ -45,7 +45,7 @@ const Appointment = () => {
                                 justifyContent: 'center',
                                 paddingHorizontal: widthPercentageToDP(5),
                             }}
-
+                            onPress={() => Alert.alert("Feature Coming Soon", "We’re working hard to bring this page to life. Stay tuned for updates!")}
                         >
                             <View style={{
                                 flexDirection: 'row',

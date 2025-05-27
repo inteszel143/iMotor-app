@@ -87,7 +87,7 @@ const FeedbackAndSupports = () => {
                                 if (item?.label === "Logout") {
                                     handleLogout();
                                 } else {
-                                    Alert.alert("Something went wrong")
+                                    Alert.alert("Feature Coming Soon", "We’re working hard to bring this page to life. Stay tuned for updates!")
                                 }
                             }}
 
