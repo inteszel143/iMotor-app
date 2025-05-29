@@ -1,8 +1,9 @@
 import GlobalHeader from '@/components/GlobalHeader';
+import DeleteAccountModal from '@/components/Modal/DeleteAccountModal';
 import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { Entypo, Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { Pressable, Text, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 
@@ -10,11 +11,15 @@ const Page = () => {
 
     const colorScheme = useColorScheme();
     const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+    const [showModal, setShowModal] = useState<boolean>(false);
+    const handleShowModal = useCallback(() => {
+        setShowModal(!showModal);
+    }, [])
 
     return (
         <View style={{ flex: 1, backgroundColor: theme.backgroundColor2 }}>
             <GlobalHeader headerTitle={"Security"} />
-
+            {showModal && <DeleteAccountModal modalVisible={showModal} setModalVisible={setShowModal} />}
             <Pressable style={{
                 flexDirection: 'row',
                 alignItems: 'center',
@@ -52,7 +57,9 @@ const Page = () => {
                 justifyContent: 'space-between',
                 height: heightPercentageToDP(6),
                 paddingHorizontal: widthPercentageToDP(5),
-            }}>
+            }}
+                onPress={handleShowModal}
+            >
                 <View style={{
                     flexDirection: 'row',
                     alignItems: 'center',

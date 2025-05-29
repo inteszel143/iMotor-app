@@ -81,4 +81,22 @@ export const updateUserPassword = async (params: any) => {
     } catch (error) {
         return Promise.reject(error);
     }
+};
+
+export const deleteUserAccount = async () => {
+    const token = await SecureStore.getItemAsync("accessToken");
+    const decode = parseToken(token as string);
+    const userId = decode?.sub?.id;
+    try {
+        const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/delete/user/${userId}`, {
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        const json = await response.json();
+        return json;
+    } catch (error) {
+        return Promise.reject(error);
+    }
 }
