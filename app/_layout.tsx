@@ -47,6 +47,10 @@ export default function RootLayout() {
             <Stack.Screen name="ViewMotorPage" options={{ animation: "slide_from_right", headerShown: false }} />
             <Stack.Screen name="ViewTruckPage" options={{ animation: "slide_from_right", headerShown: false }} />
             <Stack.Screen name="ViewBoatPage" options={{ animation: "slide_from_right", headerShown: false }} />
+            <Stack.Screen name="MyAdsPage" options={{ animation: "slide_from_right", headerShown: false }} />
+            <Stack.Screen name="EditProfilePage" options={{ animation: "slide_from_right", headerShown: false }} />
+            <Stack.Screen name="SecurityPage" options={{ animation: "slide_from_right", headerShown: false }} />
+            <Stack.Screen name="ChangePasswordPage" options={{ animation: "slide_from_right", headerShown: false }} />
 
             <Stack.Screen name="HomeFilterPage" options={{ headerShown: false, animation: "fade", }} />
           </Stack>

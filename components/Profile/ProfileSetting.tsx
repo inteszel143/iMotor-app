@@ -1,5 +1,6 @@
 import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { Entypo, Ionicons } from '@expo/vector-icons';
+import { router } from 'expo-router';
 import React, { memo } from 'react';
 import { Alert, Pressable, Text, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
@@ -14,7 +15,7 @@ const ProfileSetting = () => {
             icon: "person-outline",
             label: "Profile",
             value: "",
-            route: "/SwitchLanguagePage"
+            route: "/EditProfilePage"
         },
         {
             icon: "settings-outline",
@@ -32,7 +33,7 @@ const ProfileSetting = () => {
             icon: "shield-checkmark-outline",
             label: "Security",
             value: "",
-            route: "/ActivityLogsPage"
+            route: "/SecurityPage"
         },
     ];
 
@@ -53,6 +54,7 @@ const ProfileSetting = () => {
                                 if (item?.route === null) {
                                     Alert.alert("Feature Coming Soon", "We’re working hard to bring this page to life. Stay tuned for updates!")
                                 } else {
+                                    router.push(item?.route as any);
                                 }
                             }}
                         >

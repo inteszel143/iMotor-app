@@ -15,7 +15,7 @@ export const mainStyle = StyleSheet.create({
         borderColor: "#93958E"
     },
     fieldTextStyle: {
-        fontFamily: "MonRegular",
+        fontFamily: "poppinsRegular",
         fontSize: Platform.OS === "android" ? heightPercentageToDP(1.6) : heightPercentageToDP(1.5),
     },
     buttonStyle: {
@@ -29,8 +29,8 @@ export const mainStyle = StyleSheet.create({
         fontSize: heightPercentageToDP(1.5),
     },
     inputLabel: {
-        fontFamily: "MonRegular",
-        fontSize: heightPercentageToDP(1.5),
+        fontFamily: "poppinsRegular",
+        fontSize: heightPercentageToDP(1.4),
     },
     dateStyleText: {
         fontFamily: "MonRegular",

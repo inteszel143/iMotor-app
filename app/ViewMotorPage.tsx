@@ -19,7 +19,6 @@ const Page = () => {
     const { data, isPending } = useGetMotorSingle(isFocused, id as string);
     const colorScheme = useColorScheme();
     const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
-    console.log(data)
     const scrollRef = useRef<ScrollView>(null);
     const [activeIndex, setActiveIndex] = useState(0);
     const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {

@@ -1,7 +1,8 @@
 import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { Ionicons } from '@expo/vector-icons';
+import { router } from 'expo-router';
 import React, { memo } from 'react';
-import { Pressable, Text, useColorScheme, View } from 'react-native';
+import { Alert, Pressable, Text, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 
 const AdsAndSearch = () => {
@@ -26,7 +27,9 @@ const AdsAndSearch = () => {
                     alignItems: 'center',
                     justifyContent: 'center',
                     borderRadius: widthPercentageToDP(1),
-                }}>
+                }}
+                    onPress={() => router.push('/MyAdsPage')}
+                >
                     <Ionicons name='barcode-outline' size={heightPercentageToDP(3)} color={"#0a5ca8"} />
                     <Text style={{
                         fontFamily: "poppinsSemiBold",
@@ -43,7 +46,9 @@ const AdsAndSearch = () => {
                     alignItems: 'center',
                     justifyContent: 'center',
                     borderRadius: widthPercentageToDP(1),
-                }}>
+                }}
+                    onPress={() => Alert.alert("Coming Soon", "We’re working hard to bring this page to life. Stay tuned for updates!")}
+                >
                     <Ionicons name='bookmarks-outline' size={heightPercentageToDP(2.8)} color={"#0a5ca8"} />
                     <Text style={{
                         fontFamily: "poppinsSemiBold",

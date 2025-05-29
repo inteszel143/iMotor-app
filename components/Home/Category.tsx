@@ -1,5 +1,6 @@
 import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { router } from 'expo-router';
 import React, { memo } from 'react';
 import { Platform, Pressable, Text, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
@@ -70,7 +71,9 @@ const Category = () => {
                                 paddingVertical: heightPercentageToDP(4),
                                 borderColor: colorScheme === 'dark' ? '#616161' : '#DADADA'
                             }}
-                            key={index}>
+                            key={index}
+                            onPress={() => router.push('/HomeFilterPage')}
+                        >
                             <MaterialCommunityIcons name={item?.icon as any} size={heightPercentageToDP(2.5)} color={"#0a5ca8"} />
                             <Text style={{
                                 fontFamily: "poppinsMedium",
