@@ -57,10 +57,12 @@ const HomeHeader = () => {
                     </Pressable>
                 </View>
                 <View>
-                    <Pressable onPress={() => router.push('/NotificationPage')}>
+                    <Pressable
+                        onPress={() => router.push('/NotificationPage')}
+                    >
                         <Ionicons name='notifications-outline' size={heightPercentageToDP(3)} color={theme.sub} />
                     </Pressable>
-                    <View
+                    {/* <View
                         style={{
                             position: 'absolute',
                             top: 0,
@@ -70,10 +72,10 @@ const HomeHeader = () => {
                             backgroundColor: "red",
                             borderRadius: widthPercentageToDP(50),
                         }}
-                    />
+                    /> */}
                 </View>
             </View>
-        </View>
+        </View >
     )
 }
 

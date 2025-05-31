@@ -6,13 +6,13 @@ export const mainStyle = StyleSheet.create({
         fontSize: heightPercentageToDP(1.4),
     },
     fieldStyle: {
-        height: heightPercentageToDP(6),
+        height: heightPercentageToDP(6.5),
         justifyContent: 'center',
         borderRadius: widthPercentageToDP(2),
         paddingHorizontal: widthPercentageToDP(5),
         marginTop: heightPercentageToDP(1.5),
         borderWidth: 0.5,
-        borderColor: "#93958E"
+        borderColor: "#0a5ca8"
     },
     fieldTextStyle: {
         fontFamily: "poppinsRegular",

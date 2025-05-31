@@ -131,7 +131,6 @@ const Page = () => {
                                 </Text>
                             </View>
                         )}
-
                     </View>
 
                     <View style={{ marginTop: heightPercentageToDP(2) }}>

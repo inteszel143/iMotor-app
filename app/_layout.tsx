@@ -5,6 +5,7 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { LogBox } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { KeyboardProvider } from "react-native-keyboard-controller";
 import { configureReanimatedLogger, ReanimatedLogLevel } from 'react-native-reanimated';
 LogBox.ignoreAllLogs(true);
@@ -32,31 +33,41 @@ export default function RootLayout() {
     return null;
   }
   return (
-    <QueryClientProvider client={queryClient}>
-      <KeyboardProvider>
-        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-          <Stack>
-            <Stack.Screen name="index" options={{ headerShown: false, animation: "fade", gestureEnabled: false, }} />
-            <Stack.Screen name="LoginScreen" options={{ headerShown: false, animation: "slide_from_bottom", gestureEnabled: false, }} />
-            <Stack.Screen name="(tabs)" options={{ headerShown: false, animation: "fade", gestureEnabled: false, }} />
-            <Stack.Screen name="CreateAccount" options={{ animation: "slide_from_right", headerShown: false }} />
-            <Stack.Screen name="EmailVerification" options={{ animation: "slide_from_right", headerShown: false }} />
-            <Stack.Screen name="SuccessAuth" options={{ animation: "slide_from_right", headerShown: false }} />
-            <Stack.Screen name="NotificationPage" options={{ animation: "slide_from_right", headerShown: false }} />
-            <Stack.Screen name="ViewCarPage" options={{ animation: "slide_from_right", headerShown: false }} />
-            <Stack.Screen name="ViewMotorPage" options={{ animation: "slide_from_right", headerShown: false }} />
-            <Stack.Screen name="ViewTruckPage" options={{ animation: "slide_from_right", headerShown: false }} />
-            <Stack.Screen name="ViewBoatPage" options={{ animation: "slide_from_right", headerShown: false }} />
-            <Stack.Screen name="MyAdsPage" options={{ animation: "slide_from_right", headerShown: false }} />
-            <Stack.Screen name="EditProfilePage" options={{ animation: "slide_from_right", headerShown: false }} />
-            <Stack.Screen name="SecurityPage" options={{ animation: "slide_from_right", headerShown: false }} />
-            <Stack.Screen name="ChangePasswordPage" options={{ animation: "slide_from_right", headerShown: false }} />
+    <GestureHandlerRootView>
+      <QueryClientProvider client={queryClient}>
+        <KeyboardProvider>
+          <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+            <Stack>
+              <Stack.Screen name="index" options={{ headerShown: false, animation: "fade", gestureEnabled: false, }} />
+              <Stack.Screen name="LoginScreen" options={{ headerShown: false, animation: "slide_from_bottom", gestureEnabled: false, }} />
+              <Stack.Screen name="(tabs)" options={{ headerShown: false, animation: "fade", gestureEnabled: false, }} />
+              <Stack.Screen name="CreateAccount" options={{ animation: "slide_from_right", headerShown: false }} />
+              <Stack.Screen name="EmailVerification" options={{ animation: "slide_from_right", headerShown: false }} />
+              <Stack.Screen name="SuccessAuth" options={{ animation: "slide_from_right", headerShown: false }} />
+              <Stack.Screen name="NotificationPage" options={{ animation: "slide_from_right", headerShown: false }} />
+              <Stack.Screen name="ViewCarPage" options={{ animation: "slide_from_right", headerShown: false }} />
+              <Stack.Screen name="ViewMotorPage" options={{ animation: "slide_from_right", headerShown: false }} />
+              <Stack.Screen name="ViewTruckPage" options={{ animation: "slide_from_right", headerShown: false }} />
+              <Stack.Screen name="ViewBoatPage" options={{ animation: "slide_from_right", headerShown: false }} />
+              <Stack.Screen name="MyAdsPage" options={{ animation: "slide_from_right", headerShown: false }} />
+              <Stack.Screen name="EditProfilePage" options={{ animation: "slide_from_right", headerShown: false }} />
+              <Stack.Screen name="SecurityPage" options={{ animation: "slide_from_right", headerShown: false }} />
+              <Stack.Screen name="ChangePasswordPage" options={{ animation: "slide_from_right", headerShown: false }} />
+              <Stack.Screen name="ListingCategory" options={{ animation: "slide_from_right", headerShown: false }} />
+              <Stack.Screen name="SuccessListing" options={{ animation: "slide_from_right", headerShown: false }} />
 
-            <Stack.Screen name="HomeFilterPage" options={{ headerShown: false, animation: "fade", }} />
-          </Stack>
-          <StatusBar style="auto" />
-        </ThemeProvider>
-      </KeyboardProvider>
-    </QueryClientProvider>
+              {/* CAR */}
+              <Stack.Screen name="car-listing/InputVin" options={{ animation: "slide_from_right", headerShown: false }} />
+              <Stack.Screen name="car-listing/CarInformation" options={{ animation: "slide_from_right", headerShown: false }} />
+              <Stack.Screen name="car-listing/CarAttributes" options={{ animation: "slide_from_right", headerShown: false }} />
+              <Stack.Screen name="car-listing/CarSummary" options={{ animation: "slide_from_right", headerShown: false }} />
+
+              <Stack.Screen name="HomeFilterPage" options={{ headerShown: false, animation: "fade", }} />
+            </Stack>
+            <StatusBar style="auto" />
+          </ThemeProvider>
+        </KeyboardProvider>
+      </QueryClientProvider>
+    </GestureHandlerRootView>
   );
 }
