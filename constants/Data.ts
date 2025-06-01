@@ -204,3 +204,59 @@ export const FuelType = [
     { key: 'Hybrid', value: 'Hybrid' },
     { key: 'Electric', value: 'Electric' },
 ];
+
+
+
+
+// MOTOR
+export const MotorType = [
+    { name: 'Sport Bike' },
+    { name: 'Adventure / Touring' },
+    { name: 'Cruiser / Chopper' },
+    { name: 'Off road' },
+    { name: 'Scooter' },
+    { name: 'Scooter' },
+    { name: 'Standard / Commuter' },
+    { name: 'Cafe racer' },
+    { name: 'Trike' },
+    { name: 'Trailer' },
+    { name: 'Karting' },
+    { name: 'Mo-ped' },
+    { name: 'Golf Cart' },
+    { name: 'Others' },
+];
+
+export const MotorUsage = [
+    { key: 'Still with the dealer', value: 'Still with the dealer' },
+    { key: 'Only used one since it was purchased new', value: 'Only used one since it was purchased new' },
+    { key: 'Used very rarely since it was purchased', value: 'Used very rarely since it was purchased' },
+    { key: 'Used once or twice a week since purchased', value: 'Used once or twice a week since purchased' },
+    { key: 'Used as primary mode of transportation', value: 'Used as primary mode of transportation' },
+];
+
+export const SellerType = [
+    { key: 'Owner', value: 'Owner' },
+    { key: 'Dealer', value: 'Dealer' },
+    { key: 'Dealership/Certified Pre-owned', value: 'Dealership/Certified Pre-owned' },
+];
+
+export const FinalDriveSystem = [
+    { key: 'Belt', value: 'Belt' },
+    { key: 'Chain', value: 'Chain' },
+    { key: 'Shaft', value: 'Shaft' },
+    { key: 'Does not apply', value: 'Does not apply' },
+];
+export const Wheels = [
+    { key: '2 wheels', value: '2 wheels' },
+    { key: '3 wheels', value: '3 wheels' },
+    { key: '4 wheels', value: '4 wheels' },
+];
+export const EngineSize = [
+    { key: 'Less than 250cc', value: 'Less than 250cc' },
+    { key: '250cc - 499cc', value: '250cc - 499cc' },
+    { key: '500cc - 599cc', value: '500cc - 599cc' },
+    { key: '600cc - 749cc', value: '600cc - 749cc' },
+    { key: '750cc - 999cc', value: '750cc - 999cc' },
+    { key: '1,000cc or more', value: '1,000cc or more' },
+    { key: 'Does not apply', value: 'Does not apply' },
+]

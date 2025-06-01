@@ -1,45 +1,45 @@
 import GlobalHeader from '@/components/GlobalHeader';
-import MultipleDropdownList from '@/components/MultipleDropdownList';
 import Tloader from '@/components/Tloader';
 import { darkTheme, lightTheme } from '@/constants/darkmode';
-import { amenitiesData, BodyType, Cylinder, Doors, EngineCapacity, FuelType, HorsePower, safetyFeaturesData, Seating, Steering, Tranmission, Variant, Warranty } from '@/constants/Data';
+import { EngineSize, FinalDriveSystem, MotorUsage, SellerType, Variant, Warranty, Wheels, Year } from '@/constants/Data';
 import { mainStyle } from '@/constants/mainStyle';
+import { useGetAllCities, useGetAllCommunities, useGetAllManufacturer } from '@/query/LocationQuery';
 import { Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useIsFocused } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import { router, useLocalSearchParams } from 'expo-router';
 import React from 'react';
 import { Controller, useForm } from "react-hook-form";
-import { Image, Platform, Pressable, ScrollView, Text, TouchableOpacity, useColorScheme, View } from 'react-native';
+import { Image, Platform, Pressable, ScrollView, Text, TextInput, TouchableOpacity, useColorScheme, View } from 'react-native';
 import { SelectList } from 'react-native-dropdown-select-list';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import * as yup from "yup";
 const Page = () => {
-    const { car_information } = useLocalSearchParams();
+
+    const { motor_type } = useLocalSearchParams();
     const colorScheme = useColorScheme();
     const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
 
     const schema = yup.object().shape({
         image: yup.string().required("This field is required."),
-        exterior_color: yup.string().required("This field is required."),
-        interior_color: yup.string().required("This field is required."),
-        seating_capacity: yup.string().required("This field is required."),
-        door: yup.string().required("This field is required."),
-        bodyType: yup.string().required("This field is required."),
-        horsepower: yup.string().required("This field is required."),
-        fueltype: yup.string().required("This field is required."),
-        steering: yup.string().required("This field is required."),
-        cylinder: yup.string().required("This field is required."),
-        enginecapacity: yup.string().required("This field is required."),
-        warranty: yup.string().required("This field is required."),
-        transmission: yup.string().required("This field is required."),
-
-
-        safety_feature: yup.array().nullable(),
-        amenities: yup.array().nullable(),
         multile_image: yup.array().of(yup.string()).nullable(),
-
+        model: yup.string().required("This field is required."),
+        price: yup.string().required("This field is required."),
+        description: yup.string().required("This field is required."),
+        mileage: yup.string().required("This field is required."),
+        city: yup.string().required("This field is required."),
+        community: yup.string().required("This field is required."),
+        variant: yup.string().required("This field is required."),
+        usage: yup.string().required("This field is required."),
+        year: yup.string().required("This field is required."),
+        sellertype: yup.string().required("This field is required."),
+        warranty: yup.string().required("This field is required."),
+        final_drive_system: yup.string().required("This field is required."),
+        wheels: yup.string().required("This field is required."),
+        manufactors: yup.string().required("This field is required."),
+        engine_size: yup.string().required("This field is required."),
         loading: yup.boolean(),
     });
     const { control, handleSubmit, watch, setValue, formState: { errors }, } = useForm({
@@ -49,6 +49,8 @@ const Page = () => {
 
         }
     });
+
+
 
     const images = watch('multile_image') || [];
     const removeImage = (indexToRemove: number) => {
@@ -83,23 +85,30 @@ const Page = () => {
         }
     };
 
+    const isFocused = useIsFocused();
+    const { data: motorBrand } = useGetAllManufacturer(isFocused);
+    const { data: cityData } = useGetAllCities(isFocused);
+    const { data: communityData } = useGetAllCommunities(isFocused, watch('city'));
+
+
     const onSubmit = async (data: any) => {
         setValue('loading', true);
         setTimeout(() => {
             router.push({
-                pathname: '/car-listing/CarSummary',
+                pathname: '/motor-listing/MotorSummary',
                 params: {
-                    car_information: car_information,
-                    car_attributes: JSON.stringify(data)
+                    motor_type: motor_type,
+                    motor_attributes: JSON.stringify(data)
                 }
             });
             setValue('loading', false);
         }, 1000)
     }
 
+
     return (
         <View style={{ flex: 1, backgroundColor: theme.backgroundColor2 }}>
-            <GlobalHeader headerTitle='Car Attributes' />
+            <GlobalHeader headerTitle='Motor Details' />
             {watch('loading') && <Tloader />}
             <KeyboardAwareScrollView
                 bottomOffset={heightPercentageToDP(8)}
@@ -108,7 +117,6 @@ const Page = () => {
                 <View style={{
                     paddingHorizontal: widthPercentageToDP(6)
                 }}>
-
                     <View style={{
                         alignItems: 'center',
                         marginTop: heightPercentageToDP(2),
@@ -129,10 +137,20 @@ const Page = () => {
                     </View>
 
 
-                    {/* Featured Image */}
                     <View style={{
                         marginTop: heightPercentageToDP(4),
                     }}>
+                        <Text style={{
+                            fontFamily: "poppinsSemiBold",
+                            fontSize: heightPercentageToDP(1.6),
+                            color: theme.textColor
+                        }}>Featured Image</Text>
+                        <Text style={{
+                            fontFamily: "poppinsRegular",
+                            fontSize: heightPercentageToDP(1.4),
+                            color: theme.sub,
+                            marginTop: heightPercentageToDP(0.5)
+                        }}>This featured image will be the main image of your ads.</Text>
                         <TouchableOpacity style={{
                             borderWidth: 1.5,
                             borderColor: colorScheme === "dark" ? "#0a5ca8" : "#DADADA",
@@ -140,7 +158,8 @@ const Page = () => {
                             borderRadius: widthPercentageToDP(2),
                             borderStyle: 'dashed',
                             alignItems: 'center',
-                            backgroundColor: colorScheme === "dark" ? "#121212" : "#f4f6f8"
+                            backgroundColor: colorScheme === "dark" ? "#121212" : "#f4f6f8",
+                            marginTop: heightPercentageToDP(1)
                         }}
                             onPress={pickImage}
                         >
@@ -166,778 +185,18 @@ const Page = () => {
                                     }}>Upload photo</Text>
                                 </View>}
                         </TouchableOpacity>
-
-                        {errors.exterior_color?.message && (
-                            <View style={mainStyle.errorView}>
-                                <Text style={mainStyle.errorText}>
-                                    {errors.exterior_color?.message}
-                                </Text>
-                            </View>
-                        )}
-
                     </View>
 
 
-                    <View style={{ marginTop: heightPercentageToDP(2) }}>
-                        <Text style={[mainStyle.inputLabel, { color: theme.sub }]}>Exterior Color</Text>
-                        <Controller
-                            control={control}
-                            rules={{
-                                required: true,
-                            }}
-                            render={({ field: { onChange, onBlur, value } }) => {
-                                return (
-                                    <SelectList
-                                        setSelected={onChange}
-                                        data={Variant ?? []}
-                                        arrowicon={
-                                            <Feather
-                                                name="chevron-down"
-                                                size={20}
-                                                color={theme.textColor}
-                                            />
-                                        }
-                                        save="key"
-                                        placeholder={"Exterior Color"}
-                                        search={false}
-                                        maxHeight={300}
-                                        boxStyles={{
-                                            height: heightPercentageToDP(6.5),
-                                            alignItems: 'center',
-                                            borderColor: '#0a5ca8',
-                                            marginTop: heightPercentageToDP(1.2),
-                                            borderWidth: 0.5,
-                                        }}
-                                        inputStyles={{ fontFamily: "poppinsRegular", fontSize: heightPercentageToDP(1.5), color: value ? theme.textColor : "#9E9E9E" }}
-                                        dropdownStyles={{
-                                            borderRadius: 6,
-                                            borderWidth: 0.5,
-                                            backgroundColor: theme.card
-                                        }}
-                                        dropdownTextStyles={{
-                                            fontFamily: "poppinsRegular",
-                                            fontSize: heightPercentageToDP(1.5),
-                                            marginTop: heightPercentageToDP(1.2),
-                                            color: theme.textColor
-                                        }}
-                                    />
-                                )
-                            }}
-                            name="exterior_color"
-                        />
-
-                        {errors.exterior_color?.message && (
-                            <View style={mainStyle.errorView}>
-                                <Text style={mainStyle.errorText}>
-                                    {errors.exterior_color?.message}
-                                </Text>
-                            </View>
-                        )}
-                    </View>
-
-
-
-                    <View style={{ marginTop: heightPercentageToDP(2) }}>
-                        <Text style={[mainStyle.inputLabel, { color: theme.sub }]}>Interior Color</Text>
-                        <Controller
-                            control={control}
-                            rules={{
-                                required: true,
-                            }}
-                            render={({ field: { onChange, onBlur, value } }) => {
-                                return (
-                                    <SelectList
-                                        setSelected={onChange}
-                                        data={Variant ?? []}
-                                        arrowicon={
-                                            <Feather
-                                                name="chevron-down"
-                                                size={20}
-                                                color={theme.textColor}
-                                            />
-                                        }
-                                        save="key"
-                                        placeholder={"Interior Color"}
-                                        search={false}
-                                        maxHeight={300}
-                                        boxStyles={{
-                                            height: heightPercentageToDP(6.5),
-                                            alignItems: 'center',
-                                            borderColor: '#0a5ca8',
-                                            marginTop: heightPercentageToDP(1.2),
-                                            borderWidth: 0.5,
-                                        }}
-                                        inputStyles={{ fontFamily: "poppinsRegular", fontSize: heightPercentageToDP(1.5), color: value ? theme.textColor : "#9E9E9E" }}
-                                        dropdownStyles={{
-                                            borderRadius: 6,
-                                            borderWidth: 0.5,
-                                            backgroundColor: theme.card
-                                        }}
-                                        dropdownTextStyles={{
-                                            fontFamily: "poppinsRegular",
-                                            fontSize: heightPercentageToDP(1.5),
-                                            marginTop: heightPercentageToDP(1.2),
-                                            color: theme.textColor
-                                        }}
-                                    />
-                                )
-                            }}
-                            name="interior_color"
-                        />
-
-                        {errors.interior_color?.message && (
-                            <View style={mainStyle.errorView}>
-                                <Text style={mainStyle.errorText}>
-                                    {errors.interior_color?.message}
-                                </Text>
-                            </View>
-                        )}
-                    </View>
-
-
-                    <View style={{ marginTop: heightPercentageToDP(2) }}>
-                        <Text style={[mainStyle.inputLabel, { color: theme.sub }]}>Seating Capacity</Text>
-                        <Controller
-                            control={control}
-                            rules={{
-                                required: true,
-                            }}
-                            render={({ field: { onChange, onBlur, value } }) => {
-                                return (
-                                    <SelectList
-                                        setSelected={onChange}
-                                        data={Seating ?? []}
-                                        arrowicon={
-                                            <Feather
-                                                name="chevron-down"
-                                                size={20}
-                                                color={theme.textColor}
-                                            />
-                                        }
-                                        save="key"
-                                        placeholder={"Seating Capacity"}
-                                        search={false}
-                                        maxHeight={300}
-                                        boxStyles={{
-                                            height: heightPercentageToDP(6.5),
-                                            alignItems: 'center',
-                                            borderColor: '#0a5ca8',
-                                            marginTop: heightPercentageToDP(1.2),
-                                            borderWidth: 0.5,
-                                        }}
-                                        inputStyles={{ fontFamily: "poppinsRegular", fontSize: heightPercentageToDP(1.5), color: value ? theme.textColor : "#9E9E9E" }}
-                                        dropdownStyles={{
-                                            borderRadius: 6,
-                                            borderWidth: 0.5,
-                                            backgroundColor: theme.card
-                                        }}
-                                        dropdownTextStyles={{
-                                            fontFamily: "poppinsRegular",
-                                            fontSize: heightPercentageToDP(1.5),
-                                            marginTop: heightPercentageToDP(1.2),
-                                            color: theme.textColor
-                                        }}
-                                    />
-                                )
-                            }}
-                            name="seating_capacity"
-                        />
-
-                        {errors.seating_capacity?.message && (
-                            <View style={mainStyle.errorView}>
-                                <Text style={mainStyle.errorText}>
-                                    {errors.seating_capacity?.message}
-                                </Text>
-                            </View>
-                        )}
-                    </View>
-
-
-                    <View style={{ marginTop: heightPercentageToDP(2) }}>
-                        <Text style={[mainStyle.inputLabel, { color: theme.sub }]}>Doors</Text>
-                        <Controller
-                            control={control}
-                            rules={{
-                                required: true,
-                            }}
-                            render={({ field: { onChange, onBlur, value } }) => {
-                                return (
-                                    <SelectList
-                                        setSelected={onChange}
-                                        data={Doors ?? []}
-                                        arrowicon={
-                                            <Feather
-                                                name="chevron-down"
-                                                size={20}
-                                                color={theme.textColor}
-                                            />
-                                        }
-                                        save="key"
-                                        placeholder={"Doors"}
-                                        search={false}
-                                        maxHeight={300}
-                                        boxStyles={{
-                                            height: heightPercentageToDP(6.5),
-                                            alignItems: 'center',
-                                            borderColor: '#0a5ca8',
-                                            marginTop: heightPercentageToDP(1.2),
-                                            borderWidth: 0.5,
-                                        }}
-                                        inputStyles={{ fontFamily: "poppinsRegular", fontSize: heightPercentageToDP(1.5), color: value ? theme.textColor : "#9E9E9E" }}
-                                        dropdownStyles={{
-                                            borderRadius: 6,
-                                            borderWidth: 0.5,
-                                            backgroundColor: theme.card
-                                        }}
-                                        dropdownTextStyles={{
-                                            fontFamily: "poppinsRegular",
-                                            fontSize: heightPercentageToDP(1.5),
-                                            marginTop: heightPercentageToDP(1.2),
-                                            color: theme.textColor
-                                        }}
-                                    />
-                                )
-                            }}
-                            name="door"
-                        />
-
-                        {errors.door?.message && (
-                            <View style={mainStyle.errorView}>
-                                <Text style={mainStyle.errorText}>
-                                    {errors.door?.message}
-                                </Text>
-                            </View>
-                        )}
-                    </View>
-
-
-                    <View style={{ marginTop: heightPercentageToDP(2) }}>
-                        <Text style={[mainStyle.inputLabel, { color: theme.sub }]}>Body Type</Text>
-                        <Controller
-                            control={control}
-                            rules={{
-                                required: true,
-                            }}
-                            render={({ field: { onChange, onBlur, value } }) => {
-                                return (
-                                    <SelectList
-                                        setSelected={onChange}
-                                        data={BodyType ?? []}
-                                        arrowicon={
-                                            <Feather
-                                                name="chevron-down"
-                                                size={20}
-                                                color={theme.textColor}
-                                            />
-                                        }
-                                        save="key"
-                                        placeholder={"Body Type"}
-                                        search={false}
-                                        maxHeight={300}
-                                        boxStyles={{
-                                            height: heightPercentageToDP(6.5),
-                                            alignItems: 'center',
-                                            borderColor: '#0a5ca8',
-                                            marginTop: heightPercentageToDP(1.2),
-                                            borderWidth: 0.5,
-                                        }}
-                                        inputStyles={{ fontFamily: "poppinsRegular", fontSize: heightPercentageToDP(1.5), color: value ? theme.textColor : "#9E9E9E" }}
-                                        dropdownStyles={{
-                                            borderRadius: 6,
-                                            borderWidth: 0.5,
-                                            backgroundColor: theme.card
-                                        }}
-                                        dropdownTextStyles={{
-                                            fontFamily: "poppinsRegular",
-                                            fontSize: heightPercentageToDP(1.5),
-                                            marginTop: heightPercentageToDP(1.2),
-                                            color: theme.textColor
-                                        }}
-                                    />
-                                )
-                            }}
-                            name="bodyType"
-                        />
-
-                        {errors.bodyType?.message && (
-                            <View style={mainStyle.errorView}>
-                                <Text style={mainStyle.errorText}>
-                                    {errors.bodyType?.message}
-                                </Text>
-                            </View>
-                        )}
-                    </View>
-
-
-                    <View style={{ marginTop: heightPercentageToDP(2) }}>
-                        <Text style={[mainStyle.inputLabel, { color: theme.sub }]}>Horsepower</Text>
-                        <Controller
-                            control={control}
-                            rules={{
-                                required: true,
-                            }}
-                            render={({ field: { onChange, onBlur, value } }) => {
-                                return (
-                                    <SelectList
-                                        setSelected={onChange}
-                                        data={HorsePower ?? []}
-                                        arrowicon={
-                                            <Feather
-                                                name="chevron-down"
-                                                size={20}
-                                                color={theme.textColor}
-                                            />
-                                        }
-                                        save="key"
-                                        placeholder={"Horsepower"}
-                                        search={false}
-                                        maxHeight={300}
-                                        boxStyles={{
-                                            height: heightPercentageToDP(6.5),
-                                            alignItems: 'center',
-                                            borderColor: '#0a5ca8',
-                                            marginTop: heightPercentageToDP(1.2),
-                                            borderWidth: 0.5,
-                                        }}
-                                        inputStyles={{ fontFamily: "poppinsRegular", fontSize: heightPercentageToDP(1.5), color: value ? theme.textColor : "#9E9E9E" }}
-                                        dropdownStyles={{
-                                            borderRadius: 6,
-                                            borderWidth: 0.5,
-                                            backgroundColor: theme.card
-                                        }}
-                                        dropdownTextStyles={{
-                                            fontFamily: "poppinsRegular",
-                                            fontSize: heightPercentageToDP(1.5),
-                                            marginTop: heightPercentageToDP(1.2),
-                                            color: theme.textColor
-                                        }}
-                                    />
-                                )
-                            }}
-                            name="horsepower"
-                        />
-
-                        {errors.horsepower?.message && (
-                            <View style={mainStyle.errorView}>
-                                <Text style={mainStyle.errorText}>
-                                    {errors.horsepower?.message}
-                                </Text>
-                            </View>
-                        )}
-                    </View>
-
-                    <View style={{ marginTop: heightPercentageToDP(2) }}>
-                        <Text style={[mainStyle.inputLabel, { color: theme.sub }]}>Fuel type</Text>
-                        <Controller
-                            control={control}
-                            rules={{
-                                required: true,
-                            }}
-                            render={({ field: { onChange, onBlur, value } }) => {
-                                return (
-                                    <SelectList
-                                        setSelected={onChange}
-                                        data={FuelType ?? []}
-                                        arrowicon={
-                                            <Feather
-                                                name="chevron-down"
-                                                size={20}
-                                                color={theme.textColor}
-                                            />
-                                        }
-                                        save="key"
-                                        placeholder={"Fuel type"}
-                                        search={false}
-                                        maxHeight={300}
-                                        boxStyles={{
-                                            height: heightPercentageToDP(6.5),
-                                            alignItems: 'center',
-                                            borderColor: '#0a5ca8',
-                                            marginTop: heightPercentageToDP(1.2),
-                                            borderWidth: 0.5,
-                                        }}
-                                        inputStyles={{ fontFamily: "poppinsRegular", fontSize: heightPercentageToDP(1.5), color: value ? theme.textColor : "#9E9E9E" }}
-                                        dropdownStyles={{
-                                            borderRadius: 6,
-                                            borderWidth: 0.5,
-                                            backgroundColor: theme.card
-                                        }}
-                                        dropdownTextStyles={{
-                                            fontFamily: "poppinsRegular",
-                                            fontSize: heightPercentageToDP(1.5),
-                                            marginTop: heightPercentageToDP(1.2),
-                                            color: theme.textColor
-                                        }}
-                                    />
-                                )
-                            }}
-                            name="fueltype"
-                        />
-
-                        {errors.fueltype?.message && (
-                            <View style={mainStyle.errorView}>
-                                <Text style={mainStyle.errorText}>
-                                    {errors.fueltype?.message}
-                                </Text>
-                            </View>
-                        )}
-                    </View>
-
-
-                    <View style={{ marginTop: heightPercentageToDP(2) }}>
-                        <Text style={[mainStyle.inputLabel, { color: theme.sub }]}>Steering side</Text>
-                        <Controller
-                            control={control}
-                            rules={{
-                                required: true,
-                            }}
-                            render={({ field: { onChange, onBlur, value } }) => {
-                                return (
-                                    <SelectList
-                                        setSelected={onChange}
-                                        data={Steering ?? []}
-                                        arrowicon={
-                                            <Feather
-                                                name="chevron-down"
-                                                size={20}
-                                                color={theme.textColor}
-                                            />
-                                        }
-                                        save="key"
-                                        placeholder={"Steering side"}
-                                        search={false}
-                                        maxHeight={300}
-                                        boxStyles={{
-                                            height: heightPercentageToDP(6.5),
-                                            alignItems: 'center',
-                                            borderColor: '#0a5ca8',
-                                            marginTop: heightPercentageToDP(1.2),
-                                            borderWidth: 0.5,
-                                        }}
-                                        inputStyles={{ fontFamily: "poppinsRegular", fontSize: heightPercentageToDP(1.5), color: value ? theme.textColor : "#9E9E9E" }}
-                                        dropdownStyles={{
-                                            borderRadius: 6,
-                                            borderWidth: 0.5,
-                                            backgroundColor: theme.card
-                                        }}
-                                        dropdownTextStyles={{
-                                            fontFamily: "poppinsRegular",
-                                            fontSize: heightPercentageToDP(1.5),
-                                            marginTop: heightPercentageToDP(1.2),
-                                            color: theme.textColor
-                                        }}
-                                    />
-                                )
-                            }}
-                            name="steering"
-                        />
-
-                        {errors.steering?.message && (
-                            <View style={mainStyle.errorView}>
-                                <Text style={mainStyle.errorText}>
-                                    {errors.steering?.message}
-                                </Text>
-                            </View>
-                        )}
-                    </View>
-
-
-                    <View style={{ marginTop: heightPercentageToDP(2) }}>
-                        <Text style={[mainStyle.inputLabel, { color: theme.sub }]}>No. of Cylinder</Text>
-                        <Controller
-                            control={control}
-                            rules={{
-                                required: true,
-                            }}
-                            render={({ field: { onChange, onBlur, value } }) => {
-                                return (
-                                    <SelectList
-                                        setSelected={onChange}
-                                        data={Cylinder ?? []}
-                                        arrowicon={
-                                            <Feather
-                                                name="chevron-down"
-                                                size={20}
-                                                color={theme.textColor}
-                                            />
-                                        }
-                                        save="key"
-                                        placeholder={"No. of Cylinder"}
-                                        search={false}
-                                        maxHeight={300}
-                                        boxStyles={{
-                                            height: heightPercentageToDP(6.5),
-                                            alignItems: 'center',
-                                            borderColor: '#0a5ca8',
-                                            marginTop: heightPercentageToDP(1.2),
-                                            borderWidth: 0.5,
-                                        }}
-                                        inputStyles={{ fontFamily: "poppinsRegular", fontSize: heightPercentageToDP(1.5), color: value ? theme.textColor : "#9E9E9E" }}
-                                        dropdownStyles={{
-                                            borderRadius: 6,
-                                            borderWidth: 0.5,
-                                            backgroundColor: theme.card
-                                        }}
-                                        dropdownTextStyles={{
-                                            fontFamily: "poppinsRegular",
-                                            fontSize: heightPercentageToDP(1.5),
-                                            marginTop: heightPercentageToDP(1.2),
-                                            color: theme.textColor
-                                        }}
-                                    />
-                                )
-                            }}
-                            name="cylinder"
-                        />
-
-                        {errors.cylinder?.message && (
-                            <View style={mainStyle.errorView}>
-                                <Text style={mainStyle.errorText}>
-                                    {errors.cylinder?.message}
-                                </Text>
-                            </View>
-                        )}
-                    </View>
-
-
-                    <View style={{ marginTop: heightPercentageToDP(2) }}>
-                        <Text style={[mainStyle.inputLabel, { color: theme.sub }]}>Engine Capacity (CC)</Text>
-                        <Controller
-                            control={control}
-                            rules={{
-                                required: true,
-                            }}
-                            render={({ field: { onChange, onBlur, value } }) => {
-                                return (
-                                    <SelectList
-                                        setSelected={onChange}
-                                        data={EngineCapacity ?? []}
-                                        arrowicon={
-                                            <Feather
-                                                name="chevron-down"
-                                                size={20}
-                                                color={theme.textColor}
-                                            />
-                                        }
-                                        save="key"
-                                        placeholder={"Engine Capacity (CC)"}
-                                        search={false}
-                                        maxHeight={300}
-                                        boxStyles={{
-                                            height: heightPercentageToDP(6.5),
-                                            alignItems: 'center',
-                                            borderColor: '#0a5ca8',
-                                            marginTop: heightPercentageToDP(1.2),
-                                            borderWidth: 0.5,
-                                        }}
-                                        inputStyles={{ fontFamily: "poppinsRegular", fontSize: heightPercentageToDP(1.5), color: value ? theme.textColor : "#9E9E9E" }}
-                                        dropdownStyles={{
-                                            borderRadius: 6,
-                                            borderWidth: 0.5,
-                                            backgroundColor: theme.card
-                                        }}
-                                        dropdownTextStyles={{
-                                            fontFamily: "poppinsRegular",
-                                            fontSize: heightPercentageToDP(1.5),
-                                            marginTop: heightPercentageToDP(1.2),
-                                            color: theme.textColor
-                                        }}
-                                    />
-                                )
-                            }}
-                            name="enginecapacity"
-                        />
-
-                        {errors.enginecapacity?.message && (
-                            <View style={mainStyle.errorView}>
-                                <Text style={mainStyle.errorText}>
-                                    {errors.enginecapacity?.message}
-                                </Text>
-                            </View>
-                        )}
-                    </View>
-
-
-                    <View style={{ marginTop: heightPercentageToDP(2) }}>
-                        <Text style={[mainStyle.inputLabel, { color: theme.sub }]}>Warranty</Text>
-                        <Controller
-                            control={control}
-                            rules={{
-                                required: true,
-                            }}
-                            render={({ field: { onChange, onBlur, value } }) => {
-                                return (
-                                    <SelectList
-                                        setSelected={onChange}
-                                        data={Warranty ?? []}
-                                        arrowicon={
-                                            <Feather
-                                                name="chevron-down"
-                                                size={20}
-                                                color={theme.textColor}
-                                            />
-                                        }
-                                        save="key"
-                                        placeholder={"Warranty"}
-                                        search={false}
-                                        maxHeight={300}
-                                        boxStyles={{
-                                            height: heightPercentageToDP(6.5),
-                                            alignItems: 'center',
-                                            borderColor: '#0a5ca8',
-                                            marginTop: heightPercentageToDP(1.2),
-                                            borderWidth: 0.5,
-                                        }}
-                                        inputStyles={{ fontFamily: "poppinsRegular", fontSize: heightPercentageToDP(1.5), color: value ? theme.textColor : "#9E9E9E" }}
-                                        dropdownStyles={{
-                                            borderRadius: 6,
-                                            borderWidth: 0.5,
-                                            backgroundColor: theme.card
-                                        }}
-                                        dropdownTextStyles={{
-                                            fontFamily: "poppinsRegular",
-                                            fontSize: heightPercentageToDP(1.5),
-                                            marginTop: heightPercentageToDP(1.2),
-                                            color: theme.textColor
-                                        }}
-                                    />
-                                )
-                            }}
-                            name="warranty"
-                        />
-
-                        {errors.warranty?.message && (
-                            <View style={mainStyle.errorView}>
-                                <Text style={mainStyle.errorText}>
-                                    {errors.warranty?.message}
-                                </Text>
-                            </View>
-                        )}
-                    </View>
-
-
-                    <View style={{ marginTop: heightPercentageToDP(2) }}>
-                        <Text style={[mainStyle.inputLabel, { color: theme.sub }]}>Transmission Type</Text>
-                        <Controller
-                            control={control}
-                            rules={{
-                                required: true,
-                            }}
-                            render={({ field: { onChange, onBlur, value } }) => {
-                                return (
-                                    <SelectList
-                                        setSelected={onChange}
-                                        data={Tranmission ?? []}
-                                        arrowicon={
-                                            <Feather
-                                                name="chevron-down"
-                                                size={20}
-                                                color={theme.textColor}
-                                            />
-                                        }
-                                        save="key"
-                                        placeholder={"Transmission Type"}
-                                        search={false}
-                                        maxHeight={300}
-                                        boxStyles={{
-                                            height: heightPercentageToDP(6.5),
-                                            alignItems: 'center',
-                                            borderColor: '#0a5ca8',
-                                            marginTop: heightPercentageToDP(1.2),
-                                            borderWidth: 0.5,
-                                        }}
-                                        inputStyles={{ fontFamily: "poppinsRegular", fontSize: heightPercentageToDP(1.5), color: value ? theme.textColor : "#9E9E9E" }}
-                                        dropdownStyles={{
-                                            borderRadius: 6,
-                                            borderWidth: 0.5,
-                                            backgroundColor: theme.card
-                                        }}
-                                        dropdownTextStyles={{
-                                            fontFamily: "poppinsRegular",
-                                            fontSize: heightPercentageToDP(1.5),
-                                            marginTop: heightPercentageToDP(1.2),
-                                            color: theme.textColor
-                                        }}
-                                    />
-                                )
-                            }}
-                            name="transmission"
-                        />
-                        {errors.transmission?.message && (
-                            <View style={mainStyle.errorView}>
-                                <Text style={mainStyle.errorText}>
-                                    {errors.transmission?.message}
-                                </Text>
-                            </View>
-                        )}
-                    </View>
-
-
-                    <View style={{ marginTop: heightPercentageToDP(2) }}>
-                        <Text style={[mainStyle.inputLabel, { color: theme.sub }]}>Safety Features</Text>
-                        <Controller
-                            control={control}
-                            rules={{
-                                required: true,
-                            }}
-                            render={({ field: { onChange, onBlur, value } }) => {
-                                return (
-                                    <MultipleDropdownList
-                                        data={safetyFeaturesData as any ?? []}
-                                        selectedItems={value as any[]}
-                                        onSelectionChange={(selectedItems) => {
-                                            onChange(selectedItems);
-                                        }}
-                                        placeholder={("Safety Features")}
-                                    />
-                                )
-                            }}
-                            name="safety_feature"
-                        />
-                    </View>
-
-
-                    <View style={{ marginTop: heightPercentageToDP(2) }}>
-                        <Text style={[mainStyle.inputLabel, { color: theme.sub }]}>Amenities</Text>
-                        <Controller
-                            control={control}
-                            rules={{
-                                required: true,
-                            }}
-                            render={({ field: { onChange, onBlur, value } }) => {
-                                return (
-                                    <MultipleDropdownList
-                                        data={amenitiesData as any ?? []}
-                                        selectedItems={value as any[]}
-                                        onSelectionChange={(selectedItems) => {
-                                            onChange(selectedItems);
-                                        }}
-                                        placeholder={("Amenities")}
-                                    />
-                                )
-                            }}
-                            name="amenities"
-                        />
-                    </View>
-
-
-                    <View style={{
-                        alignItems: 'center',
-                        marginTop: heightPercentageToDP(4),
-                        paddingHorizontal: widthPercentageToDP(4),
-                    }}>
-                        <Text style={{
-                            fontFamily: "poppinsSemiBold",
-                            fontSize: heightPercentageToDP(1.6),
-                            color: theme.textColor
-                        }}>Add additional images</Text>
-
-
-                    </View>
                     <View style={{
                         marginTop: heightPercentageToDP(2),
                     }}>
 
+                        <Text style={{
+                            fontFamily: "poppinsSemiBold",
+                            fontSize: heightPercentageToDP(1.6),
+                            color: theme.textColor
+                        }}>Additional images</Text>
 
                         <TouchableOpacity style={{
                             borderWidth: 1.5,
@@ -946,7 +205,8 @@ const Page = () => {
                             borderRadius: widthPercentageToDP(2),
                             borderStyle: 'dashed',
                             alignItems: 'center',
-                            backgroundColor: colorScheme === "dark" ? "#121212" : "#f4f6f8"
+                            backgroundColor: colorScheme === "dark" ? "#121212" : "#f4f6f8",
+                            marginTop: heightPercentageToDP(1),
                         }}
                             onPress={pickMultipleImage}>
                             <View style={{
@@ -998,6 +258,776 @@ const Page = () => {
                             </ScrollView>
                         )}
                     </View>
+
+
+                    <View style={{ marginTop: heightPercentageToDP(2) }}>
+                        <Text style={[mainStyle.inputLabel, { color: theme.sub }]}>Model</Text>
+                        <View style={[mainStyle.fieldStyle]}>
+                            <Controller
+                                control={control}
+                                rules={{
+                                    required: true,
+                                }}
+                                render={({ field: { onChange, onBlur, value } }) => (
+                                    <TextInput
+                                        onBlur={onBlur}
+                                        onChangeText={onChange}
+                                        value={value}
+                                        placeholder={"Model"}
+                                        placeholderTextColor={"#9E9E9E"}
+                                        style={[mainStyle.fieldTextStyle, { color: theme.textColor }]}
+                                    />
+                                )}
+                                name="model"
+                            />
+                        </View>
+                        {errors.model?.message && (
+                            <View style={mainStyle.errorView}>
+                                <Text style={mainStyle.errorText}>
+                                    {errors.model?.message}
+                                </Text>
+                            </View>
+                        )}
+                    </View>
+
+
+                    <View style={{ marginTop: heightPercentageToDP(2) }}>
+                        <Text style={[mainStyle.inputLabel, { color: theme.sub }]}>Price</Text>
+                        <View style={[mainStyle.fieldStyle]}>
+                            <Controller
+                                control={control}
+                                rules={{
+                                    required: true,
+                                }}
+                                render={({ field: { onChange, onBlur, value } }) => (
+                                    <TextInput
+                                        onBlur={onBlur}
+                                        onChangeText={onChange}
+                                        value={value}
+                                        placeholder={"Price"}
+                                        keyboardType='numeric'
+                                        placeholderTextColor={"#9E9E9E"}
+                                        style={[mainStyle.fieldTextStyle, { color: theme.textColor }]}
+                                    />
+                                )}
+                                name="price"
+                            />
+                        </View>
+                        {errors.price?.message && (
+                            <View style={mainStyle.errorView}>
+                                <Text style={mainStyle.errorText}>
+                                    {errors.price?.message}
+                                </Text>
+                            </View>
+                        )}
+                    </View>
+
+
+
+                    <View style={{ marginTop: heightPercentageToDP(2) }}>
+                        <Text style={[mainStyle.inputLabel, { color: theme.sub }]}>Description</Text>
+                        <View style={{
+                            borderWidth: 0.5,
+                            paddingVertical: heightPercentageToDP(1),
+                            borderRadius: widthPercentageToDP(1.5),
+                            borderColor: "#205E77",
+                            marginTop: heightPercentageToDP(1),
+                            minHeight: heightPercentageToDP(20),
+                            maxHeight: heightPercentageToDP(50),
+                        }}>
+                            <Controller
+                                control={control}
+                                rules={{
+                                    required: true,
+                                }}
+                                render={({ field: { onChange, onBlur, value } }) => (
+                                    <TextInput
+                                        onBlur={onBlur}
+                                        onChangeText={onChange}
+                                        value={value}
+                                        placeholder={"Add something here ..."}
+                                        placeholderTextColor={"#9E9E9E"}
+                                        numberOfLines={4}
+                                        textAlignVertical="top"
+                                        style={{
+                                            fontFamily: "poppinsRegular",
+                                            fontSize: heightPercentageToDP(1.5),
+                                            paddingHorizontal: widthPercentageToDP(5),
+                                            color: theme.textColor,
+                                        }}
+                                        multiline
+                                    />
+                                )}
+                                name="description"
+                            />
+                        </View>
+                        {errors.description?.message && (
+                            <View style={mainStyle.errorView}>
+                                <Text style={mainStyle.errorText}>
+                                    {errors.description?.message}
+                                </Text>
+                            </View>
+                        )}
+                    </View>
+
+
+                    <View style={{ marginTop: heightPercentageToDP(2) }}>
+                        <Text style={[mainStyle.inputLabel, { color: theme.sub }]}>Mileage</Text>
+                        <View style={[mainStyle.fieldStyle]}>
+                            <Controller
+                                control={control}
+                                rules={{
+                                    required: true,
+                                }}
+                                render={({ field: { onChange, onBlur, value } }) => (
+                                    <TextInput
+                                        onBlur={onBlur}
+                                        onChangeText={onChange}
+                                        value={value}
+                                        placeholder={"Mileage"}
+                                        keyboardType='numeric'
+                                        placeholderTextColor={"#9E9E9E"}
+                                        style={[mainStyle.fieldTextStyle, { color: theme.textColor }]}
+                                    />
+                                )}
+                                name="mileage"
+                            />
+                        </View>
+                        {errors.mileage?.message && (
+                            <View style={mainStyle.errorView}>
+                                <Text style={mainStyle.errorText}>
+                                    {errors.mileage?.message}
+                                </Text>
+                            </View>
+                        )}
+                    </View>
+
+
+                    <View style={{ marginTop: heightPercentageToDP(2) }}>
+                        <Text style={[mainStyle.inputLabel, { color: theme.sub }]}>Emirates</Text>
+                        <Controller
+                            control={control}
+                            rules={{
+                                required: true,
+                            }}
+                            render={({ field: { onChange, onBlur, value } }) => {
+                                return (
+                                    <SelectList
+                                        setSelected={onChange}
+                                        data={cityData ?? []}
+                                        arrowicon={
+                                            <Feather
+                                                name="chevron-down"
+                                                size={20}
+                                                color={theme.textColor}
+                                            />
+                                        }
+                                        save="key"
+                                        placeholder={"Emirates"}
+                                        search={false}
+                                        maxHeight={300}
+                                        boxStyles={{
+                                            height: heightPercentageToDP(6.5),
+                                            alignItems: 'center',
+                                            borderColor: '#0a5ca8',
+                                            marginTop: heightPercentageToDP(1.2),
+                                            borderWidth: 0.5,
+                                        }}
+                                        inputStyles={{ fontFamily: "poppinsRegular", fontSize: heightPercentageToDP(1.5), color: value ? theme.textColor : "#9E9E9E" }}
+                                        dropdownStyles={{
+                                            borderRadius: 6,
+                                            borderWidth: 0.5,
+                                            backgroundColor: theme.card
+                                        }}
+                                        dropdownTextStyles={{
+                                            fontFamily: "poppinsRegular",
+                                            fontSize: heightPercentageToDP(1.5),
+                                            marginTop: heightPercentageToDP(1.2),
+                                            color: theme.textColor
+                                        }}
+                                    />
+                                )
+                            }}
+                            name="city"
+                        />
+
+                        {errors.city?.message && (
+                            <View style={mainStyle.errorView}>
+                                <Text style={mainStyle.errorText}>
+                                    {errors.city?.message}
+                                </Text>
+                            </View>
+                        )}
+                    </View>
+
+
+                    <View style={{ marginTop: heightPercentageToDP(2) }}>
+                        <Text style={[mainStyle.inputLabel, { color: theme.sub }]}>Communities</Text>
+                        <Controller
+                            control={control}
+                            rules={{
+                                required: true,
+                            }}
+                            render={({ field: { onChange, onBlur, value } }) => {
+                                return (
+                                    <SelectList
+                                        setSelected={onChange}
+                                        data={communityData ?? []}
+                                        arrowicon={
+                                            <Feather
+                                                name="chevron-down"
+                                                size={20}
+                                                color={theme.textColor}
+                                            />
+                                        }
+                                        save="key"
+                                        placeholder={"Communities"}
+                                        search={false}
+                                        maxHeight={300}
+                                        boxStyles={{
+                                            height: heightPercentageToDP(6.5),
+                                            alignItems: 'center',
+                                            borderColor: '#0a5ca8',
+                                            marginTop: heightPercentageToDP(1.2),
+                                            borderWidth: 0.5,
+                                        }}
+                                        inputStyles={{ fontFamily: "poppinsRegular", fontSize: heightPercentageToDP(1.5), color: value ? theme.textColor : "#9E9E9E" }}
+                                        dropdownStyles={{
+                                            borderRadius: 6,
+                                            borderWidth: 0.5,
+                                            backgroundColor: theme.card
+                                        }}
+                                        dropdownTextStyles={{
+                                            fontFamily: "poppinsRegular",
+                                            fontSize: heightPercentageToDP(1.5),
+                                            marginTop: heightPercentageToDP(1.2),
+                                            color: theme.textColor
+                                        }}
+                                    />
+                                )
+                            }}
+                            name="community"
+                        />
+                        {errors.community?.message && (
+                            <View style={mainStyle.errorView}>
+                                <Text style={mainStyle.errorText}>
+                                    {errors.community?.message}
+                                </Text>
+                            </View>
+                        )}
+                    </View>
+
+
+                    <View style={{ marginTop: heightPercentageToDP(2) }}>
+                        <Text style={[mainStyle.inputLabel, { color: theme.sub }]}>Variant</Text>
+                        <Controller
+                            control={control}
+                            rules={{
+                                required: true,
+                            }}
+                            render={({ field: { onChange, onBlur, value } }) => {
+                                return (
+                                    <SelectList
+                                        setSelected={onChange}
+                                        data={Variant ?? []}
+                                        arrowicon={
+                                            <Feather
+                                                name="chevron-down"
+                                                size={20}
+                                                color={theme.textColor}
+                                            />
+                                        }
+                                        save="key"
+                                        placeholder={"Variant"}
+                                        search={false}
+                                        maxHeight={300}
+                                        boxStyles={{
+                                            height: heightPercentageToDP(6.5),
+                                            alignItems: 'center',
+                                            borderColor: '#0a5ca8',
+                                            marginTop: heightPercentageToDP(1.2),
+                                            borderWidth: 0.5,
+                                        }}
+                                        inputStyles={{ fontFamily: "poppinsRegular", fontSize: heightPercentageToDP(1.5), color: value ? theme.textColor : "#9E9E9E" }}
+                                        dropdownStyles={{
+                                            borderRadius: 6,
+                                            borderWidth: 0.5,
+                                            backgroundColor: theme.card
+                                        }}
+                                        dropdownTextStyles={{
+                                            fontFamily: "poppinsRegular",
+                                            fontSize: heightPercentageToDP(1.5),
+                                            marginTop: heightPercentageToDP(1.2),
+                                            color: theme.textColor
+                                        }}
+                                    />
+                                )
+                            }}
+                            name="variant"
+                        />
+
+                        {errors.variant?.message && (
+                            <View style={mainStyle.errorView}>
+                                <Text style={mainStyle.errorText}>
+                                    {errors.variant?.message}
+                                </Text>
+                            </View>
+                        )}
+                    </View>
+
+
+                    <View style={{ marginTop: heightPercentageToDP(2) }}>
+                        <Text style={[mainStyle.inputLabel, { color: theme.sub }]}>Usage</Text>
+                        <Controller
+                            control={control}
+                            rules={{
+                                required: true,
+                            }}
+                            render={({ field: { onChange, onBlur, value } }) => {
+                                return (
+                                    <SelectList
+                                        setSelected={onChange}
+                                        data={MotorUsage ?? []}
+                                        arrowicon={
+                                            <Feather
+                                                name="chevron-down"
+                                                size={20}
+                                                color={theme.textColor}
+                                            />
+                                        }
+                                        save="key"
+                                        placeholder={"Usage"}
+                                        search={false}
+                                        maxHeight={300}
+                                        boxStyles={{
+                                            height: heightPercentageToDP(6.5),
+                                            alignItems: 'center',
+                                            borderColor: '#0a5ca8',
+                                            marginTop: heightPercentageToDP(1.2),
+                                            borderWidth: 0.5,
+                                        }}
+                                        inputStyles={{ fontFamily: "poppinsRegular", fontSize: heightPercentageToDP(1.5), color: value ? theme.textColor : "#9E9E9E" }}
+                                        dropdownStyles={{
+                                            borderRadius: 6,
+                                            borderWidth: 0.5,
+                                            backgroundColor: theme.card
+                                        }}
+                                        dropdownTextStyles={{
+                                            fontFamily: "poppinsRegular",
+                                            fontSize: heightPercentageToDP(1.5),
+                                            marginTop: heightPercentageToDP(1.2),
+                                            color: theme.textColor
+                                        }}
+                                    />
+                                )
+                            }}
+                            name="usage"
+                        />
+
+                        {errors.usage?.message && (
+                            <View style={mainStyle.errorView}>
+                                <Text style={mainStyle.errorText}>
+                                    {errors.usage?.message}
+                                </Text>
+                            </View>
+                        )}
+                    </View>
+
+
+                    <View style={{ marginTop: heightPercentageToDP(2) }}>
+                        <Text style={[mainStyle.inputLabel, { color: theme.sub }]}>Model Year</Text>
+                        <Controller
+                            control={control}
+                            rules={{
+                                required: true,
+                            }}
+                            render={({ field: { onChange, onBlur, value } }) => {
+                                return (
+                                    <SelectList
+                                        setSelected={onChange}
+                                        data={Year ?? []}
+                                        arrowicon={
+                                            <Feather
+                                                name="chevron-down"
+                                                size={20}
+                                                color={theme.textColor}
+                                            />
+                                        }
+                                        save="key"
+                                        placeholder={"Model Year"}
+                                        search={false}
+                                        maxHeight={300}
+                                        boxStyles={{
+                                            height: heightPercentageToDP(6.5),
+                                            alignItems: 'center',
+                                            borderColor: '#0a5ca8',
+                                            marginTop: heightPercentageToDP(1.2),
+                                            borderWidth: 0.5,
+                                        }}
+                                        inputStyles={{ fontFamily: "poppinsRegular", fontSize: heightPercentageToDP(1.5), color: value ? theme.textColor : "#9E9E9E" }}
+                                        dropdownStyles={{
+                                            borderRadius: 6,
+                                            borderWidth: 0.5,
+                                            backgroundColor: theme.card
+                                        }}
+                                        dropdownTextStyles={{
+                                            fontFamily: "poppinsRegular",
+                                            fontSize: heightPercentageToDP(1.5),
+                                            marginTop: heightPercentageToDP(1.2),
+                                            color: theme.textColor
+                                        }}
+                                    />
+                                )
+                            }}
+                            name="year"
+                        />
+                        {errors.year?.message && (
+                            <View style={mainStyle.errorView}>
+                                <Text style={mainStyle.errorText}>
+                                    {errors.year?.message}
+                                </Text>
+                            </View>
+                        )}
+                    </View>
+
+
+                    <View style={{ marginTop: heightPercentageToDP(2) }}>
+                        <Text style={[mainStyle.inputLabel, { color: theme.sub }]}>Seller Type</Text>
+                        <Controller
+                            control={control}
+                            rules={{
+                                required: true,
+                            }}
+                            render={({ field: { onChange, onBlur, value } }) => {
+                                return (
+                                    <SelectList
+                                        setSelected={onChange}
+                                        data={SellerType ?? []}
+                                        arrowicon={
+                                            <Feather
+                                                name="chevron-down"
+                                                size={20}
+                                                color={theme.textColor}
+                                            />
+                                        }
+                                        save="key"
+                                        placeholder={"Seller Type"}
+                                        search={false}
+                                        maxHeight={300}
+                                        boxStyles={{
+                                            height: heightPercentageToDP(6.5),
+                                            alignItems: 'center',
+                                            borderColor: '#0a5ca8',
+                                            marginTop: heightPercentageToDP(1.2),
+                                            borderWidth: 0.5,
+                                        }}
+                                        inputStyles={{ fontFamily: "poppinsRegular", fontSize: heightPercentageToDP(1.5), color: value ? theme.textColor : "#9E9E9E" }}
+                                        dropdownStyles={{
+                                            borderRadius: 6,
+                                            borderWidth: 0.5,
+                                            backgroundColor: theme.card
+                                        }}
+                                        dropdownTextStyles={{
+                                            fontFamily: "poppinsRegular",
+                                            fontSize: heightPercentageToDP(1.5),
+                                            marginTop: heightPercentageToDP(1.2),
+                                            color: theme.textColor
+                                        }}
+                                    />
+                                )
+                            }}
+                            name="sellertype"
+                        />
+                        {errors.sellertype?.message && (
+                            <View style={mainStyle.errorView}>
+                                <Text style={mainStyle.errorText}>
+                                    {errors.sellertype?.message}
+                                </Text>
+                            </View>
+                        )}
+                    </View>
+
+                    <View style={{ marginTop: heightPercentageToDP(2) }}>
+                        <Text style={[mainStyle.inputLabel, { color: theme.sub }]}>Warranty</Text>
+                        <Controller
+                            control={control}
+                            rules={{
+                                required: true,
+                            }}
+                            render={({ field: { onChange, onBlur, value } }) => {
+                                return (
+                                    <SelectList
+                                        setSelected={onChange}
+                                        data={Warranty ?? []}
+                                        arrowicon={
+                                            <Feather
+                                                name="chevron-down"
+                                                size={20}
+                                                color={theme.textColor}
+                                            />
+                                        }
+                                        save="key"
+                                        placeholder={"Warranty"}
+                                        search={false}
+                                        maxHeight={300}
+                                        boxStyles={{
+                                            height: heightPercentageToDP(6.5),
+                                            alignItems: 'center',
+                                            borderColor: '#0a5ca8',
+                                            marginTop: heightPercentageToDP(1.2),
+                                            borderWidth: 0.5,
+                                        }}
+                                        inputStyles={{ fontFamily: "poppinsRegular", fontSize: heightPercentageToDP(1.5), color: value ? theme.textColor : "#9E9E9E" }}
+                                        dropdownStyles={{
+                                            borderRadius: 6,
+                                            borderWidth: 0.5,
+                                            backgroundColor: theme.card
+                                        }}
+                                        dropdownTextStyles={{
+                                            fontFamily: "poppinsRegular",
+                                            fontSize: heightPercentageToDP(1.5),
+                                            marginTop: heightPercentageToDP(1.2),
+                                            color: theme.textColor
+                                        }}
+                                    />
+                                )
+                            }}
+                            name="warranty"
+                        />
+                        {errors.warranty?.message && (
+                            <View style={mainStyle.errorView}>
+                                <Text style={mainStyle.errorText}>
+                                    {errors.warranty?.message}
+                                </Text>
+                            </View>
+                        )}
+                    </View>
+
+                    <View style={{ marginTop: heightPercentageToDP(2) }}>
+                        <Text style={[mainStyle.inputLabel, { color: theme.sub }]}>Final Drive System</Text>
+                        <Controller
+                            control={control}
+                            rules={{
+                                required: true,
+                            }}
+                            render={({ field: { onChange, onBlur, value } }) => {
+                                return (
+                                    <SelectList
+                                        setSelected={onChange}
+                                        data={FinalDriveSystem ?? []}
+                                        arrowicon={
+                                            <Feather
+                                                name="chevron-down"
+                                                size={20}
+                                                color={theme.textColor}
+                                            />
+                                        }
+                                        save="key"
+                                        placeholder={"Final Drive System"}
+                                        search={false}
+                                        maxHeight={300}
+                                        boxStyles={{
+                                            height: heightPercentageToDP(6.5),
+                                            alignItems: 'center',
+                                            borderColor: '#0a5ca8',
+                                            marginTop: heightPercentageToDP(1.2),
+                                            borderWidth: 0.5,
+                                        }}
+                                        inputStyles={{ fontFamily: "poppinsRegular", fontSize: heightPercentageToDP(1.5), color: value ? theme.textColor : "#9E9E9E" }}
+                                        dropdownStyles={{
+                                            borderRadius: 6,
+                                            borderWidth: 0.5,
+                                            backgroundColor: theme.card
+                                        }}
+                                        dropdownTextStyles={{
+                                            fontFamily: "poppinsRegular",
+                                            fontSize: heightPercentageToDP(1.5),
+                                            marginTop: heightPercentageToDP(1.2),
+                                            color: theme.textColor
+                                        }}
+                                    />
+                                )
+                            }}
+                            name="final_drive_system"
+                        />
+                        {errors.final_drive_system?.message && (
+                            <View style={mainStyle.errorView}>
+                                <Text style={mainStyle.errorText}>
+                                    {errors.final_drive_system?.message}
+                                </Text>
+                            </View>
+                        )}
+                    </View>
+
+                    <View style={{ marginTop: heightPercentageToDP(2) }}>
+                        <Text style={[mainStyle.inputLabel, { color: theme.sub }]}>Wheels</Text>
+                        <Controller
+                            control={control}
+                            rules={{
+                                required: true,
+                            }}
+                            render={({ field: { onChange, onBlur, value } }) => {
+                                return (
+                                    <SelectList
+                                        setSelected={onChange}
+                                        data={Wheels ?? []}
+                                        arrowicon={
+                                            <Feather
+                                                name="chevron-down"
+                                                size={20}
+                                                color={theme.textColor}
+                                            />
+                                        }
+                                        save="key"
+                                        placeholder={"Final Drive System"}
+                                        search={false}
+                                        maxHeight={300}
+                                        boxStyles={{
+                                            height: heightPercentageToDP(6.5),
+                                            alignItems: 'center',
+                                            borderColor: '#0a5ca8',
+                                            marginTop: heightPercentageToDP(1.2),
+                                            borderWidth: 0.5,
+                                        }}
+                                        inputStyles={{ fontFamily: "poppinsRegular", fontSize: heightPercentageToDP(1.5), color: value ? theme.textColor : "#9E9E9E" }}
+                                        dropdownStyles={{
+                                            borderRadius: 6,
+                                            borderWidth: 0.5,
+                                            backgroundColor: theme.card
+                                        }}
+                                        dropdownTextStyles={{
+                                            fontFamily: "poppinsRegular",
+                                            fontSize: heightPercentageToDP(1.5),
+                                            marginTop: heightPercentageToDP(1.2),
+                                            color: theme.textColor
+                                        }}
+                                    />
+                                )
+                            }}
+                            name="wheels"
+                        />
+                        {errors.wheels?.message && (
+                            <View style={mainStyle.errorView}>
+                                <Text style={mainStyle.errorText}>
+                                    {errors.wheels?.message}
+                                </Text>
+                            </View>
+                        )}
+                    </View>
+
+                    <View style={{ marginTop: heightPercentageToDP(2) }}>
+                        <Text style={[mainStyle.inputLabel, { color: theme.sub }]}>Manufacturer</Text>
+                        <Controller
+                            control={control}
+                            rules={{
+                                required: true,
+                            }}
+                            render={({ field: { onChange, onBlur, value } }) => {
+                                return (
+                                    <SelectList
+                                        setSelected={onChange}
+                                        data={motorBrand ?? []}
+                                        arrowicon={
+                                            <Feather
+                                                name="chevron-down"
+                                                size={20}
+                                                color={theme.textColor}
+                                            />
+                                        }
+                                        save="key"
+                                        placeholder={"Manufacturer"}
+                                        search={false}
+                                        maxHeight={300}
+                                        boxStyles={{
+                                            height: heightPercentageToDP(6.5),
+                                            alignItems: 'center',
+                                            borderColor: '#0a5ca8',
+                                            marginTop: heightPercentageToDP(1.2),
+                                            borderWidth: 0.5,
+                                        }}
+                                        inputStyles={{ fontFamily: "poppinsRegular", fontSize: heightPercentageToDP(1.5), color: value ? theme.textColor : "#9E9E9E" }}
+                                        dropdownStyles={{
+                                            borderRadius: 6,
+                                            borderWidth: 0.5,
+                                            backgroundColor: theme.card
+                                        }}
+                                        dropdownTextStyles={{
+                                            fontFamily: "poppinsRegular",
+                                            fontSize: heightPercentageToDP(1.5),
+                                            marginTop: heightPercentageToDP(1.2),
+                                            color: theme.textColor
+                                        }}
+                                    />
+                                )
+                            }}
+                            name="manufactors"
+                        />
+                        {errors.manufactors?.message && (
+                            <View style={mainStyle.errorView}>
+                                <Text style={mainStyle.errorText}>
+                                    {errors.manufactors?.message}
+                                </Text>
+                            </View>
+                        )}
+                    </View>
+                    <View style={{ marginTop: heightPercentageToDP(2) }}>
+                        <Text style={[mainStyle.inputLabel, { color: theme.sub }]}>Engine Size</Text>
+                        <Controller
+                            control={control}
+                            rules={{
+                                required: true,
+                            }}
+                            render={({ field: { onChange, onBlur, value } }) => {
+                                return (
+                                    <SelectList
+                                        setSelected={onChange}
+                                        data={EngineSize ?? []}
+                                        arrowicon={
+                                            <Feather
+                                                name="chevron-down"
+                                                size={20}
+                                                color={theme.textColor}
+                                            />
+                                        }
+                                        save="key"
+                                        placeholder={"Engine Size"}
+                                        search={false}
+                                        maxHeight={300}
+                                        boxStyles={{
+                                            height: heightPercentageToDP(6.5),
+                                            alignItems: 'center',
+                                            borderColor: '#0a5ca8',
+                                            marginTop: heightPercentageToDP(1.2),
+                                            borderWidth: 0.5,
+                                        }}
+                                        inputStyles={{ fontFamily: "poppinsRegular", fontSize: heightPercentageToDP(1.5), color: value ? theme.textColor : "#9E9E9E" }}
+                                        dropdownStyles={{
+                                            borderRadius: 6,
+                                            borderWidth: 0.5,
+                                            backgroundColor: theme.card
+                                        }}
+                                        dropdownTextStyles={{
+                                            fontFamily: "poppinsRegular",
+                                            fontSize: heightPercentageToDP(1.5),
+                                            marginTop: heightPercentageToDP(1.2),
+                                            color: theme.textColor
+                                        }}
+                                    />
+                                )
+                            }}
+                            name="engine_size"
+                        />
+
+                        {errors.engine_size?.message && (
+                            <View style={mainStyle.errorView}>
+                                <Text style={mainStyle.errorText}>
+                                    {errors.engine_size?.message}
+                                </Text>
+                            </View>
+                        )}
+                    </View>
+
+
 
                 </View>
             </KeyboardAwareScrollView>

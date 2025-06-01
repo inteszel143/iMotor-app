@@ -1,4 +1,4 @@
-import { postNewCar } from '@/apis/ListingService';
+import { postNewMotor } from '@/apis/ListingService';
 import GlobalHeader from '@/components/GlobalHeader';
 import Tloader from '@/components/Tloader';
 import { darkTheme, lightTheme } from '@/constants/darkmode';
@@ -11,11 +11,10 @@ import React, { useState } from 'react';
 import { Image, Platform, Pressable, ScrollView, Text, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 const Page = () => {
+    const { motor_type, motor_attributes } = useLocalSearchParams();
+    const parseMotor = JSON.parse(motor_attributes as any);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>("");
-    const { car_information, car_attributes } = useLocalSearchParams();
-    const parseCarInfo = JSON.parse(car_information as any);
-    const parseCarAttribute = JSON.parse(car_attributes as any);
     const colorScheme = useColorScheme();
     const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
     const listingData = [
@@ -24,127 +23,85 @@ const Page = () => {
             value: "standard"
         },
         {
-            label: "Make & Model",
-            value: parseCarInfo?.makeModel
+            label: "Model",
+            value: parseMotor?.model
         },
         {
-            label: "Trim",
-            value: parseCarInfo?.trim
+            label: "Variant",
+            value: parseMotor?.variant
         },
         {
-            label: "Regional Spec",
-            value: parseCarInfo?.regional
+            label: "Type",
+            value: motor_type
         },
         {
             label: "Model Year",
-            value: parseCarInfo?.year
+            value: parseMotor?.year
         },
         {
-            label: "Mileage",
-            value: formatNumber(parseCarInfo?.mileage)
-        },
-        {
-            label: "Is your car insured in UAE?",
-            value: parseCarInfo?.insured
+            label: "Kilometers",
+            value: formatNumber(parseMotor?.mileage)
         },
         {
             label: "Price",
-            value: formatNumber(parseCarInfo?.price)
+            value: formatNumber(parseMotor?.price)
+        },
+        {
+            label: "Seller Type",
+            value: parseMotor?.sellertype
         },
     ];
 
-    const additionalDetails = [
+    const addtionalList = [
         {
-            label: "Exterior Color",
-            value: parseCarAttribute?.exterior_color
+            label: "Usage",
+            value: "standard"
         },
         {
-            label: "Interior Color",
-            value: parseCarAttribute?.interior_color
+            label: "Final drive system",
+            value: parseMotor?.final_drive_system
         },
         {
-            label: "Seating Capacity",
-            value: parseCarAttribute?.seating_capacity
+            label: "Wheels",
+            value: parseMotor?.wheels
         },
         {
-            label: "Doors",
-            value: parseCarAttribute?.door
-        },
-        {
-            label: "Body Type",
-            value: parseCarAttribute?.bodyType
-        },
-        {
-            label: "Fuel Type",
-            value: parseCarAttribute?.fueltype
-        },
-        {
-            label: "Steering Side",
-            value: parseCarAttribute?.steering
-        },
-        {
-            label: "No. of Cylinder",
-            value: parseCarAttribute?.cylinder
-        },
-        {
-            label: "Engine Capacity (cc)",
-            value: parseCarAttribute?.enginecapacity
+            label: "Engine size",
+            value: parseMotor?.engine_size
         },
         {
             label: "Warranty",
-            value: parseCarAttribute?.warranty
-        },
-        {
-            label: "Transmission Type",
-            value: parseCarAttribute?.transmission
-        },
-        {
-            label: "Safety Features",
-            value: parseCarAttribute?.safety_feature?.join(', ')
-        },
-        {
-            label: "Amenities",
-            value: parseCarAttribute?.amenities?.join(', ')
+            value: parseMotor?.warranty
         },
     ];
-
-
     const onSubmit = async () => {
         setLoading(true);
         const accessToken = await SecureStore.getItemAsync('accessToken');
         const decode = parseToken(accessToken as string);
         const userId = decode?.sub?.id;
-        const feturedImage = parseCarAttribute?.image;
-        const imageUris = parseCarAttribute?.multile_image?.map((asset: any) => asset.uri);
+        const feturedImage = parseMotor?.image;
+        const imageUris = parseMotor?.multile_image?.map((asset: any) => asset.uri);
 
         const formData = new FormData();
         try {
-            formData.append("model_year", parseCarInfo?.year ?? "");
-            formData.append("location_id", parseCarInfo?.city);
-            formData.append("brand_id", parseCarInfo?.brand ?? "");
-            formData.append("variant", "");
-            formData.append("community_id", parseCarInfo?.community ?? "");
-            formData.append("model", parseCarInfo?.makeModel);
-            formData.append("trim", parseCarInfo?.trim);
-            formData.append("regional_spec", parseCarInfo?.regional);
-            formData.append("mileage", parseCarInfo?.mileage);
-            formData.append("insured_uae", parseCarInfo?.insured);
-            formData.append("price", parseCarInfo?.price);
-            formData.append("description", parseCarInfo?.description);
-            formData.append("exterior_color", parseCarAttribute?.exterior_color);
-            formData.append("fuel_type", parseCarAttribute?.fueltype);
-            formData.append("interior_color", parseCarAttribute?.interior_color);
-            formData.append("warranty", parseCarAttribute?.warranty);
-            formData.append("doors", parseCarAttribute?.door);
-            formData.append("no_of_cylinders", parseCarAttribute?.cylinder);
-            formData.append("transmission_type", parseCarAttribute?.transmission);
-            formData.append("body_type", parseCarAttribute?.bodyType);
-            formData.append("seating_capacity", parseCarAttribute?.seating_capacity);
-            formData.append("horse_power", parseCarAttribute?.horsepower);
-            formData.append("engine_capacity", parseCarAttribute?.enginecapacity);
-            formData.append("steering_hand", parseCarAttribute?.steering);
-            formData.append("safety_features", parseCarAttribute?.safety_feature ?? []);
-            formData.append("amenities", parseCarAttribute?.amenities ?? []);
+            formData.append("model_year", parseMotor?.year);
+            formData.append("location_id", parseMotor?.city);
+            formData.append("brand_id", parseMotor?.manufactors);
+            formData.append("variant", parseMotor?.variant);
+            formData.append("community_id", parseMotor?.community);
+            formData.append("model", parseMotor?.model);
+            formData.append("mileage", parseMotor?.mileage);
+            formData.append("price", parseMotor?.price);
+            formData.append("description", parseMotor?.description);
+            formData.append("type", motor_type as string);
+            formData.append("usage", parseMotor?.usage);
+            formData.append("warranty", parseMotor?.warranty);
+            formData.append("wheels", parseMotor?.wheels);
+            formData.append("seller_type", parseMotor?.sellertype);
+            formData.append("final_drive_system", parseMotor?.final_drive_system);
+            formData.append("engine_size", parseMotor?.engine_size);
+            formData.append("safety_features", "");
+            formData.append("amenities", "");
             formData.append("vin", "");
             formData.append("user_id", userId);
             formData.append("featured_as", "standard");
@@ -168,8 +125,8 @@ const Page = () => {
                     type: `image/${fileType}`,
                 });
             });
-            const response = await postNewCar(formData);
-            if (response?.message === "Car successfully listed!") {
+            const response = await postNewMotor(formData);
+            if (response?.message === "Motorcycle successfully listed!") {
                 router.push('/SuccessListing');
                 setLoading(false);
             } else {
@@ -181,8 +138,6 @@ const Page = () => {
             setLoading(false);
         }
     }
-
-
     return (
         <View style={{ flex: 1, backgroundColor: theme.backgroundColor2 }}>
             <GlobalHeader headerTitle='Summary' />
@@ -191,8 +146,6 @@ const Page = () => {
                 <View style={{
                     paddingHorizontal: widthPercentageToDP(5)
                 }}>
-
-
                     {error && <View style={{
                         backgroundColor: "#FEE2E2",
                         marginTop: heightPercentageToDP(2.5),
@@ -219,6 +172,8 @@ const Page = () => {
                             }}>{error}</Text>
                         </View>
                     </View>}
+
+
                     <View style={{
                         backgroundColor: colorScheme === "dark" ? "#1C1C1E" : "#f4f6f8",
                         paddingVertical: heightPercentageToDP(2),
@@ -238,7 +193,7 @@ const Page = () => {
 
                         <View>
                             <Image
-                                source={{ uri: parseCarAttribute?.image }}
+                                source={{ uri: parseMotor?.image }}
                                 resizeMode='cover'
                                 style={{
                                     width: widthPercentageToDP(80),
@@ -273,7 +228,7 @@ const Page = () => {
                             gap: widthPercentageToDP(2),
                             flexWrap: 'wrap',
                         }}>
-                            {parseCarAttribute?.multile_image?.map((uri: any, index: number) => (
+                            {parseMotor?.multile_image?.map((uri: any, index: number) => (
                                 <View key={index} style={{ position: 'relative', marginRight: 10 }}>
                                     <Image
                                         source={{ uri }}
@@ -286,8 +241,8 @@ const Page = () => {
                                 </View>
                             ))}
                         </View>
-
                     </View>
+
 
 
                     <View style={{
@@ -342,8 +297,6 @@ const Page = () => {
 
 
 
-
-
                     <View style={{
                         backgroundColor: colorScheme === "dark" ? "#1C1C1E" : "#f4f6f8",
                         paddingVertical: heightPercentageToDP(2),
@@ -363,7 +316,7 @@ const Page = () => {
                         </View>
 
                         <View>
-                            {additionalDetails?.map((item, index) => (
+                            {addtionalList?.map((item, index) => (
                                 <View key={index}
                                     style={{
                                         flexDirection: 'row',
@@ -393,8 +346,12 @@ const Page = () => {
                             ))}
                         </View>
                     </View>
+
+
+
                 </View>
             </ScrollView>
+
             <View style={{
                 paddingBottom: Platform.OS === 'android' ? heightPercentageToDP(8) : heightPercentageToDP(4),
                 paddingHorizontal: widthPercentageToDP(6)
@@ -416,7 +373,6 @@ const Page = () => {
                     }}>Create new listing</Text>
                 </Pressable>
             </View>
-
 
         </View>
     )

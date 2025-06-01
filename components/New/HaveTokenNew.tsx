@@ -79,7 +79,8 @@ const HaveTokenNew = () => {
                             >
                                 <Text style={{
                                     fontFamily: "poppinsRegular",
-                                    fontSize: heightPercentageToDP(1.6)
+                                    fontSize: heightPercentageToDP(1.6),
+                                    color: theme.textColor
                                 }}>{item?.label}</Text>
                                 <Feather name='chevron-right' size={heightPercentageToDP(2)} color={theme.sub} />
                             </Pressable>

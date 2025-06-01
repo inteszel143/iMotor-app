@@ -1,4 +1,4 @@
-import { getAllBrand, getAllCities, getAllCommunities, getAllMakeModel, getAllTrim } from "@/apis/LocationService";
+import { getAllBrand, getAllCities, getAllCommunities, getAllMakeModel, getAllManufacturer, getAllTrim } from "@/apis/LocationService";
 import { useQuery } from "@tanstack/react-query";
 
 export const useGetAllCities = (isFocused: boolean) => {
@@ -20,6 +20,19 @@ export const useGetAllBrand = (isFocused: boolean) => {
         enabled: isFocused,
         queryFn: async () => {
             const data = await getAllBrand();
+            return data?.map((item: any) => ({
+                key: item?.id,
+                value: item.name
+            }))
+        }
+    })
+};
+export const useGetAllManufacturer = (isFocused: boolean) => {
+    return useQuery({
+        queryKey: ['all-brand-motors'],
+        enabled: isFocused,
+        queryFn: async () => {
+            const data = await getAllManufacturer();
             return data?.map((item: any) => ({
                 key: item?.id,
                 value: item.name

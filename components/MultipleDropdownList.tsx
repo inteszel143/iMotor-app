@@ -185,7 +185,6 @@ const MultipleDropdownList: React.FC<MultipleDropdownListProps> = ({
 const styles = StyleSheet.create({
     boxStyles: {
         minHeight: heightPercentageToDP(6.5),
-        maxHeight: heightPercentageToDP(50),
         alignItems: 'center',
         borderColor: '#205E77',
         marginTop: heightPercentageToDP(1.2),

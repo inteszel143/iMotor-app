@@ -25,6 +25,19 @@ export const getAllCommunities = async (location_id: string) => {
     }
 }
 
+export const getAllManufacturer = async () => {
+    try {
+        const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/client/motorcycle-brand-view`, {
+            method: 'GET',
+            headers: {
+            },
+        });
+        const json = await response.json();
+        return json?.data || [];
+    } catch (error) {
+        return Promise.reject(error);
+    }
+}
 export const getAllBrand = async () => {
     try {
         const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/client/car-brand-view`, {
@@ -64,3 +77,4 @@ export const getAllTrim = async (make_id: string) => {
         return Promise.reject(error);
     }
 }
+

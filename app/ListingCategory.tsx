@@ -19,7 +19,7 @@ const Page = () => {
         {
             icon: "motorbike",
             label: "Motors",
-            route: "/ChangeDepartmentPage"
+            route: "/motor-listing/MotorType"
         },
         {
             icon: "fire-truck",
