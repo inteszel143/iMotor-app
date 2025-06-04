@@ -215,7 +215,6 @@ export const MotorType = [
     { name: 'Cruiser / Chopper' },
     { name: 'Off road' },
     { name: 'Scooter' },
-    { name: 'Scooter' },
     { name: 'Standard / Commuter' },
     { name: 'Cafe racer' },
     { name: 'Trike' },
@@ -259,4 +258,86 @@ export const EngineSize = [
     { key: '750cc - 999cc', value: '750cc - 999cc' },
     { key: '1,000cc or more', value: '1,000cc or more' },
     { key: 'Does not apply', value: 'Does not apply' },
+];
+
+
+// Heavy Truck
+export const TruckType1 = [
+    { name: 'Trucks' },
+    { name: 'Buses' },
+    { name: 'Forklifts' },
+    { name: 'Trailers' },
+    { name: 'Cranes' },
+    { name: 'Tankers' },
+    { name: 'Parts & Engines' },
+    { name: 'Other Heavy Vehicles' },
+];
+export const TruckType2 = [
+    { name: 'Trucks' },
+    { name: 'Buses' },
+    { name: 'Forklifts' },
+    { name: 'Trailers' },
+    { name: 'Cranes' },
+    { name: 'Tankers' },
+    { name: 'Parts & Engines' },
+    { name: 'Other Heavy Vehicles' },
+];
+export const BodyCondition = [
+    { key: 'Perfect inside and out', value: 'Perfect inside and out' },
+    { key: 'No accidents, very few faults', value: 'No accidents, very few faults' },
+    { key: 'A bit of wear & tear, all repaired', value: 'A bit of wear & tear, all repaired' },
+    { key: 'Normal wear & tear a few issues', value: 'Normal wear & tear a few issues' },
+    { key: 'Lots of wear & tear to the body', value: 'Lots of wear & tear to the body' },
+];
+export const MechanicalCondition = [
+    { key: 'Perfect inside and out', value: 'Perfect inside and out' },
+    { key: 'Minor faults, all fixed', value: 'Minor faults, all fixed' },
+    { key: 'Major faults, all fixed', value: 'Major faults, all fixed' },
+    { key: 'Major faults fixed, small remain', value: 'Major faults fixed, small remain' },
+    { key: 'Ongoing minor & major faults', value: 'Ongoing minor & major faults' },
+];
+
+
+// Boat
+export const BoatCategory = [
+    { name: 'Motorboats' },
+    { name: 'Sailboats' },
+    { name: 'Row/Paddle Boats' },
+];
+export const Age = [
+    { key: 'Brand New', value: 'Brand New' },
+    { key: '0-1 month', value: '0-1 month' },
+    { key: '1-6 month', value: '1-6 month' },
+    { key: '6-12 month', value: '6-12 month' },
+    { key: '1-2 years', value: '1-2 years' },
+    { key: '2-5 years', value: '2-5 years' },
+    { key: '5-10 years', value: '5-10 years' },
+    { key: '10+ years', value: '10+ years' },
+];
+export const BoatUsage = [
+    { key: 'Still with the dealer', value: 'Still with the dealer' },
+    { key: 'Only used once since it was purchased new', value: 'Only used once since it was purchased new' },
+    { key: 'Used only a few times since it was purchased new', value: 'Used only a few times since it was purchased new' },
+    { key: 'Used once or twice a month since purchased', value: 'Used once or twice a month since purchased' },
+    { key: 'Used numerous times per week since purchased', value: 'Used numerous times per week since purchased' },
+];
+export const Condition = [
+    { key: 'Perfect inside and out', value: 'Perfect inside and out' },
+    { key: 'Almost no noticeable problems or flaws', value: 'Almost no noticeable problems or flaws' },
+    { key: 'A big of wear and tear, but in good working condition', value: 'A big of wear and tear, but in good working condition' },
+    { key: 'Normal wear and tear for the age of the item, a few problems here and there', value: 'Normal wear and tear for the age of the item, a few problems here and there' },
+    { key: 'Above average wear and tear. The item may need a bit of repair to work properly', value: 'Above average wear and tear. The item may need a bit of repair to work properly' },
+];
+
+export const Length = [
+    { key: 'Under 10 ft.', value: 'Under 10 ft.' },
+    { key: '10-14 ft.', value: '10-14 ft.' },
+    { key: '15-19 ft.', value: '15-19 ft.' },
+    { key: '20-24 ft.', value: '20-24 ft.' },
+    { key: '25-29 ft.', value: '25-29 ft.' },
+    { key: '30-39 ft.', value: '30-39 ft.' },
+    { key: '40-49 ft.', value: '40-49 ft.' },
+    { key: '50-69 ft.', value: '50-69 ft.' },
+    { key: '70-100 ft.', value: '70-100 ft.' },
+    { key: '100+ ft.', value: '100+ ft.' },
 ]

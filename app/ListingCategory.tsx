@@ -24,12 +24,12 @@ const Page = () => {
         {
             icon: "fire-truck",
             label: "Heavy Vehicles",
-            route: "/ChangeDepartmentPage"
+            route: "/truck-listing/TruckType1"
         },
         {
             icon: "sail-boat",
             label: "Boats",
-            route: "/ChangeDepartmentPage"
+            route: "/boat-listing/BoatCategory"
         },
         {
             icon: "briefcase-clock-outline",

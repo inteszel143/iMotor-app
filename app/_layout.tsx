@@ -67,6 +67,17 @@ export default function RootLayout() {
               <Stack.Screen name="motor-listing/MotorAttributes" options={{ animation: "slide_from_right", headerShown: false }} />
               <Stack.Screen name="motor-listing/MotorSummary" options={{ animation: "slide_from_right", headerShown: false }} />
 
+              {/* TRUCK */}
+              <Stack.Screen name="truck-listing/TruckType1" options={{ animation: "slide_from_right", headerShown: false }} />
+              <Stack.Screen name="truck-listing/TruckType2" options={{ animation: "slide_from_right", headerShown: false }} />
+              <Stack.Screen name="truck-listing/TruckAttributes" options={{ animation: "slide_from_right", headerShown: false }} />
+              <Stack.Screen name="truck-listing/TruckSummary" options={{ animation: "slide_from_right", headerShown: false }} />
+
+              {/* BOAT */}
+              <Stack.Screen name="boat-listing/BoatCategory" options={{ animation: "slide_from_right", headerShown: false }} />
+              <Stack.Screen name="boat-listing/BoatType" options={{ animation: "slide_from_right", headerShown: false }} />
+              <Stack.Screen name="boat-listing/BoatAttributes" options={{ animation: "slide_from_right", headerShown: false }} />
+              <Stack.Screen name="boat-listing/BoatSummary" options={{ animation: "slide_from_right", headerShown: false }} />
 
               <Stack.Screen name="HomeFilterPage" options={{ headerShown: false, animation: "fade", }} />
             </Stack>

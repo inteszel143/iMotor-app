@@ -26,7 +26,7 @@ const HomeHeader = () => {
 
     return (
         <View style={{
-            paddingTop: insets?.top + heightPercentageToDP(1.5),
+            paddingTop: insets?.top + heightPercentageToDP(1),
             paddingHorizontal: widthPercentageToDP(5),
             paddingBottom: Platform.OS === "android" ? heightPercentageToDP(2.5) : heightPercentageToDP(1),
             backgroundColor: theme.backgroundColor2
