@@ -2,7 +2,7 @@
   "expo": {
     "name": "iMotor.app",
     "slug": "iMotor-app",
-    "version": "1.1.1",
+    "version": "1.2.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "imotorapp",
@@ -73,13 +73,6 @@
         }
       ],
       ["expo-apple-authentication"],
-      [
-        "react-native-maps",
-        {
-          "iosGoogleMapsApiKey": "AIzaSyD_x_jkpt33ZX96mrYSO4w65oRtLr9nxlo",
-          "androidGoogleMapsApiKey": "AIzaSyAHmtNmFT8nsIb519PlVAEN-Zgtm02ig1s"
-        }
-      ],
       [
         "expo-dev-client",
         {

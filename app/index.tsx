@@ -19,14 +19,18 @@ const Page = () => {
             router.push('/(tabs)');
             setLogin('login', 'not-log');
         } else {
-            const params = {
-                refresh_token: refreshToken,
+            try {
+                const params = {
+                    refresh_token: refreshToken,
+                }
+                const response = await appOpenRefresh(params);
+                await SecureStore.setItemAsync('accessToken', response?.access_token);
+                await SecureStore.setItemAsync('refreshToken', response?.refresh_token);
+                setLogin('login', 'log');
+                router.push('/(tabs)');
+            } catch (error) {
+                router.push('/(tabs)');
             }
-            const response = await appOpenRefresh(params);
-            await SecureStore.setItemAsync('accessToken', response?.access_token);
-            await SecureStore.setItemAsync('refreshToken', response?.refresh_token);
-            setLogin('login', 'log');
-            router.push('/(tabs)');
         }
     };
     useEffect(() => {
