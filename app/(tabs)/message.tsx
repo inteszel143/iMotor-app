@@ -98,7 +98,7 @@ const Page = () => {
                                     }}
                                         onPress={() => router.push({
                                             pathname: '/ChatScreen',
-                                            params: { receiver_id: item?.other_user_id }
+                                            params: { receiver_id: item?.other_user_id, full_name: item?.other_user_full_name, profile_image: item?.other_user_profile_picture }
                                         })}
                                     >
                                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -106,7 +106,7 @@ const Page = () => {
                                                 {item?.other_user_profile_picture === null ? <View style={[styles.circleView, {
                                                     borderWidth: 2,
                                                     borderRadius: widthPercentageToDP(50),
-                                                    borderColor: "#15803d",
+                                                    borderColor: "#0a5ca8",
                                                 }]}>
                                                     <Text style={styles.circleText}>
                                                         {(item?.other_user_full_name?.[0] || '').toUpperCase()}
@@ -119,7 +119,7 @@ const Page = () => {
                                                             height: widthPercentageToDP(14),
                                                             borderRadius: widthPercentageToDP(50),
                                                             borderWidth: 2,
-                                                            borderColor: "#15803d",
+                                                            borderColor: "#0a5ca8",
                                                         }}
                                                         source={{
                                                             uri: `${process.env.EXPO_PUBLIC_API_URL}/uploaded_img/${item.other_user_profile_picture}`,

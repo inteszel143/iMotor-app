@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
 
@@ -9,7 +9,7 @@ import * as SecureStore from 'expo-secure-store';
 
 export const useChatHistory = (receiver_id: string) => {
     return useQuery({
-        queryKey: ['history'],
+        queryKey: ['history', receiver_id],
         queryFn: async () => {
             try {
                 const accessToken = await SecureStore.getItemAsync('accessToken');
@@ -74,3 +74,15 @@ export const postSendMessage = async (data: any) => {
         return Promise.reject(error);
     }
 }
+
+export const usePostSendMessage = (options: any) => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: postSendMessage,
+        onSettled: async () => {
+            queryClient.invalidateQueries({ queryKey: ["history"] });
+            queryClient.invalidateQueries({ queryKey: ["inbox"] });
+        },
+        ...options,
+    });
+};

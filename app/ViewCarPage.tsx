@@ -28,7 +28,6 @@ const Page = () => {
         setActiveIndex(index);
     };
 
-
     const feature = [
         {
             label: "Exterior Color",
@@ -482,7 +481,12 @@ const Page = () => {
                             borderRadius: widthPercentageToDP(2),
                             backgroundColor: "#f0f4fd"
                         }}
-                            onPress={() => Alert.alert("Feature Coming Soon", "We’re working hard to bring this page to life. Stay tuned for updates!")}
+                            onPress={() => router.push({
+                                pathname: '/ChatScreen',
+                                params: {
+                                    receiver_id: data?.user?.id, full_name: data?.user?.first_name + ' ' + data?.user?.last_name, profile_image: data?.user?.profile_picture
+                                }
+                            })}
                         >
                             <Ionicons name='chatbox-ellipses-outline' size={heightPercentageToDP(2)} />
                             <Text style={{
@@ -493,7 +497,7 @@ const Page = () => {
                     </View>
                 </View>
             </View>
-        </View>
+        </View >
     )
 }
 
