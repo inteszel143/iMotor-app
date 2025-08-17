@@ -25,8 +25,17 @@
               "iweft",
               "com.googleusercontent.apps.237084984780-oj2g0uh2v47fsh0a20fp01le3c8kslek"
             ]
+          },
+          {
+            "CFBundleURLSchemes": [
+              "iweft",
+              "com.googleusercontent.apps.237084984780-oj2g0uh2v47fsh0a20fp01le3c8kslek"
+            ]
           }
         ]
+      },
+      "runtimeVersion": {
+        "policy": "appVersion"
       }
     },
     "android": {
@@ -36,9 +45,13 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "permissions": ["android.permission.RECORD_AUDIO"],
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.RECORD_AUDIO"
+      ],
       "package": "com.imotorapp37.iMotorapp",
-      "googleServicesFile": "./assets/animate/google-services.json"
+      "googleServicesFile": "./assets/animate/google-services.json",
+      "runtimeVersion": "1.0.0"
     },
     "web": {
       "bundler": "metro",
@@ -72,7 +85,9 @@
           "photosPermission": "The app accesses your photos to let you share them with your friends."
         }
       ],
-      ["expo-apple-authentication"],
+      [
+        "expo-apple-authentication"
+      ],
       [
         "expo-dev-client",
         {
@@ -88,6 +103,9 @@
       "eas": {
         "projectId": "e8d9faf4-7cd0-4ade-953a-4cb17769e122"
       }
+    },
+    "updates": {
+      "url": "https://u.expo.dev/e8d9faf4-7cd0-4ade-953a-4cb17769e122"
     }
   }
 }
