@@ -18,21 +18,7 @@
       },
       "bundleIdentifier": "com.imotorapp37.iMotorapp",
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false,
-        "CFBundleURLTypes": [
-          {
-            "CFBundleURLSchemes": [
-              "iweft",
-              "com.googleusercontent.apps.237084984780-oj2g0uh2v47fsh0a20fp01le3c8kslek"
-            ]
-          },
-          {
-            "CFBundleURLSchemes": [
-              "iweft",
-              "com.googleusercontent.apps.237084984780-oj2g0uh2v47fsh0a20fp01le3c8kslek"
-            ]
-          }
-        ]
+        "ITSAppUsesNonExemptEncryption": false
       },
       "runtimeVersion": {
         "policy": "appVersion"
@@ -45,10 +31,7 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "permissions": [
-        "android.permission.RECORD_AUDIO",
-        "android.permission.RECORD_AUDIO"
-      ],
+      "permissions": ["android.permission.RECORD_AUDIO"],
       "package": "com.imotorapp37.iMotorapp",
       "runtimeVersion": "1.0.0"
     },
