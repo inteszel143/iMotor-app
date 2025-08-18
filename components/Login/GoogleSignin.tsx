@@ -1,7 +1,7 @@
 import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import React, { useEffect } from 'react';
-import { Image, Pressable, Text, useColorScheme, View } from 'react-native';
+import { Alert, Image, Pressable, Text, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 const GoogleSignIn = () => {
     const colorScheme = useColorScheme();
@@ -51,7 +51,8 @@ const GoogleSignIn = () => {
                 justifyContent: 'center',
                 borderRadius: widthPercentageToDP(2),
             }}
-                onPress={signIn}
+                // onPress={signIn}
+                onPress={() => Alert.alert("Feature Coming Soon", "We’re working hard to bring this page to life. Stay tuned for updates!")}
             >
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: widthPercentageToDP(3) }}>
                     <Image

@@ -53,7 +53,10 @@ const AppleSignin = () => {
                 justifyContent: 'center',
                 borderRadius: widthPercentageToDP(2),
                 marginTop: heightPercentageToDP(2),
-            }} onPress={login}>
+            }}
+                // onPress={login}
+                onPress={() => Alert.alert("Feature Coming Soon", "We’re working hard to bring this page to life. Stay tuned for updates!")}
+            >
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: widthPercentageToDP(3) }}>
                     <FontAwesome name='apple' size={heightPercentageToDP(3)} color={"#000000"} />
                     <Text style={{
