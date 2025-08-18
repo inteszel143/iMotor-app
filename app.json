@@ -50,7 +50,6 @@
         "android.permission.RECORD_AUDIO"
       ],
       "package": "com.imotorapp37.iMotorapp",
-      "googleServicesFile": "./assets/animate/google-services.json",
       "runtimeVersion": "1.0.0"
     },
     "web": {
@@ -85,9 +84,7 @@
           "photosPermission": "The app accesses your photos to let you share them with your friends."
         }
       ],
-      [
-        "expo-apple-authentication"
-      ],
+      ["expo-apple-authentication"],
       [
         "expo-dev-client",
         {
