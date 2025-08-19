@@ -1,6 +1,4 @@
 import { darkTheme, lightTheme } from '@/constants/darkmode';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import React, { useEffect } from 'react';
 import { Alert, Image, Pressable, Text, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 const GoogleSignIn = () => {
@@ -8,38 +6,38 @@ const GoogleSignIn = () => {
     const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
 
 
-    const configureGoogleSignIn = () => {
-        GoogleSignin.configure({
-            webClientId:
-                "237084984780-3ea73mo0lin71riud43opsddgstkgckc.apps.googleusercontent.com",
-            iosClientId:
-                "237084984780-oj2g0uh2v47fsh0a20fp01le3c8kslek.apps.googleusercontent.com",
-        });
-    };
-    useEffect(() => {
-        configureGoogleSignIn();
-    });
+    // const configureGoogleSignIn = () => {
+    //     GoogleSignin.configure({
+    //         webClientId:
+    //             "237084984780-3ea73mo0lin71riud43opsddgstkgckc.apps.googleusercontent.com",
+    //         iosClientId:
+    //             "237084984780-oj2g0uh2v47fsh0a20fp01le3c8kslek.apps.googleusercontent.com",
+    //     });
+    // };
+    // useEffect(() => {
+    //     configureGoogleSignIn();
+    // });
 
-    const signIn = async () => {
-        GoogleSignin.signOut();
-        try {
-            await GoogleSignin.hasPlayServices();
-            const userInfo = await GoogleSignin.signIn();
-            console.log(userInfo);
-            // const response = await signInWithGoogle(userInfo?.user?.email, userInfo?.user?.name, userInfo?.user?.id, expoPushToken?.data);
-            // await SecureStore.setItemAsync('accessToken', response?.access?.token);
+    // const signIn = async () => {
+    //     GoogleSignin.signOut();
+    //     try {
+    //         await GoogleSignin.hasPlayServices();
+    //         const userInfo = await GoogleSignin.signIn();
+    //         console.log(userInfo);
+    //         // const response = await signInWithGoogle(userInfo?.user?.email, userInfo?.user?.name, userInfo?.user?.id, expoPushToken?.data);
+    //         // await SecureStore.setItemAsync('accessToken', response?.access?.token);
 
-            // setRefreshToken(response?.refresh?.token);
-            // setSuccessLogin(true);
-        } catch (e) {
-            // if (errorRes(e) === "The email you provided is already taken.") {
-            //     setErrorLoginModal(true);
-            // } else {
-            //     return;
-            // }
-            console.log(e);
-        }
-    };
+    //         // setRefreshToken(response?.refresh?.token);
+    //         // setSuccessLogin(true);
+    //     } catch (e) {
+    //         // if (errorRes(e) === "The email you provided is already taken.") {
+    //         //     setErrorLoginModal(true);
+    //         // } else {
+    //         //     return;
+    //         // }
+    //         console.log(e);
+    //     }
+    // };
 
     return (
         <View>
