@@ -14,7 +14,6 @@
     "@d11/react-native-fast-image": "^8.9.2",
     "@expo/vector-icons": "^14.1.0",
     "@hookform/resolvers": "^5.0.1",
-    "@react-native-google-signin/google-signin": "^14.0.1",
     "@react-navigation/bottom-tabs": "^7.3.10",
     "@react-navigation/elements": "^2.3.8",
     "@react-navigation/native": "^7.1.6",
@@ -39,6 +38,7 @@
     "expo-status-bar": "~2.2.3",
     "expo-symbols": "~0.4.5",
     "expo-system-ui": "~5.0.10",
+    "expo-updates": "~0.28.17",
     "expo-web-browser": "~14.2.0",
     "jwt-decode": "^4.0.0",
     "react": "19.0.0",
@@ -66,8 +66,7 @@
     "react-native-webview": "13.13.5",
     "socket.io-client": "^4.8.1",
     "yup": "^1.6.1",
-    "zustand": "^5.0.4",
-    "expo-updates": "~0.28.17"
+    "zustand": "^5.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
