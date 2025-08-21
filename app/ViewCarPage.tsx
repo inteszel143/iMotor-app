@@ -7,7 +7,7 @@ import FastImage from '@d11/react-native-fast-image';
 import { Feather, Ionicons } from '@expo/vector-icons';
 import { useIsFocused } from '@react-navigation/native';
 import { router, useLocalSearchParams } from 'expo-router';
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Alert, Image, Linking, NativeScrollEvent, NativeSyntheticEvent, Platform, Pressable, ScrollView, Text, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -438,7 +438,7 @@ const Page = () => {
                     }}
                         onPress={() => Alert.alert("Feature Coming Soon", "We’re working hard to bring this page to life. Stay tuned for updates!")}
                     >
-                        <Ionicons name='call-outline' size={heightPercentageToDP(2)} />
+                        <Ionicons name='calendar-outline' size={heightPercentageToDP(2)} />
                         <Text style={{
                             fontFamily: "poppinsMedium",
                             fontSize: heightPercentageToDP(1.6),

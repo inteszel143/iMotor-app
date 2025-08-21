@@ -50,20 +50,20 @@ const Category = () => {
     return (
         <View style={{
             marginTop: Platform.OS === "android" ? heightPercentageToDP(1) : heightPercentageToDP(2),
-            paddingHorizontal: widthPercentageToDP(6),
+            paddingHorizontal: widthPercentageToDP(5),
         }}>
             <View style={{
                 flexDirection: "row",
                 alignItems: 'center',
                 flexWrap: 'wrap',
                 justifyContent: 'space-between',
-                gap: widthPercentageToDP(2.5),
+                gap: widthPercentageToDP(2),
             }}>
                 {
                     data?.map((item, index) => (
                         <Pressable
                             style={{
-                                width: Platform?.OS === "android" ? widthPercentageToDP(40) : widthPercentageToDP(42),
+                                width: Platform?.OS === "android" ? widthPercentageToDP(42) : widthPercentageToDP(43),
                                 borderWidth: 0.5,
                                 alignItems: 'center',
                                 justifyContent: 'center',
