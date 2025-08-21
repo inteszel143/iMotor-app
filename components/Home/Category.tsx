@@ -58,6 +58,7 @@ const Category = () => {
                 flexWrap: 'wrap',
                 justifyContent: 'space-between',
                 gap: widthPercentageToDP(2),
+                alignSelf: 'center'
             }}>
                 {
                     data?.map((item, index) => (

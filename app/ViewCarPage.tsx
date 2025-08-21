@@ -4,7 +4,7 @@ import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { formatNumber } from '@/constants/format';
 import { useGetCarSingle } from '@/query/SingleQuery';
 import FastImage from '@d11/react-native-fast-image';
-import { Feather, Ionicons } from '@expo/vector-icons';
+import { Feather, FontAwesome, Ionicons } from '@expo/vector-icons';
 import { useIsFocused } from '@react-navigation/native';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useRef, useState } from 'react';
@@ -19,7 +19,6 @@ const Page = () => {
     const { data, isPending } = useGetCarSingle(isFocused, id as string);
     const colorScheme = useColorScheme();
     const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
-
     const scrollRef = useRef<ScrollView>(null);
     const [activeIndex, setActiveIndex] = useState(0);
 
@@ -77,7 +76,24 @@ const Page = () => {
             label: "Transmission Type",
             value: data?.cars?.transmission_type
         },
-    ]
+    ];
+
+    const sendWhatsApp = () => {
+        const phoneNumber = "+639123456789"; // Replace with the recipient's phone number (with country code)
+        const message = "Hello! This is a test message from my Expo app.";
+
+        let url = `whatsapp://send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+
+        Linking.canOpenURL(url)
+            .then((supported) => {
+                if (!supported) {
+                    Alert.alert("Error", "WhatsApp is not installed on this device");
+                } else {
+                    return Linking.openURL(url);
+                }
+            })
+            .catch((err) => Alert.alert("Error", err.message));
+    };
 
 
     if (isPending) {
@@ -410,12 +426,12 @@ const Page = () => {
             </View>
 
 
-            <View style={{
+            {data?.user?.whats_app_number ? <View style={{
                 backgroundColor: colorScheme === "dark" ? "#1C1C1E" : "#FFFFFF",
                 position: 'absolute',
                 paddingBottom: insets?.bottom,
                 bottom: 0,
-                height: heightPercentageToDP(11),
+                height: heightPercentageToDP(10),
                 width: widthPercentageToDP(100),
                 justifyContent: 'center',
                 paddingHorizontal: widthPercentageToDP(4),
@@ -426,24 +442,40 @@ const Page = () => {
                     justifyContent: 'space-between',
                 }}>
 
-                    <Pressable style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        gap: widthPercentageToDP(1),
-                        width: widthPercentageToDP(38),
-                        height: heightPercentageToDP(5),
-                        justifyContent: 'center',
-                        borderRadius: widthPercentageToDP(2),
-                        backgroundColor: "#f0f4fd"
-                    }}
-                        onPress={() => Alert.alert("Feature Coming Soon", "We’re working hard to bring this page to life. Stay tuned for updates!")}
-                    >
-                        <Ionicons name='calendar-outline' size={heightPercentageToDP(2)} />
-                        <Text style={{
-                            fontFamily: "poppinsMedium",
-                            fontSize: heightPercentageToDP(1.6),
-                        }}>Book Inspection</Text>
-                    </Pressable>
+                    {
+                        data?.user?.whats_app_number &&
+                        < Pressable style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            gap: widthPercentageToDP(1),
+                            width: widthPercentageToDP(38),
+                            height: heightPercentageToDP(5),
+                            justifyContent: 'center',
+                            borderRadius: widthPercentageToDP(2),
+                            backgroundColor: "#f0f4fd"
+                        }}
+                            onPress={async () => {
+                                const message = "Hello! I am interested in the car you listed on iMotorApp. Could you please provide more details?";
+                                const url = `whatsapp://send?phone=971${data?.user?.whats_app_number}&text=${encodeURIComponent(message)}`;
+                                try {
+                                    const supported = await Linking.canOpenURL(url);
+                                    if (!supported) {
+                                        Alert.alert("Error", "WhatsApp is not installed on this device");
+                                    } else {
+                                        await Linking.openURL(url);
+                                    }
+                                } catch (err: any) {
+                                    Alert.alert("Error", err.message);
+                                }
+                            }}
+                        >
+                            <FontAwesome name='whatsapp' size={heightPercentageToDP(2)} color={"#25d366"} />
+                            <Text style={{
+                                fontFamily: "poppinsMedium",
+                                fontSize: heightPercentageToDP(1.6),
+                                color: "#25d366",
+                            }}>Whatsapp</Text>
+                        </Pressable>}
 
                     <View style={{
                         flexDirection: 'row',
@@ -497,6 +529,70 @@ const Page = () => {
                     </View>
                 </View>
             </View>
+
+                :
+                <View style={{
+                    backgroundColor: colorScheme === "dark" ? "#1C1C1E" : "#FFFFFF",
+                    position: 'absolute',
+                    paddingBottom: insets?.bottom,
+                    bottom: 0,
+                    height: heightPercentageToDP(10),
+                    width: widthPercentageToDP(100),
+                    justifyContent: 'center',
+                    paddingHorizontal: widthPercentageToDP(4),
+                }}>
+                    <View style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                    }}>
+                        <Pressable style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            gap: widthPercentageToDP(1),
+                            width: widthPercentageToDP(44),
+                            height: heightPercentageToDP(5),
+                            justifyContent: 'center',
+                            borderRadius: widthPercentageToDP(2),
+                            backgroundColor: "#fff5f3"
+                        }}
+                            onPress={() => Linking.openURL(`tel:${data?.user?.contact_number}`).catch((err) => {
+                                Alert.alert('Error', 'Unable to make a call');
+                            })}
+                        >
+                            <Ionicons name='call-outline' size={heightPercentageToDP(2)} color={"red"} />
+                            <Text style={{
+                                fontFamily: "poppinsMedium",
+                                fontSize: heightPercentageToDP(1.6),
+                                color: "red",
+                            }}>Call</Text>
+                        </Pressable>
+                        <Pressable style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            gap: widthPercentageToDP(1),
+                            width: widthPercentageToDP(44),
+                            height: heightPercentageToDP(5),
+                            justifyContent: 'center',
+                            borderRadius: widthPercentageToDP(2),
+                            backgroundColor: "#f0f4fd"
+                        }}
+                            onPress={() => router.push({
+                                pathname: '/ChatScreen',
+                                params: {
+                                    receiver_id: data?.user?.id, full_name: data?.user?.first_name + ' ' + data?.user?.last_name, profile_image: data?.user?.profile_picture
+                                }
+                            })}
+                        >
+                            <Ionicons name='chatbox-ellipses-outline' size={heightPercentageToDP(2)} />
+                            <Text style={{
+                                fontFamily: "poppinsMedium",
+                                fontSize: heightPercentageToDP(1.6),
+                            }}>Chat</Text>
+                        </Pressable>
+                    </View>
+                </View>
+            }
         </View >
     )
 }
