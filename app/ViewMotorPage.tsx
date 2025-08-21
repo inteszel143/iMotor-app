@@ -98,7 +98,7 @@ const Page = () => {
                         bounces={false}
                     >
                         {
-                            !data?.listing_image || data?.listing_image == 0 ?
+                            !data?.listing_image || data?.listing_image === 0 ?
                                 <View style={{
                                     backgroundColor: "#e9e9f4",
                                     alignItems: 'center',

@@ -78,23 +78,6 @@ const Page = () => {
         },
     ];
 
-    const sendWhatsApp = () => {
-        const phoneNumber = "+639123456789"; // Replace with the recipient's phone number (with country code)
-        const message = "Hello! This is a test message from my Expo app.";
-
-        let url = `whatsapp://send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
-
-        Linking.canOpenURL(url)
-            .then((supported) => {
-                if (!supported) {
-                    Alert.alert("Error", "WhatsApp is not installed on this device");
-                } else {
-                    return Linking.openURL(url);
-                }
-            })
-            .catch((err) => Alert.alert("Error", err.message));
-    };
-
 
     if (isPending) {
         return <PendingView />
@@ -119,7 +102,7 @@ const Page = () => {
                         bounces={false}
                     >
                         {
-                            !data?.listing_image || data?.listing_image == 0 ?
+                            !data?.listing_image || data?.listing_image === 0 ?
                                 <View style={{
                                     backgroundColor: "#e9e9f4",
                                     alignItems: 'center',
