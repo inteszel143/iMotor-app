@@ -1,7 +1,7 @@
 import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { Entypo, Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { Alert, Pressable, Text, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 
@@ -17,18 +17,18 @@ const ProfileSetting = () => {
             value: "",
             route: "/EditProfilePage"
         },
-        {
-            icon: "settings-outline",
-            label: "Account settings",
-            value: "",
-            route: null
-        },
-        {
-            icon: "notifications-outline",
-            label: "Notification settings",
-            value: "",
-            route: null
-        },
+        // {
+        //     icon: "settings-outline",
+        //     label: "Account settings",
+        //     value: "",
+        //     route: null
+        // },
+        // {
+        //     icon: "notifications-outline",
+        //     label: "Notification settings",
+        //     value: "",
+        //     route: null
+        // },
         {
             icon: "shield-checkmark-outline",
             label: "Security",

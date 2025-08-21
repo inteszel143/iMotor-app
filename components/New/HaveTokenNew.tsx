@@ -2,7 +2,7 @@ import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { useStoreAds } from '@/store/useStoreAds';
 import { Feather } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { Pressable, Text, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 

@@ -65,12 +65,12 @@ const Category = () => {
                         <Pressable
                             style={{
                                 width: Platform?.OS === "android" ? widthPercentageToDP(42) : widthPercentageToDP(43),
-                                borderWidth: 0.5,
+                                borderWidth: 1,
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 borderRadius: widthPercentageToDP(1.5),
                                 paddingVertical: heightPercentageToDP(3),
-                                borderColor: colorScheme === 'dark' ? '#616161' : '#DADADA'
+                                borderColor: colorScheme === 'dark' ? '#616161' : '#DADADA',
                             }}
                             key={index}
                             onPress={() => router.push('/HomeFilterPage')}

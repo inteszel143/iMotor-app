@@ -6,11 +6,17 @@ import * as SecureStore from 'expo-secure-store';
 import { memo, useState } from 'react';
 import { Alert, Pressable, Text, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
+import CallUsModal from '../Modal/CallUsModal';
 import Tloader from '../Tloader';
 const FeedbackAndSupports = () => {
     const colorScheme = useColorScheme();
     const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
     const [loader, setLoader] = useState<boolean>(false);
+    const [showCallUsModal, setShowCallUsModal] = useState<boolean>(false);
+
+    const handleCallUs = () => {
+        setShowCallUsModal(true);
+    };
     const handleLogout = async () => {
         setLoader(true);
         try {
@@ -30,12 +36,12 @@ const FeedbackAndSupports = () => {
     };
 
     const data = [
-        {
-            icon: "document-text-outline",
-            label: "Blogs",
-            value: "",
-            route: null,
-        },
+        // {
+        //     icon: "document-text-outline",
+        //     label: "Blogs",
+        //     value: "",
+        //     route: null,
+        // },
         {
             icon: "headset-outline",
             label: "Support",
@@ -74,6 +80,7 @@ const FeedbackAndSupports = () => {
             marginTop: heightPercentageToDP(2)
         }}>
             {loader && <Tloader />}
+            {showCallUsModal && <CallUsModal modalVisible={showCallUsModal} setModalVisible={setShowCallUsModal} />}
             {
                 data?.map((item, index) => (
                     <View key={index}>
@@ -86,9 +93,14 @@ const FeedbackAndSupports = () => {
                             onPress={() => {
                                 if (item?.label === "Logout") {
                                     handleLogout();
+                                } else if (item?.label === "Support") {
+                                    handleCallUs();
+                                } else if (item?.label === "Call Us") {
+                                    handleCallUs();
                                 } else if (item?.route === null) {
                                     Alert.alert("Feature Coming Soon", "We’re working hard to bring this page to life. Stay tuned for updates!")
-                                } else {
+                                }
+                                else {
                                     router.push(item?.route as any);
                                 }
                             }}
@@ -126,7 +138,7 @@ const FeedbackAndSupports = () => {
                     </View>
                 ))
             }
-        </View>
+        </View >
     )
 }
 

@@ -1,6 +1,7 @@
 import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { Ionicons } from '@expo/vector-icons';
-import React, { memo } from 'react';
+import { router } from 'expo-router';
+import { memo } from 'react';
 import { Pressable, Text, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 
@@ -43,7 +44,9 @@ const MyAdsContent = () => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 borderRadius: widthPercentageToDP(2),
-            }}>
+            }}
+                onPress={() => router.push('/(tabs)/new')}
+            >
                 <Text style={{
                     fontFamily: "poppinsSemiBold",
                     fontSize: heightPercentageToDP(1.4),

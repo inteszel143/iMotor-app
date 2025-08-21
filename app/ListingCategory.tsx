@@ -1,7 +1,6 @@
 import { darkTheme, lightTheme } from '@/constants/darkmode';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import React from 'react';
 import { Alert, Platform, Pressable, Text, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 
@@ -46,9 +45,20 @@ const Page = () => {
 
     return (
         <View style={{ flex: 1, backgroundColor: theme.backgroundColor2 }}>
+
+            <Pressable style={{
+                marginTop: heightPercentageToDP(6),
+                paddingHorizontal: widthPercentageToDP(4),
+                height: heightPercentageToDP(4),
+                justifyContent: 'center',
+            }}
+                onPress={() => router.back()}
+            >
+                <Feather name='chevron-left' size={heightPercentageToDP(3)} />
+            </Pressable>
             <View style={{
                 alignItems: 'center',
-                marginTop: heightPercentageToDP(10)
+                marginTop: heightPercentageToDP(3)
             }}>
                 <Text style={{
                     fontFamily: "poppinsSemiBold",

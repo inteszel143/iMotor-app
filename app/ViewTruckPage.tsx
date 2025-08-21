@@ -440,18 +440,15 @@ const Page = () => {
                             backgroundColor: "#f0f4fd"
                         }}
                             onPress={async () => {
-                                const message = "Hello! I am interested in the car you listed on iMotorApp. Could you please provide more details?";
-                                const url = `whatsapp://send?phone=971${data?.user?.whats_app_number}&text=${encodeURIComponent(message)}`;
-                                try {
-                                    const supported = await Linking.canOpenURL(url);
-                                    if (!supported) {
-                                        Alert.alert("Error", "WhatsApp is not installed on this device");
-                                    } else {
-                                        await Linking.openURL(url);
-                                    }
-                                } catch (err: any) {
-                                    Alert.alert("Error", err.message);
-                                }
+                                const phoneNumber = '+971' + data?.user?.whats_app_number;
+                                const deepLink = `https://wa.me/${phoneNumber}`;
+                                Linking.openURL(deepLink)
+                                    .then((data) => {
+                                        console.log('WhatsApp Opened: ', data);
+                                    })
+                                    .catch(() => {
+                                        console.log('WhatsApp not installed on the device');
+                                    });
                             }}
                         >
                             <FontAwesome name='whatsapp' size={heightPercentageToDP(2)} color={"#25d366"} />
