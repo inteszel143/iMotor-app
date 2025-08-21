@@ -68,13 +68,13 @@ const Category = () => {
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 borderRadius: widthPercentageToDP(1.5),
-                                paddingVertical: heightPercentageToDP(4),
+                                paddingVertical: heightPercentageToDP(3),
                                 borderColor: colorScheme === 'dark' ? '#616161' : '#DADADA'
                             }}
                             key={index}
                             onPress={() => router.push('/HomeFilterPage')}
                         >
-                            <MaterialCommunityIcons name={item?.icon as any} size={heightPercentageToDP(2.5)} color={"#0a5ca8"} />
+                            <MaterialCommunityIcons name={item?.icon as any} size={heightPercentageToDP(3)} color={"#0a5ca8"} />
                             <Text style={{
                                 fontFamily: "poppinsMedium",
                                 fontSize: heightPercentageToDP(1.3),
