@@ -4,7 +4,7 @@ import { useGetUserData } from '@/query/UserQuery';
 import FastImage from '@d11/react-native-fast-image';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useIsFocused } from '@react-navigation/native';
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { Image, Text, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -25,7 +25,7 @@ const ProfileUI = () => {
                 marginTop: insets?.top + heightPercentageToDP(2),
                 alignSelf: 'center',
                 width: widthPercentageToDP(90),
-                borderWidth: 0.5,
+                borderWidth: 1,
                 paddingVertical: heightPercentageToDP(3),
                 borderRadius: widthPercentageToDP(1.5),
                 borderColor: colorScheme === "dark" ? "#616161" : "#DADADA",
@@ -41,7 +41,7 @@ const ProfileUI = () => {
             marginTop: insets?.top + heightPercentageToDP(2),
             alignSelf: 'center',
             width: widthPercentageToDP(90),
-            borderWidth: 0.5,
+            borderWidth: 1,
             paddingVertical: heightPercentageToDP(3),
             borderRadius: widthPercentageToDP(1.5),
             borderColor: colorScheme === "dark" ? "#616161" : "#DADADA",

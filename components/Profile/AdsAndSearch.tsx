@@ -1,7 +1,7 @@
 import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { Alert, Pressable, Text, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 
@@ -22,7 +22,7 @@ const AdsAndSearch = () => {
                 <Pressable style={{
                     width: widthPercentageToDP(44),
                     height: heightPercentageToDP(10),
-                    borderWidth: 0.5,
+                    borderWidth: 1,
                     borderColor: colorScheme === "dark" ? "#616161" : "#DADADA",
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -41,7 +41,7 @@ const AdsAndSearch = () => {
                 <Pressable style={{
                     width: widthPercentageToDP(44),
                     height: heightPercentageToDP(10),
-                    borderWidth: 0.5,
+                    borderWidth: 1,
                     borderColor: colorScheme === "dark" ? "#616161" : "#DADADA",
                     alignItems: 'center',
                     justifyContent: 'center',
