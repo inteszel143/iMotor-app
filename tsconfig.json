@@ -2,8 +2,8 @@
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "strict": true,
-    "jsx": "react-jsx",
-    "allowJs": true,
+    "jsx": "react-jsx", // 👈 Enables JSX
+    "allowJs": true, // 👈 Allows importing JS files like AworkLogo.js
     "paths": {
       "@/*": ["./*"]
     }

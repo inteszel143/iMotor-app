@@ -8,7 +8,6 @@ import { Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as ImagePicker from 'expo-image-picker';
 import { router, useLocalSearchParams } from 'expo-router';
-import React from 'react';
 import { Controller, useForm } from "react-hook-form";
 import { Image, Platform, Pressable, ScrollView, Text, TouchableOpacity, useColorScheme, View } from 'react-native';
 import { SelectList } from 'react-native-dropdown-select-list';

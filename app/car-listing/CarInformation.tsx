@@ -8,7 +8,6 @@ import { Feather } from '@expo/vector-icons';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useIsFocused } from '@react-navigation/native';
 import { router } from 'expo-router';
-import React from 'react';
 import { Controller, useForm } from "react-hook-form";
 import { Platform, Pressable, Text, TextInput, useColorScheme, View } from 'react-native';
 import { SelectList } from 'react-native-dropdown-select-list';
