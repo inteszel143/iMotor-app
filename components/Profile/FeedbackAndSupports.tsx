@@ -3,7 +3,7 @@ import { removeLogin } from '@/storage/useLoginStore';
 import { Entypo, Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
-import React, { memo, useState } from 'react';
+import { memo, useState } from 'react';
 import { Alert, Pressable, Text, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import Tloader from '../Tloader';
@@ -34,37 +34,37 @@ const FeedbackAndSupports = () => {
             icon: "document-text-outline",
             label: "Blogs",
             value: "",
-            route: "/SwitchLanguagePage"
+            route: null,
         },
         {
             icon: "headset-outline",
             label: "Support",
             value: "",
-            route: "/ChangeDepartmentPage"
+            route: null,
         },
         {
             icon: "call-outline",
             label: "Call Us",
             value: "",
-            route: "/ChangeDepartmentPage"
+            route: null,
         },
         {
             icon: "newspaper-outline",
             label: "Terms & Conditions",
             value: "",
-            route: "/ChangeDepartmentPage"
+            route: "/TermsAndConditions"
         },
         {
             icon: "volume-high-outline",
             label: "Advertising",
             value: "",
-            route: "/ChangeDepartmentPage"
+            route: null,
         },
         {
             icon: "enter-outline",
             label: "Logout",
             value: "",
-            route: "/ChangeDepartmentPage"
+            route: "/",
         },
     ];
 
@@ -86,8 +86,10 @@ const FeedbackAndSupports = () => {
                             onPress={() => {
                                 if (item?.label === "Logout") {
                                     handleLogout();
-                                } else {
+                                } else if (item?.route === null) {
                                     Alert.alert("Feature Coming Soon", "We’re working hard to bring this page to life. Stay tuned for updates!")
+                                } else {
+                                    router.push(item?.route as any);
                                 }
                             }}
 
