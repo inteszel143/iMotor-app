@@ -11,7 +11,7 @@ const MessageHeader = () => {
 
     return (
         <View style={{
-            paddingTop: insets?.top + heightPercentageToDP(1),
+            paddingTop: insets?.top + heightPercentageToDP(1.5),
             backgroundColor: theme.card,
         }}>
 

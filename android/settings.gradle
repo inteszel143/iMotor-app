@@ -34,8 +34,6 @@ expoAutolinking.useExpoModules()
 rootProject.name = 'iMotor.app'
 
 expoAutolinking.useExpoVersionCatalog()
-include ':@d11_react-native-fast-image'
-project(':@d11_react-native-fast-image').projectDir = new File(rootProject.projectDir, '../node_modules/@d11/react-native-fast-image/android')
 
 include ':app'
 includeBuild(expoAutolinking.reactNativeGradlePlugin)
