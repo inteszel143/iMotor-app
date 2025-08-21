@@ -8,7 +8,6 @@ import PopularMotors from '@/components/Home/PopularMotors';
 import PopularTrucks from '@/components/Home/PopularTrucks';
 import Revolution from '@/components/Home/Revolution';
 import { darkTheme, lightTheme } from '@/constants/darkmode';
-import React from 'react';
 import { ScrollView, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP } from 'react-native-responsive-screen';
 

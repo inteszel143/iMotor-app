@@ -1,7 +1,7 @@
 import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { Platform, Pressable, Text, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 
@@ -33,24 +33,24 @@ const Category = () => {
             value: "",
             route: "/ChangeDepartmentPage"
         },
-        {
-            icon: "briefcase-clock-outline",
-            label: "Jobs",
-            value: "",
-            route: "/ChangeDepartmentPage"
-        },
-        {
-            icon: "warehouse",
-            label: "Rooms for Rent",
-            value: "",
-            route: "/ChangeDepartmentPage"
-        },
+        // {
+        //     icon: "briefcase-clock-outline",
+        //     label: "Jobs",
+        //     value: "",
+        //     route: "/ChangeDepartmentPage"
+        // },
+        // {
+        //     icon: "warehouse",
+        //     label: "Rooms for Rent",
+        //     value: "",
+        //     route: "/ChangeDepartmentPage"
+        // },
     ];
 
     return (
         <View style={{
             marginTop: Platform.OS === "android" ? heightPercentageToDP(1) : heightPercentageToDP(2),
-            paddingHorizontal: widthPercentageToDP(4),
+            paddingHorizontal: widthPercentageToDP(8),
         }}>
             <View style={{
                 flexDirection: "row",
@@ -63,7 +63,7 @@ const Category = () => {
                     data?.map((item, index) => (
                         <Pressable
                             style={{
-                                width: Platform?.OS === "android" ? widthPercentageToDP(28) : widthPercentageToDP(29),
+                                width: Platform?.OS === "android" ? widthPercentageToDP(39) : widthPercentageToDP(40),
                                 borderWidth: 0.5,
                                 alignItems: 'center',
                                 justifyContent: 'center',
