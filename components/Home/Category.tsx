@@ -50,7 +50,7 @@ const Category = () => {
     return (
         <View style={{
             marginTop: Platform.OS === "android" ? heightPercentageToDP(1) : heightPercentageToDP(2),
-            paddingHorizontal: widthPercentageToDP(8),
+            paddingHorizontal: widthPercentageToDP(6),
         }}>
             <View style={{
                 flexDirection: "row",
@@ -63,7 +63,7 @@ const Category = () => {
                     data?.map((item, index) => (
                         <Pressable
                             style={{
-                                width: Platform?.OS === "android" ? widthPercentageToDP(39) : widthPercentageToDP(40),
+                                width: Platform?.OS === "android" ? widthPercentageToDP(40) : widthPercentageToDP(42),
                                 borderWidth: 0.5,
                                 alignItems: 'center',
                                 justifyContent: 'center',

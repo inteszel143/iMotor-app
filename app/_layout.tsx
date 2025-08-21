@@ -63,6 +63,8 @@ export default function RootLayout() {
               <Stack.Screen name="car-listing/CarAttributes" options={{ animation: "slide_from_right", headerShown: false }} />
               <Stack.Screen name="car-listing/CarSummary" options={{ animation: "slide_from_right", headerShown: false }} />
 
+              <Stack.Screen name="ViewAllCarsPage" options={{ animation: "slide_from_right", headerShown: false }} />
+
               {/* MOTOR */}
               <Stack.Screen name="motor-listing/MotorType" options={{ animation: "slide_from_right", headerShown: false }} />
               <Stack.Screen name="motor-listing/MotorAttributes" options={{ animation: "slide_from_right", headerShown: false }} />

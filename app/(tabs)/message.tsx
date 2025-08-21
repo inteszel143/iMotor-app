@@ -12,8 +12,8 @@ import { useQueryClient } from '@tanstack/react-query';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
-import React, { useEffect, useState } from 'react';
-import { FlatList, Pressable, StyleSheet, Text, useColorScheme, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { FlatList, Image, Pressable, StyleSheet, Text, useColorScheme, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 const Page = () => {
@@ -94,7 +94,7 @@ const Page = () => {
                                         paddingHorizontal: widthPercentageToDP(5),
                                         paddingVertical: heightPercentageToDP(1),
                                         backgroundColor: colorScheme === "dark" ? "#121013" : "#FFFFFF",
-                                        marginTop: heightPercentageToDP(1),
+                                        marginTop: heightPercentageToDP(0.5),
                                     }}
                                         onPress={() => router.push({
                                             pathname: '/ChatScreen',
@@ -103,23 +103,22 @@ const Page = () => {
                                     >
                                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                                             <View style={{ flexDirection: 'row', alignItems: 'center', gap: widthPercentageToDP(3) }}>
-                                                {item?.other_user_profile_picture === null ? <View style={[styles.circleView, {
-                                                    borderWidth: 2,
-                                                    borderRadius: widthPercentageToDP(50),
-                                                    borderColor: "#0a5ca8",
-                                                }]}>
-                                                    <Text style={styles.circleText}>
-                                                        {(item?.other_user_full_name?.[0] || '').toUpperCase()}
-                                                    </Text>
-                                                </View>
+                                                {item?.other_user_profile_picture === "default_profile_picture.jpg" ? <Image
+
+                                                    source={require('@/assets/temp/defaultuser.png')}
+                                                    resizeMode='contain'
+                                                    style={{
+                                                        width: widthPercentageToDP(14),
+                                                        height: widthPercentageToDP(14),
+                                                        borderRadius: widthPercentageToDP(50),
+                                                    }}
+                                                />
                                                     :
                                                     <FastImage
                                                         style={{
                                                             width: widthPercentageToDP(14),
                                                             height: widthPercentageToDP(14),
                                                             borderRadius: widthPercentageToDP(50),
-                                                            borderWidth: 2,
-                                                            borderColor: "#0a5ca8",
                                                         }}
                                                         source={{
                                                             uri: `${process.env.EXPO_PUBLIC_API_URL}/uploaded_img/${item.other_user_profile_picture}`,
@@ -161,7 +160,6 @@ const Page = () => {
                                             </View>
                                         </View>
                                     </Pressable>
-                                    {/* <View style={{ height: 0.5, backgroundColor: colorScheme === "dark" ? "#616161" : "#DADADA" }} /> */}
                                 </Animated.View>
                             )
                         }}
@@ -192,7 +190,7 @@ const styles = StyleSheet.create({
     },
     circleText: {
         fontFamily: "MonMedium",
-        fontSize: heightPercentageToDP(1.9),
+        fontSize: heightPercentageToDP(2.5),
         color: "#FFFFFF"
     },
     unreadcircle: {
