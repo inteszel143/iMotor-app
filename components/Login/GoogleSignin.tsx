@@ -1,12 +1,14 @@
 import errorRes from '@/apis/errorRes';
 import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Image, Pressable, Text, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
+import Tloader from '../Tloader';
 const GoogleSignIn = () => {
     const colorScheme = useColorScheme();
     const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+    const [loading, setLoading] = useState<boolean>(false);
     const configureGoogleSignIn = () => {
         GoogleSignin.configure({
             webClientId:
@@ -28,8 +30,19 @@ const GoogleSignIn = () => {
             const userInfo = await GoogleSignin.signIn();
             console.log(userInfo);
             // const response = await signInWithGoogle(userInfo?.user?.email, userInfo?.user?.name, userInfo?.user?.id);
-            // await SecureStore.setItemAsync('accessToken', response?.access?.token);
-            // await SecureStore.setItemAsync('refreshToken', response?.refresh?.token);
+            // if (response?.message === "Logged in successfully") {
+            //     setLoading(true);
+            //     await SecureStore.setItemAsync('accessToken', response?.access_token);
+            //     await SecureStore.setItemAsync('refreshToken', response?.refresh_token);
+            //     setLogin('login', 'log');
+            //     setTimeout(() => {
+            //         setLoading(false);
+            //         router.replace('/(tabs)');
+            //     }, 2000)
+            // } else {
+            //     setLoading(false);
+            //     Alert.alert(response?.message)
+            // }
         } catch (e) {
             if (errorRes(e) === "The email you provided is already taken.") {
             } else {
@@ -41,6 +54,7 @@ const GoogleSignIn = () => {
 
     return (
         <View>
+            {loading && <Tloader />}
             <Pressable style={{
                 height: heightPercentageToDP(6),
                 borderWidth: 1,

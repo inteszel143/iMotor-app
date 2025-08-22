@@ -8,6 +8,7 @@ import * as SecureStore from 'expo-secure-store';
 import { memo, useState } from 'react';
 import { Alert, Pressable, Text, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
+import Tloader from '../Tloader';
 const AppleSignin = () => {
     const colorScheme = useColorScheme();
     const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
@@ -42,6 +43,7 @@ const AppleSignin = () => {
 
     return (
         <View>
+            {loading && <Tloader />}
             <Pressable style={{
                 height: heightPercentageToDP(6),
                 borderWidth: 1,
