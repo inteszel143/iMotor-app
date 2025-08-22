@@ -1,43 +1,43 @@
+import errorRes from '@/apis/errorRes';
 import { darkTheme, lightTheme } from '@/constants/darkmode';
-import { Alert, Image, Pressable, Text, useColorScheme, View } from 'react-native';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { useEffect } from 'react';
+import { Image, Pressable, Text, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 const GoogleSignIn = () => {
     const colorScheme = useColorScheme();
     const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+    const configureGoogleSignIn = () => {
+        GoogleSignin.configure({
+            webClientId:
+                "1074449350724-onnkt556htltvv0gu7anhh8k70fgisqj.apps.googleusercontent.com",
+            androidClientId:
+                "1074449350724-dqlppc8ckip68onsntb6kthek7i7m66t.apps.googleusercontent.com",
+            iosClientId:
+                "1074449350724-3rtvp6968f60cg38o1cc2nenqoc598tq.apps.googleusercontent.com",
+        });
+    };
+    useEffect(() => {
+        configureGoogleSignIn();
+    });
 
-
-    // const configureGoogleSignIn = () => {
-    //     GoogleSignin.configure({
-    //         webClientId:
-    //             "237084984780-3ea73mo0lin71riud43opsddgstkgckc.apps.googleusercontent.com",
-    //         iosClientId:
-    //             "237084984780-oj2g0uh2v47fsh0a20fp01le3c8kslek.apps.googleusercontent.com",
-    //     });
-    // };
-    // useEffect(() => {
-    //     configureGoogleSignIn();
-    // });
-
-    // const signIn = async () => {
-    //     GoogleSignin.signOut();
-    //     try {
-    //         await GoogleSignin.hasPlayServices();
-    //         const userInfo = await GoogleSignin.signIn();
-    //         console.log(userInfo);
-    //         // const response = await signInWithGoogle(userInfo?.user?.email, userInfo?.user?.name, userInfo?.user?.id, expoPushToken?.data);
-    //         // await SecureStore.setItemAsync('accessToken', response?.access?.token);
-
-    //         // setRefreshToken(response?.refresh?.token);
-    //         // setSuccessLogin(true);
-    //     } catch (e) {
-    //         // if (errorRes(e) === "The email you provided is already taken.") {
-    //         //     setErrorLoginModal(true);
-    //         // } else {
-    //         //     return;
-    //         // }
-    //         console.log(e);
-    //     }
-    // };
+    const signIn = async () => {
+        GoogleSignin.signOut();
+        try {
+            await GoogleSignin.hasPlayServices();
+            const userInfo = await GoogleSignin.signIn();
+            console.log(userInfo);
+            // const response = await signInWithGoogle(userInfo?.user?.email, userInfo?.user?.name, userInfo?.user?.id);
+            // await SecureStore.setItemAsync('accessToken', response?.access?.token);
+            // await SecureStore.setItemAsync('refreshToken', response?.refresh?.token);
+        } catch (e) {
+            if (errorRes(e) === "The email you provided is already taken.") {
+            } else {
+                return;
+            }
+            console.log(e);
+        }
+    };
 
     return (
         <View>
@@ -49,8 +49,7 @@ const GoogleSignIn = () => {
                 justifyContent: 'center',
                 borderRadius: widthPercentageToDP(2),
             }}
-                // onPress={signIn}
-                onPress={() => Alert.alert("Feature Coming Soon", "We’re working hard to bring this page to life. Stay tuned for updates!")}
+                onPress={signIn}
             >
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: widthPercentageToDP(3) }}>
                     <Image
