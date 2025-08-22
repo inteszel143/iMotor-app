@@ -3,7 +3,7 @@ import Tloader from '@/components/Tloader';
 import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { Ionicons } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Image, Pressable, StyleSheet, Text, useColorScheme, View } from 'react-native';
 import {
     CodeField,
