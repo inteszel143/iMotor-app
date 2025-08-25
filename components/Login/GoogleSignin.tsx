@@ -1,10 +1,13 @@
+import { signInWithGoogle } from '@/apis/AuthService';
 import { darkTheme, lightTheme } from '@/constants/darkmode';
+import { setLogin } from '@/storage/useLoginStore';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { router } from 'expo-router';
+import * as SecureStore from 'expo-secure-store';
 import { useEffect, useState } from 'react';
-import { Image, Text, TouchableOpacity, useColorScheme, View } from 'react-native';
+import { Alert, Image, Text, TouchableOpacity, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import Tloader from '../Tloader';
-
 const GoogleSignIn = () => {
     const colorScheme = useColorScheme();
     const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
@@ -22,7 +25,27 @@ const GoogleSignIn = () => {
         try {
             await GoogleSignin.hasPlayServices();
             const userInfo = await GoogleSignin.signIn();
-            console.log("User Info:", userInfo);
+            const params = {
+                email: userInfo?.data?.user?.email,
+                first_name: userInfo?.data?.user?.givenName,
+                last_name: userInfo?.data?.user?.familyName,
+                is_verified: true,
+            }
+            const response = await signInWithGoogle(params);
+            if (response?.message === "Logged in successfully") {
+                setLoading(true);
+                await SecureStore.setItemAsync('accessToken', response?.access_token);
+                await SecureStore.setItemAsync('refreshToken', response?.refresh_token);
+                setLogin('login', 'log');
+                setTimeout(() => {
+                    setLoading(false);
+                    router.replace('/(tabs)');
+                }, 2000)
+            } else {
+                setLoading(false);
+                Alert.alert(response?.message)
+            }
+
         } catch (e) {
             console.log("Google sign-in error:", e);
         }
