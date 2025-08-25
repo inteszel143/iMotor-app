@@ -65,7 +65,7 @@ const Category = () => {
                         <Pressable
                             style={{
                                 width: Platform?.OS === "android" ? widthPercentageToDP(42) : widthPercentageToDP(43),
-                                borderWidth: 1,
+                                borderWidth: 0.5,
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 borderRadius: widthPercentageToDP(1.5),
