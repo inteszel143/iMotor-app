@@ -6,7 +6,7 @@ import * as AppleAuthentication from 'expo-apple-authentication';
 import { router } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import { memo, useState } from 'react';
-import { Alert, Pressable, Text, useColorScheme, View } from 'react-native';
+import { Alert, Text, TouchableOpacity, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import Tloader from '../Tloader';
 const AppleSignin = () => {
@@ -44,7 +44,7 @@ const AppleSignin = () => {
     return (
         <View>
             {loading && <Tloader />}
-            <Pressable style={{
+            <TouchableOpacity style={{
                 height: heightPercentageToDP(6),
                 borderWidth: 1,
                 borderColor: colorScheme === 'dark' ? '#616161' : '#DADADA',
@@ -63,7 +63,7 @@ const AppleSignin = () => {
                         color: theme.textColor
                     }}>Continue with Apple</Text>
                 </View>
-            </Pressable>
+            </TouchableOpacity>
         </View>
     )
 }
