@@ -5,7 +5,7 @@ import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { mainStyle } from '@/constants/mainStyle';
 import { Ionicons } from '@expo/vector-icons';
 import { yupResolver } from "@hookform/resolvers/yup";
-import { router } from 'expo-router';
+import { Link, router } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import { Controller, useForm } from "react-hook-form";
 import { Image, Pressable, Text, useColorScheme, View } from 'react-native';
@@ -34,6 +34,7 @@ const Page = () => {
 
         errorShow: yup.boolean(),
         errorMessage: yup.string().nullable(),
+        mustAccept: yup.string().required('You must accept the terms and conditions.'),
     });
     const { control, handleSubmit, setValue, watch, formState: { errors }, } = useForm({
         resolver: yupResolver(schema),
@@ -254,11 +255,39 @@ const Page = () => {
                         )}
                     </View>
 
+                    <Pressable style={{
+                        alignItems: 'center',
+                        marginTop: heightPercentageToDP(1),
+                        paddingHorizontal: widthPercentageToDP(4),
+                    }}
+                        onPress={() => setValue('mustAccept', watch('mustAccept') ? '' : 'accepted')}
+                    >
+                        <View style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                        }}>
+                            <Ionicons name={watch('mustAccept') === "accepted" ? 'checkbox' : 'square-outline'} size={heightPercentageToDP(2.4)} color={watch('mustAccept') === "accepted" ? "#0a5ca8" : "#000000"} />
+                            <Text style={{
+                                fontFamily: "poppinsRegular",
+                                fontSize: heightPercentageToDP(1.5),
+                                color: theme.sub,
+                                textAlign: 'center',
+                                marginTop: heightPercentageToDP(2)
+                            }}>By signing up I agree to the <Link href={'/TermsAndConditions'}> <Text style={{ color: "#0a5ca8" }}>Terms of Service</Text></Link> and <Link href={'/TermsAndConditions'}><Text style={{ color: "#0a5ca8" }}>Privacy Policy.</Text></Link></Text>
+                        </View>
+                    </Pressable>
+                    {errors.mustAccept?.message && (
+                        <View style={mainStyle.errorView}>
+                            <Text style={mainStyle.errorText}>
+                                {(errors.mustAccept?.message)}
+                            </Text>
+                        </View>
+                    )}
 
                     <Pressable style={{
                         backgroundColor: "#0a5ca8",
                         height: heightPercentageToDP(6.5),
-                        marginTop: heightPercentageToDP(2),
+                        marginTop: heightPercentageToDP(3),
                         alignItems: "center",
                         justifyContent: 'center',
                         borderRadius: widthPercentageToDP(2),
@@ -272,24 +301,9 @@ const Page = () => {
                         }}>Register</Text>
                     </Pressable>
 
-                    <Pressable style={{
-                        alignItems: 'center',
-                        marginTop: heightPercentageToDP(3),
-                        paddingHorizontal: widthPercentageToDP(4),
-                    }}
-                        onPress={() => router.push('/TermsAndConditions')}
-                    >
-                        <Text style={{
-                            fontFamily: "poppinsRegular",
-                            fontSize: heightPercentageToDP(1.5),
-                            color: theme.sub,
-                            textAlign: 'center',
-                            marginTop: heightPercentageToDP(2),
-                        }}>By signing up I agree to the <Text style={{ color: "#0a5ca8" }}>Terms of Service</Text> and <Text style={{ color: "#0a5ca8" }}>Privacy Policy.</Text></Text>
-                    </Pressable>
                 </View>
-            </KeyboardAwareScrollView>
-        </View>
+            </KeyboardAwareScrollView >
+        </View >
     )
 }
 
