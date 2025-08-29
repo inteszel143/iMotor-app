@@ -13,7 +13,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import { useEffect, useState } from 'react';
-import { FlatList, Image, Pressable, StyleSheet, Text, useColorScheme, View } from 'react-native';
+import { FlatList, Image, Platform, Pressable, StyleSheet, Text, useColorScheme, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 const Page = () => {
@@ -82,6 +82,9 @@ const Page = () => {
                     :
                     <FlatList
                         data={data}
+                        contentContainerStyle={{
+                            paddingBottom: Platform.OS === "android" ? heightPercentageToDP(5.5) : heightPercentageToDP(7)
+                        }}
                         renderItem={({ item, }) => {
                             return (
                                 <Animated.View

@@ -7,9 +7,9 @@ import { Feather } from '@expo/vector-icons';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useQueryClient } from '@tanstack/react-query';
 import { router, useLocalSearchParams } from 'expo-router';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Controller, useForm } from "react-hook-form";
-import { FlatList, Keyboard, KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, TextInput, useColorScheme, View } from 'react-native';
+import { FlatList, Image, KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, TextInput, useColorScheme, View } from 'react-native';
 import { IMessage } from 'react-native-gifted-chat';
 import * as Progress from 'react-native-progress';
 import Animated, {
@@ -95,24 +95,23 @@ const Page = () => {
                             <Feather name='chevron-left' size={hp(3)} color={theme.textColor} />
                         </Pressable>
                         <View style={{ flexDirection: 'row', alignItems: 'center', gap: wp(4) }}>
-                            {profile_image === null ? <View style={[styles.circleView, {
-                                borderWidth: 2,
-                                borderRadius: widthPercentageToDP(50),
-                                borderColor: "#0a5ca8",
-                            }]}>
-                                <Text style={styles.circleText}>
-                                    {(full_name?.[0] || '').toUpperCase()}
-                                </Text>
-                            </View>
+                            {profile_image === "default_profile_picture.jpg" ?
+                                <Image
+                                    source={require('@/assets/temp/defaultuser.png')}
+                                    resizeMode='cover'
+                                    style={{
+                                        width: wp(10),
+                                        height: wp(10), borderRadius: widthPercentageToDP(50),
+                                    }}
+                                />
                                 :
                                 <FastImage
                                     style={{
                                         width: wp(10),
                                         height: wp(10),
                                         borderRadius: widthPercentageToDP(50),
-                                        borderWidth: 2,
-                                        borderColor: "#0a5ca8",
                                     }}
+                                    defaultSource={require('@/assets/temp/defaultuser.png')}
                                     source={{
                                         uri: `${process.env.EXPO_PUBLIC_API_URL}/uploaded_img/${profile_image}`,
                                         headers: { Authorization: 'someAuthToken' },
@@ -132,11 +131,11 @@ const Page = () => {
                             </View>
                         </View>
                     </View>
-                    <Pressable onPress={() => {
+                    {/* <Pressable onPress={() => {
                         Keyboard.dismiss();
                     }}>
                         <Feather name='more-vertical' size={hp(2)} color={theme.sub} />
-                    </Pressable>
+                    </Pressable> */}
                 </View>
                 <View style={{ height: 0.5, backgroundColor: colorScheme === "dark" ? "#333536" : "#DADADA", marginTop: hp(1) }} />
             </View>
