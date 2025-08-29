@@ -7,7 +7,6 @@ import { Ionicons } from '@expo/vector-icons';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { router } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
-import React from 'react';
 import { Controller, useForm } from "react-hook-form";
 import { Image, Pressable, Text, useColorScheme, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
@@ -273,11 +272,13 @@ const Page = () => {
                         }}>Register</Text>
                     </Pressable>
 
-                    <View style={{
+                    <Pressable style={{
                         alignItems: 'center',
                         marginTop: heightPercentageToDP(3),
                         paddingHorizontal: widthPercentageToDP(4),
-                    }}>
+                    }}
+                        onPress={() => router.push('/TermsAndConditions')}
+                    >
                         <Text style={{
                             fontFamily: "poppinsRegular",
                             fontSize: heightPercentageToDP(1.5),
@@ -285,7 +286,7 @@ const Page = () => {
                             textAlign: 'center',
                             marginTop: heightPercentageToDP(2),
                         }}>By signing up I agree to the <Text style={{ color: "#0a5ca8" }}>Terms of Service</Text> and <Text style={{ color: "#0a5ca8" }}>Privacy Policy.</Text></Text>
-                    </View>
+                    </Pressable>
                 </View>
             </KeyboardAwareScrollView>
         </View>
