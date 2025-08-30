@@ -33,8 +33,7 @@
       },
       "edgeToEdgeEnabled": true,
       "permissions": ["android.permission.RECORD_AUDIO"],
-      "runtimeVersion": "1.7.1",
-      "package": "com.imotorapp37.iMotorapp"
+      "runtimeVersion": "1.7.1"
     },
     "web": {
       "bundler": "metro",

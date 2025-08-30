@@ -5,7 +5,7 @@ import FastImage from '@d11/react-native-fast-image';
 import { Ionicons } from '@expo/vector-icons';
 import { useIsFocused } from '@react-navigation/native';
 import { router } from 'expo-router';
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { FlatList, Pressable, Text, useColorScheme, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
@@ -73,7 +73,7 @@ const TruckSimilarAds = () => {
                                 borderTopRightRadius: widthPercentageToDP(1.5),
                             }}
                                 onPress={() => router.push({
-                                    pathname: '/ViewMotorPage',
+                                    pathname: '/ViewTruckPage',
                                     params: { id: item?.id }
                                 })}
                             >
