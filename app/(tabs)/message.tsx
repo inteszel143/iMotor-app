@@ -6,7 +6,6 @@ import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { formatTime } from '@/constants/format';
 import { useGetUserData } from '@/query/UserQuery';
 import { socket } from '@/socket/socket';
-import FastImage from '@d11/react-native-fast-image';
 import { useIsFocused } from '@react-navigation/native';
 import { useQueryClient } from '@tanstack/react-query';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -117,19 +116,28 @@ const Page = () => {
                                                     }}
                                                 />
                                                     :
-                                                    <FastImage
+                                                    <Image
+                                                        source={{ uri: `${process.env.EXPO_PUBLIC_API_URL}/uploaded_img/${item.other_user_profile_picture}` }}
+                                                        resizeMode='cover'
                                                         style={{
                                                             width: widthPercentageToDP(14),
                                                             height: widthPercentageToDP(14),
                                                             borderRadius: widthPercentageToDP(50),
                                                         }}
-                                                        source={{
-                                                            uri: `${process.env.EXPO_PUBLIC_API_URL}/uploaded_img/${item.other_user_profile_picture}`,
-                                                            headers: { Authorization: 'someAuthToken' },
-                                                            priority: FastImage.priority.normal,
-                                                        }}
-                                                        resizeMode={FastImage.resizeMode.cover}
                                                     />
+                                                    // <FastImage
+                                                    //     style={{
+                                                    //         width: widthPercentageToDP(14),
+                                                    //         height: widthPercentageToDP(14),
+                                                    //         borderRadius: widthPercentageToDP(50),
+                                                    //     }}
+                                                    //     source={{
+                                                    //         uri: `${process.env.EXPO_PUBLIC_API_URL}/uploaded_img/${item.other_user_profile_picture}`,
+                                                    //         headers: { Authorization: 'someAuthToken' },
+                                                    //         priority: FastImage.priority.normal,
+                                                    //     }}
+                                                    //     resizeMode={FastImage.resizeMode.cover}
+                                                    // />
                                                 }
                                                 <View style={{
                                                     width: widthPercentageToDP(60),

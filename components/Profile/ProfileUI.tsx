@@ -1,7 +1,6 @@
 import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { formatDate } from '@/constants/format';
 import { useGetUserData } from '@/query/UserQuery';
-import FastImage from '@d11/react-native-fast-image';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useIsFocused } from '@react-navigation/native';
 import { memo } from 'react';
@@ -64,19 +63,28 @@ const ProfileUI = () => {
                             }}
                         />
                             :
-                            <FastImage
+                            // <FastImage
+                            //     style={{
+                            //         width: widthPercentageToDP(15),
+                            //         height: widthPercentageToDP(15),
+                            //         borderRadius: widthPercentageToDP(50),
+                            //     }}
+                            //     defaultSource={require('@/assets/temp/profile.png')}
+                            //     source={{
+                            //         uri: `${process.env.EXPO_PUBLIC_API_URL}/uploaded_img/${data?.profile_picture}`,
+                            //         headers: { Authorization: "someAuthToken" },
+                            //         priority: FastImage.priority.normal,
+                            //     }}
+                            //     resizeMode={FastImage.resizeMode.cover}
+                            // />
+                            <Image
+                                source={{ uri: `${process.env.EXPO_PUBLIC_API_URL}/uploaded_img/${data?.profile_picture}` }}
+                                resizeMode='cover'
                                 style={{
                                     width: widthPercentageToDP(15),
                                     height: widthPercentageToDP(15),
                                     borderRadius: widthPercentageToDP(50),
                                 }}
-                                defaultSource={require('@/assets/temp/profile.png')}
-                                source={{
-                                    uri: `${process.env.EXPO_PUBLIC_API_URL}/uploaded_img/${data?.profile_picture}`,
-                                    headers: { Authorization: "someAuthToken" },
-                                    priority: FastImage.priority.normal,
-                                }}
-                                resizeMode={FastImage.resizeMode.cover}
                             />
                     }
                     <EditProfileButton />

@@ -1,12 +1,11 @@
 import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { formatNumber } from '@/constants/format';
 import { useGetPopularTrucks } from '@/query/HomeQuery';
-import FastImage from '@d11/react-native-fast-image';
 import { Ionicons } from '@expo/vector-icons';
 import { useIsFocused } from '@react-navigation/native';
 import { router } from 'expo-router';
 import { memo } from 'react';
-import { FlatList, Pressable, Text, useColorScheme, View } from 'react-native';
+import { FlatList, Image, Pressable, Text, useColorScheme, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import PendingHomeList from '../skeleton/PendingHomeList';
@@ -79,7 +78,7 @@ const TruckSimilarAds = () => {
                             >
                                 <View>
                                     <View>
-                                        <FastImage
+                                        {/* <FastImage
                                             style={{
                                                 width: widthPercentageToDP(50),
                                                 height: heightPercentageToDP(16),
@@ -93,7 +92,20 @@ const TruckSimilarAds = () => {
                                                 priority: FastImage.priority.normal,
                                             }}
                                             resizeMode={FastImage.resizeMode.cover}
+                                        /> */}
+
+                                        <Image
+                                            source={{ uri: `${process.env.EXPO_PUBLIC_API_URL}/uploaded_img/${item?.featured_image}` }}
+                                            resizeMode='cover'
+                                            style={{
+                                                width: widthPercentageToDP(50),
+                                                height: heightPercentageToDP(16),
+                                                borderTopLeftRadius: widthPercentageToDP(1.5),
+                                                borderTopRightRadius: widthPercentageToDP(1.5),
+                                            }}
                                         />
+
+
                                         <Pressable style={{
                                             position: 'absolute',
                                             top: heightPercentageToDP(0.5),
@@ -123,7 +135,7 @@ const TruckSimilarAds = () => {
                                                 fontSize: heightPercentageToDP(1.8),
                                                 color: "#0a5ca8",
                                             }}>AED {formatNumber(item?.price)}</Text>
-                                            <FastImage
+                                            {/* <FastImage
                                                 style={{
                                                     width: widthPercentageToDP(7),
                                                     height: heightPercentageToDP(3)
@@ -135,6 +147,14 @@ const TruckSimilarAds = () => {
                                                     priority: FastImage.priority.normal,
                                                 }}
                                                 resizeMode={FastImage.resizeMode.contain}
+                                            /> */}
+                                            <Image
+                                                source={{ uri: `${process.env.EXPO_PUBLIC_API_URL}/uploaded_img/${item?.brand?.image}` }}
+                                                resizeMode='contain'
+                                                style={{
+                                                    width: widthPercentageToDP(7),
+                                                    height: heightPercentageToDP(3)
+                                                }}
                                             />
                                         </View>
 

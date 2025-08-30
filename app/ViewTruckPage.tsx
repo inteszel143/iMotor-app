@@ -3,7 +3,6 @@ import PendingView from '@/components/skeleton/PendingView';
 import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { formatNumber } from '@/constants/format';
 import { useGetTruckSingle } from '@/query/SingleQuery';
-import FastImage from '@d11/react-native-fast-image';
 import { Feather, FontAwesome, Ionicons } from '@expo/vector-icons';
 import { useIsFocused } from '@react-navigation/native';
 import { router, useLocalSearchParams } from 'expo-router';
@@ -124,7 +123,15 @@ const Page = () => {
                                 :
                                 data?.listing_image?.map((item: any, index: number) => (
                                     <View key={index}>
-                                        <FastImage
+                                        <Image
+                                            source={{ uri: `${process.env.EXPO_PUBLIC_API_URL}/uploaded_img/${item.image}` }}
+                                            resizeMode='cover'
+                                            style={{
+                                                width: widthPercentageToDP(100),
+                                                height: widthPercentageToDP(80),
+                                            }}
+                                        />
+                                        {/* <FastImage
                                             style={{
                                                 width: widthPercentageToDP(100),
                                                 height: widthPercentageToDP(80),
@@ -136,7 +143,7 @@ const Page = () => {
                                                 priority: FastImage.priority.normal,
                                             }}
                                             resizeMode={FastImage.resizeMode.cover}
-                                        />
+                                        /> */}
                                     </View>
                                 ))
                         }
@@ -182,7 +189,15 @@ const Page = () => {
                             fontSize: heightPercentageToDP(2.5),
                             color: "#0a5ca8",
                         }}>AED {formatNumber(data?.price)}</Text>
-                        <FastImage
+                        <Image
+                            source={{ uri: `${process.env.EXPO_PUBLIC_API_URL}/uploaded_img/${data?.brand?.image}` }}
+                            resizeMode='contain'
+                            style={{
+                                width: widthPercentageToDP(8),
+                                height: heightPercentageToDP(3)
+                            }}
+                        />
+                        {/* <FastImage
                             style={{
                                 width: widthPercentageToDP(8),
                                 height: heightPercentageToDP(3)
@@ -194,7 +209,7 @@ const Page = () => {
                                 priority: FastImage.priority.normal,
                             }}
                             resizeMode={FastImage.resizeMode.contain}
-                        />
+                        /> */}
                     </View>
 
                     <Text style={{

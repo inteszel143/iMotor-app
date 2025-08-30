@@ -1,11 +1,11 @@
 import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { formatDate, formatNumber } from '@/constants/format';
 import { useGetFilterDataHomePage } from '@/query/FilterQuery';
-import FastImage from '@d11/react-native-fast-image';
+// import FastImage from '@d11/react-native-fast-image';
 import { Feather, FontAwesome, Ionicons } from '@expo/vector-icons';
 import { useIsFocused } from '@react-navigation/native';
 import { router } from 'expo-router';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ActivityIndicator, Alert, FlatList, Image, Linking, Pressable, ScrollView, Text, TextInput, useColorScheme, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
@@ -124,7 +124,16 @@ const Page = () => {
                                                         {
                                                             item?.listing_image?.map((item: any, index: number) => (
                                                                 <View key={index}>
-                                                                    <FastImage
+                                                                    <Image
+                                                                        source={{ uri: `${process.env.EXPO_PUBLIC_API_URL}/uploaded_img/${item?.image}` }}
+                                                                        resizeMode='cover'
+                                                                        style={{
+                                                                            width: widthPercentageToDP(92),
+                                                                            height: heightPercentageToDP(30),
+                                                                            borderRadius: widthPercentageToDP(2),
+                                                                        }}
+                                                                    />
+                                                                    {/* <FastImage
                                                                         style={{
                                                                             width: widthPercentageToDP(92),
                                                                             height: heightPercentageToDP(30),
@@ -137,7 +146,7 @@ const Page = () => {
                                                                             priority: FastImage.priority.normal,
                                                                         }}
                                                                         resizeMode={FastImage.resizeMode.cover}
-                                                                    />
+                                                                    /> */}
                                                                 </View>
                                                             ))
                                                         }
@@ -223,20 +232,29 @@ const Page = () => {
                                                             }}
                                                         />
                                                             :
-                                                            <FastImage
+                                                            <Image
+                                                                source={{ uri: `${process.env.EXPO_PUBLIC_API_URL}/uploaded_img/${item?.user?.profile_picture}` }}
+                                                                resizeMode='cover'
                                                                 style={{
                                                                     width: widthPercentageToDP(12),
                                                                     height: widthPercentageToDP(12),
                                                                     borderRadius: widthPercentageToDP(50),
                                                                 }}
-                                                                defaultSource={require('@/assets/temp/profile.png')}
-                                                                source={{
-                                                                    uri: `${process.env.EXPO_PUBLIC_API_URL}/uploaded_img/${item?.user?.profile_picture}`,
-                                                                    headers: { Authorization: "someAuthToken" },
-                                                                    priority: FastImage.priority.normal,
-                                                                }}
-                                                                resizeMode={FastImage.resizeMode.cover}
                                                             />
+                                                        // <FastImage
+                                                        //     style={{
+                                                        //         width: widthPercentageToDP(12),
+                                                        //         height: widthPercentageToDP(12),
+                                                        //         borderRadius: widthPercentageToDP(50),
+                                                        //     }}
+                                                        //     defaultSource={require('@/assets/temp/profile.png')}
+                                                        //     source={{
+                                                        //         uri: `${process.env.EXPO_PUBLIC_API_URL}/uploaded_img/${item?.user?.profile_picture}`,
+                                                        //         headers: { Authorization: "someAuthToken" },
+                                                        //         priority: FastImage.priority.normal,
+                                                        //     }}
+                                                        //     resizeMode={FastImage.resizeMode.cover}
+                                                        // />
                                                     }
                                                     <Text style={{
                                                         fontFamily: "poppinsMedium",

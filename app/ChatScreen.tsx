@@ -2,7 +2,6 @@ import { useChatHistory, usePostSendMessage } from '@/apis/Chat';
 import PendingActivityLogs from '@/components/skeleton/PendingActivityLogs';
 import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { isDifferentDay } from '@/constants/format';
-import FastImage from '@d11/react-native-fast-image';
 import { Feather } from '@expo/vector-icons';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useQueryClient } from '@tanstack/react-query';
@@ -105,22 +104,31 @@ const Page = () => {
                                     }}
                                 />
                                 :
-                                <FastImage
+                                <Image
+                                    source={{ uri: `${process.env.EXPO_PUBLIC_API_URL}/uploaded_img/${profile_image}` }}
+                                    resizeMode='cover'
                                     style={{
                                         width: wp(10),
                                         height: wp(10),
                                         borderRadius: widthPercentageToDP(50),
                                     }}
-                                    defaultSource={require('@/assets/temp/defaultuser.png')}
-                                    source={{
-                                        uri: `${process.env.EXPO_PUBLIC_API_URL}/uploaded_img/${profile_image}`,
-                                        headers: { Authorization: 'someAuthToken' },
-                                        priority: FastImage.priority.normal,
-                                    }}
-                                    resizeMode={FastImage.resizeMode.cover}
                                 />
+                                // <FastImage
+                                //     style={{
+                                //         width: wp(10),
+                                //         height: wp(10),
+                                //         borderRadius: widthPercentageToDP(50),
+                                //     }}
+                                //     defaultSource={require('@/assets/temp/defaultuser.png')}
+                                //     source={{
+                                //         uri: `${process.env.EXPO_PUBLIC_API_URL}/uploaded_img/${profile_image}`,
+                                //         headers: { Authorization: 'someAuthToken' },
+                                //         priority: FastImage.priority.normal,
+                                //     }}
+                                //     resizeMode={FastImage.resizeMode.cover}
+                                // />
                             }
-                            <View>
+                            < View >
                                 <Text
                                     style={{
                                         fontFamily: "poppinsSemiBold",
@@ -235,14 +243,23 @@ const Page = () => {
                                                         }}
                                                     >
                                                         {item?.user?.avatar ? (
-                                                            <FastImage
+                                                            // <FastImage
+                                                            //     source={{ uri: item.user.avatar as any }}
+                                                            //     style={{
+                                                            //         width: wp(7),
+                                                            //         height: wp(7),
+                                                            //         borderRadius: wp(50),
+                                                            //     }}
+                                                            //     resizeMode={FastImage.resizeMode.cover}
+                                                            // />
+                                                            <Image
                                                                 source={{ uri: item.user.avatar as any }}
+                                                                resizeMode='cover'
                                                                 style={{
                                                                     width: wp(7),
                                                                     height: wp(7),
                                                                     borderRadius: wp(50),
                                                                 }}
-                                                                resizeMode={FastImage.resizeMode.cover}
                                                             />
                                                         ) : (
                                                             <Text
