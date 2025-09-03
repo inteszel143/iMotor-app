@@ -107,6 +107,7 @@ const Page = () => {
                                 <Image
                                     source={{ uri: `${process.env.EXPO_PUBLIC_API_URL}/uploaded_img/${profile_image}` }}
                                     resizeMode='cover'
+                                    defaultSource={require('@/assets/temp/defaultuser.png')}
                                     style={{
                                         width: wp(10),
                                         height: wp(10),
@@ -139,11 +140,12 @@ const Page = () => {
                             </View>
                         </View>
                     </View>
-                    {/* <Pressable onPress={() => {
-                        Keyboard.dismiss();
-                    }}>
-                        <Feather name='more-vertical' size={hp(2)} color={theme.sub} />
-                    </Pressable> */}
+                    <Pressable onPress={() => router.push({
+                        pathname: '/ChatScreenMore',
+                        params: { profile_image, full_name }
+                    })}>
+                        <Feather name='more-vertical' size={hp(2.2)} color={theme.sub} />
+                    </Pressable>
                 </View>
                 <View style={{ height: 0.5, backgroundColor: colorScheme === "dark" ? "#333536" : "#DADADA", marginTop: hp(1) }} />
             </View>
