@@ -97,20 +97,14 @@ const Page = () => {
                         bounces={false}
                     >
                         {
-                            !data?.listing_image || data?.listing_image === 0 ?
-                                <View style={{
-                                    backgroundColor: "#e9e9f4",
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    height: heightPercentageToDP(40),
-                                    width: widthPercentageToDP(100),
-                                }}>
+                            !data?.listing_image || data?.listing_image == 0 ?
+                                <View>
                                     <Image
-                                        source={require('@/assets/temp/empty.png')}
-                                        resizeMode='contain'
+                                        source={{ uri: `${process.env.EXPO_PUBLIC_API_URL}/uploaded_img/${data?.featured_image}` }}
+                                        resizeMode='cover'
                                         style={{
-                                            width: widthPercentageToDP(16),
-                                            height: heightPercentageToDP(10),
+                                            width: widthPercentageToDP(100),
+                                            height: widthPercentageToDP(80),
                                         }}
                                     />
                                 </View>

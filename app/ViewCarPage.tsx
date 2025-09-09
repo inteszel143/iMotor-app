@@ -81,7 +81,6 @@ const Page = () => {
     if (isPending) {
         return <PendingView />
     };
-
     return (
         <View style={{ flex: 1, backgroundColor: theme.backgroundColor2 }}>
             <ScrollView
@@ -101,20 +100,14 @@ const Page = () => {
                         bounces={false}
                     >
                         {
-                            !data?.listing_image || data?.listing_image === 0 ?
-                                <View style={{
-                                    backgroundColor: "#e9e9f4",
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    height: heightPercentageToDP(40),
-                                    width: widthPercentageToDP(100),
-                                }}>
+                            !data?.listing_image || data?.listing_image == 0 ?
+                                <View>
                                     <Image
-                                        source={require('@/assets/temp/empty.png')}
-                                        resizeMode='contain'
+                                        source={{ uri: `${process.env.EXPO_PUBLIC_API_URL}/uploaded_img/${data?.featured_image}` }}
+                                        resizeMode='cover'
                                         style={{
-                                            width: widthPercentageToDP(16),
-                                            height: heightPercentageToDP(10),
+                                            width: widthPercentageToDP(100),
+                                            height: widthPercentageToDP(80),
                                         }}
                                     />
                                 </View>
@@ -129,19 +122,6 @@ const Page = () => {
                                                 height: widthPercentageToDP(80),
                                             }}
                                         />
-                                        {/* <FastImage
-                                            style={{
-                                                width: widthPercentageToDP(100),
-                                                height: widthPercentageToDP(80),
-                                            }}
-                                            defaultSource={require('@/assets/temp/profile.png')}
-                                            source={{
-                                                uri: `${process.env.EXPO_PUBLIC_API_URL}/uploaded_img/${item.image}`,
-                                                headers: { Authorization: "someAuthToken" },
-                                                priority: FastImage.priority.normal,
-                                            }}
-                                            resizeMode={FastImage.resizeMode.cover}
-                                        /> */}
                                     </View>
                                 ))
                         }
