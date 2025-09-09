@@ -166,7 +166,6 @@ const Page = () => {
                 } as any);
             });
             const response = await postNewCar(formData);
-            console.log(response);
             if (response?.message === "Car successfully listed!") {
                 router.push('/SuccessListing');
                 setLoading(false);
