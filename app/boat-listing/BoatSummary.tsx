@@ -7,7 +7,7 @@ import { parseToken } from '@/utils/parseToken';
 import { Ionicons } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Image, Platform, Pressable, ScrollView, Text, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 const Page = () => {
@@ -88,7 +88,7 @@ const Page = () => {
         const decode = parseToken(accessToken as string);
         const userId = decode?.sub?.id;
         const feturedImage = parseMotor?.image;
-        const imageUris = parseMotor?.multile_image?.map((asset: any) => asset.uri);
+        // const imageUris = parseMotor?.multile_image?.map((asset: any) => asset.uri);
 
         const formData = new FormData();
         try {
@@ -123,16 +123,16 @@ const Page = () => {
                 uri: feturedImage,
                 name: filename,
                 type: `image/${fileType}`,
-            });
+            } as any);
             // More Image
-            imageUris.forEach((imageUri: any) => {
+            parseMotor?.multile_image.forEach((imageUri: any) => {
                 const filename = imageUri?.split("/").pop();
                 const fileType = filename?.split(".").pop();
                 formData.append("images", {
                     uri: imageUri,
                     name: filename,
                     type: `image/${fileType}`,
-                });
+                } as any);
             });
             const response = await postNewBoats(formData);
             if (response?.message === "Boat successfully listed!") {

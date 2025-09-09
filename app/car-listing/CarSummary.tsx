@@ -7,7 +7,7 @@ import { parseToken } from '@/utils/parseToken';
 import { Ionicons } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Image, Platform, Pressable, ScrollView, Text, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 const Page = () => {
@@ -107,15 +107,12 @@ const Page = () => {
             value: parseCarAttribute?.amenities?.join(', ')
         },
     ];
-
-
     const onSubmit = async () => {
         setLoading(true);
         const accessToken = await SecureStore.getItemAsync('accessToken');
         const decode = parseToken(accessToken as string);
         const userId = decode?.sub?.id;
         const feturedImage = parseCarAttribute?.image;
-        const imageUris = parseCarAttribute?.multile_image?.map((asset: any) => asset.uri);
 
         const formData = new FormData();
         try {
@@ -157,18 +154,19 @@ const Page = () => {
                 uri: feturedImage,
                 name: filename,
                 type: `image/${fileType}`,
-            });
+            } as any);
             // More Image
-            imageUris.forEach((imageUri: any) => {
+            parseCarAttribute?.multile_image?.forEach((imageUri: any) => {
                 const filename = imageUri?.split("/").pop();
                 const fileType = filename?.split(".").pop();
                 formData.append("images", {
                     uri: imageUri,
                     name: filename,
                     type: `image/${fileType}`,
-                });
+                } as any);
             });
             const response = await postNewCar(formData);
+            console.log(response);
             if (response?.message === "Car successfully listed!") {
                 router.push('/SuccessListing');
                 setLoading(false);

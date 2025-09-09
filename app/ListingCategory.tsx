@@ -54,7 +54,7 @@ const Page = () => {
             }}
                 onPress={() => router.back()}
             >
-                <Feather name='chevron-left' size={heightPercentageToDP(3)} />
+                <Feather name='chevron-left' size={heightPercentageToDP(3)} color={theme.textColor} />
             </Pressable>
             <View style={{
                 alignItems: 'center',

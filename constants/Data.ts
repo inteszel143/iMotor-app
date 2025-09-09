@@ -9,6 +9,7 @@ export const Regional = [
 ];
 
 export const Year = [
+    { key: '2026', value: '2026' },
     { key: '2025', value: '2025' },
     { key: '2024', value: '2024' },
     { key: '2023', value: '2023' },

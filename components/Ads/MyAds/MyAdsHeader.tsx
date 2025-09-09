@@ -1,7 +1,7 @@
 import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { Feather } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { Pressable, Text, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -15,7 +15,6 @@ const MyAdsHeader = () => {
     return (
         <View style={{
             paddingTop: insets?.top + heightPercentageToDP(1),
-            paddingVertical: heightPercentageToDP(2),
             backgroundColor: theme.card,
         }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: widthPercentageToDP(4) }}>

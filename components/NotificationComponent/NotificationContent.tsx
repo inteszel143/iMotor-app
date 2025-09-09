@@ -1,7 +1,8 @@
 import { darkTheme, lightTheme } from '@/constants/darkmode';
-import React, { memo } from 'react';
-import { Image, Text, useColorScheme, View } from 'react-native';
-import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
+import { Ionicons } from '@expo/vector-icons';
+import { memo } from 'react';
+import { Text, useColorScheme, View } from 'react-native';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 
 const NotificationContent = () => {
     const colorScheme = useColorScheme();
@@ -12,14 +13,7 @@ const NotificationContent = () => {
             alignItems: 'center',
             marginTop: heightPercentageToDP(20)
         }}>
-            <Image
-                source={require('@/assets/temp/empty.png')}
-                resizeMode='contain'
-                style={{
-                    width: widthPercentageToDP(10),
-                    height: heightPercentageToDP(8)
-                }}
-            />
+            <Ionicons name='notifications' size={heightPercentageToDP(10)} color={"#DADADA"} />
             <Text style={{
                 fontFamily: "poppinsSemiBold",
                 fontSize: heightPercentageToDP(1.5),
