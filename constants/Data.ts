@@ -5,6 +5,7 @@ export const Regional = [
     { key: 'Japanese Specs', value: 'Japanese Specs' },
     { key: 'Korean Specs', value: 'Korean Specs' },
     { key: 'Chinese Specs', value: 'Chinese Specs' },
+    { key: 'GCC  Specs', value: 'GCC  Specs' },
     { key: 'Other', value: 'Other' },
 ];
 
@@ -135,6 +136,8 @@ export const EngineCapacity = [
 ];
 
 export const Warranty = [
+    { key: 'Yes', value: 'Yes' },
+    { key: 'No', value: 'No' },
     { key: '6 months', value: '6 months' },
     { key: '9 months', value: '9 months' },
     { key: '1 year', value: '1 year' },

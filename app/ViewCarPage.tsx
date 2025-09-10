@@ -76,8 +76,6 @@ const Page = () => {
             value: data?.cars?.transmission_type
         },
     ];
-
-
     if (isPending) {
         return <PendingView />
     };

@@ -74,7 +74,7 @@ const Page = () => {
                                                         fontFamily: "poppinsRegular",
                                                         fontSize: heightPercentageToDP(1.4),
                                                         color: theme.textColor,
-                                                    }}>{item?.model} {item?.model_year}</Text>
+                                                    }}>{item?.title}</Text>
 
                                                     <View style={{
                                                         flexDirection: 'row',
