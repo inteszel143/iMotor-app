@@ -14,6 +14,23 @@ export const postLogin = async (data: any) => {
     } catch (error) {
         return Promise.reject(error);
     }
+};
+
+export const forgotPasswordd = async (data: any) => {
+    try {
+        const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/auth/forgot_password`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+        const json = await response.json();
+        return json;
+
+    } catch (error) {
+        return Promise.reject(error);
+    }
 }
 
 export const signupEmail = async (data: any) => {

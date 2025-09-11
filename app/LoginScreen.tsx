@@ -11,7 +11,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { router } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import { Controller, useForm } from "react-hook-form";
-import { Image, Pressable, Text, useColorScheme, View } from 'react-native';
+import { Image, Pressable, Text, TouchableOpacity, useColorScheme, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -201,13 +201,15 @@ const Page = () => {
                         alignItems: "flex-end",
                         marginTop: heightPercentageToDP(1.5),
                     }}>
-                        <Pressable>
+                        <TouchableOpacity
+                            onPress={() => router.push('/ForgotPasswordPage')}
+                        >
                             <Text style={{
                                 fontFamily: "poppinsMedium",
                                 fontSize: heightPercentageToDP(1.6),
                                 color: "#0a5ca8"
                             }}>Forgot Password?</Text>
-                        </Pressable>
+                        </TouchableOpacity>
                     </View>
 
 
