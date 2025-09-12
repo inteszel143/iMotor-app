@@ -102,7 +102,7 @@ const Page = () => {
             formData.append("safety_features", "");
             formData.append("user_id", userId);
             formData.append("location_id", parseItem?.city);
-            formData.append("brand_id", 10);
+            formData.append("brand_id", 10 as any);
             formData.append("variant", parseItem?.variant);
             formData.append("community_id", parseItem?.community);
             formData.append("model", parseItem?.model);
@@ -148,6 +148,7 @@ const Page = () => {
             } else {
                 setError(response?.message);
                 setLoading(false);
+                router.push('/ErrorListing');
             }
         } catch (error) {
             console.log(error);

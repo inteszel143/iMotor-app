@@ -95,7 +95,7 @@ const Page = () => {
             formData.append("vin", "");
             formData.append("model_year", "1998");
             formData.append("location_id", parseMotor?.city);
-            formData.append("brand_id", 10);
+            formData.append("brand_id", 10 as any);
             formData.append("amenities", "");
             formData.append("safety_features", "");
             formData.append("variant", "white");
@@ -141,6 +141,7 @@ const Page = () => {
             } else {
                 setError(response?.message);
                 setLoading(false);
+                router.push('/ErrorListing');
             }
         } catch (error) {
             console.log(error);
