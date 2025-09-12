@@ -1,7 +1,7 @@
 import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import React, { memo, useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { Platform, Pressable, Text, useColorScheme, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -59,6 +59,7 @@ const HomeHeader = () => {
                 <View>
                     <Pressable
                         onPress={() => router.push('/NotificationPage')}
+                    // onPress={() => router.push('/ErrorListing')}
                     >
                         <Ionicons name='notifications-outline' size={heightPercentageToDP(3)} color={theme.sub} />
                     </Pressable>

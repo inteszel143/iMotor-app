@@ -172,6 +172,7 @@ const Page = () => {
             } else {
                 setError(response?.message);
                 setLoading(false);
+                router.push('/ErrorListing');
             }
         } catch (error) {
             console.log(error);

@@ -56,10 +56,12 @@ export default function RootLayout() {
               <Stack.Screen name="ChangePasswordPage" options={{ animation: "slide_from_right", headerShown: false }} />
               <Stack.Screen name="ListingCategory" options={{ animation: "slide_from_right", headerShown: false }} />
               <Stack.Screen name="SuccessListing" options={{ animation: "slide_from_right", headerShown: false }} />
+              <Stack.Screen name="ErrorListing" options={{ animation: "slide_from_right", headerShown: false }} />
               <Stack.Screen name="ChatScreen" options={{ animation: "slide_from_right", headerShown: false }} />
               <Stack.Screen name="ChatScreenMore" options={{ animation: "slide_from_right", headerShown: false }} />
               <Stack.Screen name="TermsAndConditions" options={{ animation: "slide_from_right", headerShown: false }} />
               <Stack.Screen name="SuccessForgotPassword" options={{ animation: "slide_from_right", headerShown: false }} />
+              <Stack.Screen name="ViewPricing" options={{ animation: "slide_from_right", headerShown: false }} />
 
               {/* CAR */}
               <Stack.Screen name="car-listing/InputVin" options={{ animation: "slide_from_right", headerShown: false }} />
