@@ -1,4 +1,5 @@
 import MotorSimilarAds from '@/components/Ads/MotorSimilarAds';
+import PostedBy from '@/components/PostedBy';
 import PendingView from '@/components/skeleton/PendingView';
 import { darkTheme, lightTheme } from '@/constants/darkmode';
 import { formatNumber } from '@/constants/format';
@@ -354,6 +355,7 @@ const Page = () => {
                         }
                     </View>
                 </View>
+                <PostedBy user_profile={data?.user?.profile_picture} full_name={data?.user?.first_name + ' ' + data?.user?.last_name} />
                 <MotorSimilarAds />
             </ScrollView>
 

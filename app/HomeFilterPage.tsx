@@ -88,11 +88,30 @@ const Page = () => {
                                         marginTop: heightPercentageToDP(0.5),
 
                                     }}
-                                    // onPress={() => router.push({
-                                    //     pathname: '/ViewCitizen',
-                                    //     params: { items: JSON.stringify(item) }
-                                    // })}
-                                    >
+                                        onPress={() => {
+                                            if (item?.vehicle_type === "car") {
+                                                router.push({
+                                                    pathname: '/ViewCarPage',
+                                                    params: { id: item?.id }
+                                                })
+                                            } else if (item?.vehicle_type === "motorcycle") {
+                                                router.push({
+                                                    pathname: '/ViewMotorPage',
+                                                    params: { id: item?.id }
+                                                })
+                                            } else if (item?.vehicle_type === "heavy_vehicles") {
+                                                router.push({
+                                                    pathname: '/ViewTruckPage',
+                                                    params: { id: item?.id }
+                                                })
+                                            }
+                                            else {
+                                                router.push({
+                                                    pathname: '/ViewBoatPage',
+                                                    params: { id: item?.id }
+                                                })
+                                            }
+                                        }}>
                                         <View style={{
                                             height: heightPercentageToDP(30),
                                             width: '100%'
@@ -133,20 +152,6 @@ const Page = () => {
                                                                             borderRadius: widthPercentageToDP(2),
                                                                         }}
                                                                     />
-                                                                    {/* <FastImage
-                                                                        style={{
-                                                                            width: widthPercentageToDP(92),
-                                                                            height: heightPercentageToDP(30),
-                                                                            borderRadius: widthPercentageToDP(2),
-                                                                        }}
-                                                                        defaultSource={require('@/assets/temp/empty.png')}
-                                                                        source={{
-                                                                            uri: `${process.env.EXPO_PUBLIC_API_URL}/uploaded_img/${item?.image}`,
-                                                                            headers: { Authorization: "someAuthToken" },
-                                                                            priority: FastImage.priority.normal,
-                                                                        }}
-                                                                        resizeMode={FastImage.resizeMode.cover}
-                                                                    /> */}
                                                                 </View>
                                                             ))
                                                         }
@@ -154,76 +159,88 @@ const Page = () => {
                                             }
 
                                         </View>
+                                    </Pressable>
+                                    <View style={{
+                                        paddingVertical: heightPercentageToDP(2),
+                                        paddingHorizontal: widthPercentageToDP(4),
+                                    }}>
                                         <View style={{
-                                            paddingVertical: heightPercentageToDP(2),
+                                            flexDirection: 'row',
+                                            alignItems: 'center',
+                                            justifyContent: 'space-between',
                                         }}>
-                                            <View style={{
-                                                flexDirection: 'row',
-                                                alignItems: 'center',
-                                                justifyContent: 'space-between',
-                                            }}>
-                                                <Text style={{
-                                                    fontFamily: "poppinsSemiBold",
-                                                    fontSize: heightPercentageToDP(1.8),
-                                                    color: "#0a5ca8"
-                                                }}>AED {formatNumber(item?.price)}</Text>
-                                                <Text style={{
-                                                    fontFamily: "poppinsRegular",
-                                                    fontSize: heightPercentageToDP(1.4),
-                                                    color: theme.textColor
-                                                }}>{formatDate(item?.created_date)}</Text>
-                                            </View>
                                             <Text style={{
                                                 fontFamily: "poppinsSemiBold",
-                                                fontSize: heightPercentageToDP(1.6),
-                                                color: theme.textColor,
-                                                marginTop: heightPercentageToDP(0.5),
-                                            }}>{item?.title} • {item?.brand?.name}</Text>
-
-                                            <Text style={{
-                                                fontFamily: "poppinsRegular",
-                                                fontSize: heightPercentageToDP(1.5),
-                                                color: theme.sub,
-                                                marginTop: heightPercentageToDP(1),
-                                            }}>{item?.cars?.doors} • {item?.cars?.exterior_color}</Text>
-
-                                            <View style={{
-                                                flexDirection: 'row',
-                                                alignItems: 'center',
-                                                gap: widthPercentageToDP(6),
-                                                marginTop: heightPercentageToDP(1),
-                                            }}>
-                                                <Text style={{
-                                                    fontFamily: "poppinsRegular",
-                                                    fontSize: heightPercentageToDP(1.4),
-                                                    color: theme.textColor
-                                                }}>Year: {item?.model_year}</Text>
-                                                <Text style={{
-                                                    fontFamily: "poppinsRegular",
-                                                    fontSize: heightPercentageToDP(1.4),
-                                                    color: theme.textColor
-                                                }}>Mileage: {item?.mileage}</Text>
-                                            </View>
-
+                                                fontSize: heightPercentageToDP(1.8),
+                                                color: "#0a5ca8"
+                                            }}>AED {formatNumber(item?.price)}</Text>
                                             <Text style={{
                                                 fontFamily: "poppinsRegular",
                                                 fontSize: heightPercentageToDP(1.4),
-                                                color: theme.sub,
-                                                marginTop: heightPercentageToDP(1),
-                                            }}>{`${item?.location?.name} > ${item?.community?.name}`}</Text>
-                                            <View style={{ height: 0.5, backgroundColor: colorScheme === "dark" ? "#616161" : "#DADADA", marginTop: heightPercentageToDP(2) }} />
+                                                color: theme.textColor
+                                            }}>{formatDate(item?.created_date)}</Text>
+                                        </View>
+                                        <Text style={{
+                                            fontFamily: "poppinsSemiBold",
+                                            fontSize: heightPercentageToDP(1.6),
+                                            color: theme.textColor,
+                                            marginTop: heightPercentageToDP(0.5),
+                                        }}>{item?.title} • {item?.brand?.name}</Text>
 
-                                            <View style={{
-                                                flexDirection: 'row',
-                                                alignItems: 'center',
-                                                justifyContent: 'space-between',
-                                                marginTop: heightPercentageToDP(2),
-                                            }}>
+                                        <Text style={{
+                                            fontFamily: "poppinsRegular",
+                                            fontSize: heightPercentageToDP(1.5),
+                                            color: theme.sub,
+                                            marginTop: heightPercentageToDP(1),
+                                        }}>{item?.cars?.doors} • {item?.cars?.exterior_color}</Text>
 
-                                                <View>
-                                                    {
-                                                        item?.user?.profile_picture === "default_profile_picture.jpg" ? <Image
-                                                            source={require('@/assets/temp/profile.png')}
+                                        <View style={{
+                                            flexDirection: 'row',
+                                            alignItems: 'center',
+                                            gap: widthPercentageToDP(6),
+                                            marginTop: heightPercentageToDP(1),
+                                        }}>
+                                            <Text style={{
+                                                fontFamily: "poppinsRegular",
+                                                fontSize: heightPercentageToDP(1.4),
+                                                color: theme.textColor
+                                            }}>Year: {item?.model_year}</Text>
+                                            <Text style={{
+                                                fontFamily: "poppinsRegular",
+                                                fontSize: heightPercentageToDP(1.4),
+                                                color: theme.textColor
+                                            }}>Mileage: {item?.mileage}</Text>
+                                        </View>
+
+                                        <Text style={{
+                                            fontFamily: "poppinsRegular",
+                                            fontSize: heightPercentageToDP(1.4),
+                                            color: theme.sub,
+                                            marginTop: heightPercentageToDP(1),
+                                        }}>{`${item?.location?.name} > ${item?.community?.name}`}</Text>
+                                        <View style={{ height: 0.5, backgroundColor: colorScheme === "dark" ? "#616161" : "#DADADA", marginTop: heightPercentageToDP(2) }} />
+
+                                        <View style={{
+                                            flexDirection: 'row',
+                                            alignItems: 'center',
+                                            justifyContent: 'space-between',
+                                            marginTop: heightPercentageToDP(2),
+                                        }}>
+
+                                            <View>
+                                                {
+                                                    item?.user?.profile_picture === "default_profile_picture.jpg" ? <Image
+                                                        source={require('@/assets/temp/profile.png')}
+                                                        resizeMode='cover'
+                                                        style={{
+                                                            width: widthPercentageToDP(12),
+                                                            height: widthPercentageToDP(12),
+                                                            borderRadius: widthPercentageToDP(50),
+                                                        }}
+                                                    />
+                                                        :
+                                                        <Image
+                                                            source={{ uri: `${process.env.EXPO_PUBLIC_API_URL}/uploaded_img/${item?.user?.profile_picture}` }}
                                                             resizeMode='cover'
                                                             style={{
                                                                 width: widthPercentageToDP(12),
@@ -231,48 +248,62 @@ const Page = () => {
                                                                 borderRadius: widthPercentageToDP(50),
                                                             }}
                                                         />
-                                                            :
-                                                            <Image
-                                                                source={{ uri: `${process.env.EXPO_PUBLIC_API_URL}/uploaded_img/${item?.user?.profile_picture}` }}
-                                                                resizeMode='cover'
-                                                                style={{
-                                                                    width: widthPercentageToDP(12),
-                                                                    height: widthPercentageToDP(12),
-                                                                    borderRadius: widthPercentageToDP(50),
-                                                                }}
-                                                            />
-                                                        // <FastImage
-                                                        //     style={{
-                                                        //         width: widthPercentageToDP(12),
-                                                        //         height: widthPercentageToDP(12),
-                                                        //         borderRadius: widthPercentageToDP(50),
-                                                        //     }}
-                                                        //     defaultSource={require('@/assets/temp/profile.png')}
-                                                        //     source={{
-                                                        //         uri: `${process.env.EXPO_PUBLIC_API_URL}/uploaded_img/${item?.user?.profile_picture}`,
-                                                        //         headers: { Authorization: "someAuthToken" },
-                                                        //         priority: FastImage.priority.normal,
-                                                        //     }}
-                                                        //     resizeMode={FastImage.resizeMode.cover}
-                                                        // />
-                                                    }
+                                                    // <FastImage
+                                                    //     style={{
+                                                    //         width: widthPercentageToDP(12),
+                                                    //         height: widthPercentageToDP(12),
+                                                    //         borderRadius: widthPercentageToDP(50),
+                                                    //     }}
+                                                    //     defaultSource={require('@/assets/temp/profile.png')}
+                                                    //     source={{
+                                                    //         uri: `${process.env.EXPO_PUBLIC_API_URL}/uploaded_img/${item?.user?.profile_picture}`,
+                                                    //         headers: { Authorization: "someAuthToken" },
+                                                    //         priority: FastImage.priority.normal,
+                                                    //     }}
+                                                    //     resizeMode={FastImage.resizeMode.cover}
+                                                    // />
+                                                }
+                                                <Text style={{
+                                                    fontFamily: "poppinsMedium",
+                                                    fontSize: heightPercentageToDP(1.5),
+                                                    color: theme.textColor,
+                                                    marginTop: heightPercentageToDP(0.5),
+                                                }}>{item?.user?.first_name} {item?.user?.last_name}</Text>
+                                            </View>
+
+
+                                            <View style={{
+                                                flexDirection: 'row',
+                                                alignItems: 'center',
+                                                gap: widthPercentageToDP(2),
+                                            }}>
+                                                <Pressable style={{
+                                                    borderWidth: 1,
+                                                    borderColor: "#0a5ca8",
+                                                    width: widthPercentageToDP(26),
+                                                    height: heightPercentageToDP(5),
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center',
+                                                    borderRadius: widthPercentageToDP(2),
+                                                    flexDirection: 'row',
+                                                    gap: widthPercentageToDP(2),
+                                                }}
+                                                    onPress={() => Linking.openURL(`tel:${item?.user?.contact_number}`).catch((err) => {
+                                                        Alert.alert('Error', 'Unable to make a call');
+                                                    })}
+                                                >
+                                                    <Ionicons name='call' size={heightPercentageToDP(1.8)} color={"#0a5ca8"} />
                                                     <Text style={{
                                                         fontFamily: "poppinsMedium",
-                                                        fontSize: heightPercentageToDP(1.5),
-                                                        color: theme.textColor,
-                                                        marginTop: heightPercentageToDP(0.5),
-                                                    }}>{item?.user?.first_name} {item?.user?.last_name}</Text>
-                                                </View>
-
-
-                                                <View style={{
-                                                    flexDirection: 'row',
-                                                    alignItems: 'center',
-                                                    gap: widthPercentageToDP(2),
-                                                }}>
-                                                    <Pressable style={{
+                                                        fontSize: heightPercentageToDP(1.4),
+                                                        color: "#0a5ca8",
+                                                    }}>Call</Text>
+                                                </Pressable>
+                                                <Pressable
+                                                    disabled={item?.user?.whats_app_number ? false : true}
+                                                    style={{
                                                         borderWidth: 1,
-                                                        borderColor: "#0a5ca8",
+                                                        borderColor: item?.user?.whats_app_number ? "#0a5ca8" : "#DADADA",
                                                         width: widthPercentageToDP(26),
                                                         height: heightPercentageToDP(5),
                                                         alignItems: 'center',
@@ -281,39 +312,29 @@ const Page = () => {
                                                         flexDirection: 'row',
                                                         gap: widthPercentageToDP(2),
                                                     }}
-                                                        onPress={() => Linking.openURL(`tel:${item?.user?.contact_number}`).catch((err) => {
-                                                            Alert.alert('Error', 'Unable to make a call');
-                                                        })}
-                                                    >
-                                                        <Ionicons name='call' size={heightPercentageToDP(1.8)} color={"#0a5ca8"} />
-                                                        <Text style={{
-                                                            fontFamily: "poppinsMedium",
-                                                            fontSize: heightPercentageToDP(1.4),
-                                                            color: "#0a5ca8",
-                                                        }}>Call</Text>
-                                                    </Pressable>
-                                                    <Pressable style={{
-                                                        borderWidth: 1,
-                                                        borderColor: "#0a5ca8",
-                                                        width: widthPercentageToDP(26),
-                                                        height: heightPercentageToDP(5),
-                                                        alignItems: 'center',
-                                                        justifyContent: 'center',
-                                                        borderRadius: widthPercentageToDP(2),
-                                                        flexDirection: 'row',
-                                                        gap: widthPercentageToDP(2),
-                                                    }}>
-                                                        <FontAwesome name='whatsapp' size={heightPercentageToDP(1.8)} color={"#0a5ca8"} />
-                                                        <Text style={{
-                                                            fontFamily: "poppinsMedium",
-                                                            fontSize: heightPercentageToDP(1.4),
-                                                            color: "#0a5ca8",
-                                                        }}>Whatsapp</Text>
-                                                    </Pressable>
-                                                </View>
+                                                    onPress={async () => {
+                                                        const phoneNumber = '+971' + item?.user?.whats_app_number;
+                                                        const deepLink = `https://wa.me/${phoneNumber}`;
+                                                        Linking.openURL(deepLink)
+                                                            .then((data) => {
+                                                                console.log('WhatsApp Opened: ', data);
+                                                            })
+                                                            .catch(() => {
+                                                                console.log('WhatsApp not installed on the device');
+                                                            });
+                                                    }}
+                                                >
+                                                    <FontAwesome name='whatsapp' size={heightPercentageToDP(1.8)} color={item?.user?.whats_app_number ? "#0a5ca8" : "#DADADA"} />
+                                                    <Text style={{
+                                                        fontFamily: "poppinsMedium",
+                                                        fontSize: heightPercentageToDP(1.4),
+                                                        color: item?.user?.whats_app_number ? "#0a5ca8" : "#DADADA",
+                                                    }}>Whatsapp</Text>
+                                                </Pressable>
                                             </View>
                                         </View>
-                                    </Pressable>
+                                    </View>
+
                                     <View style={{ height: 0.5, backgroundColor: colorScheme === "dark" ? "#616161" : "#DADADA", marginBottom: heightPercentageToDP(2) }} />
                                 </Animated.View>
                             )
