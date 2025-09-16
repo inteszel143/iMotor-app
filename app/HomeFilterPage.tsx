@@ -159,65 +159,73 @@ const Page = () => {
                                             }
 
                                         </View>
-                                    </Pressable>
-                                    <View style={{
-                                        paddingVertical: heightPercentageToDP(2),
-                                        paddingHorizontal: widthPercentageToDP(4),
-                                    }}>
+
+
                                         <View style={{
-                                            flexDirection: 'row',
-                                            alignItems: 'center',
-                                            justifyContent: 'space-between',
+                                            paddingVertical: heightPercentageToDP(2),
                                         }}>
+                                            <View style={{
+                                                flexDirection: 'row',
+                                                alignItems: 'center',
+                                                justifyContent: 'space-between',
+                                            }}>
+                                                <Text style={{
+                                                    fontFamily: "poppinsSemiBold",
+                                                    fontSize: heightPercentageToDP(1.8),
+                                                    color: "#0a5ca8"
+                                                }}>AED {formatNumber(item?.price)}</Text>
+                                                <Text style={{
+                                                    fontFamily: "poppinsRegular",
+                                                    fontSize: heightPercentageToDP(1.4),
+                                                    color: theme.textColor
+                                                }}>{formatDate(item?.created_date)}</Text>
+                                            </View>
                                             <Text style={{
                                                 fontFamily: "poppinsSemiBold",
-                                                fontSize: heightPercentageToDP(1.8),
-                                                color: "#0a5ca8"
-                                            }}>AED {formatNumber(item?.price)}</Text>
-                                            <Text style={{
-                                                fontFamily: "poppinsRegular",
-                                                fontSize: heightPercentageToDP(1.4),
-                                                color: theme.textColor
-                                            }}>{formatDate(item?.created_date)}</Text>
-                                        </View>
-                                        <Text style={{
-                                            fontFamily: "poppinsSemiBold",
-                                            fontSize: heightPercentageToDP(1.6),
-                                            color: theme.textColor,
-                                            marginTop: heightPercentageToDP(0.5),
-                                        }}>{item?.title} • {item?.brand?.name}</Text>
+                                                fontSize: heightPercentageToDP(1.6),
+                                                color: theme.textColor,
+                                                marginTop: heightPercentageToDP(0.5),
+                                            }}>{item?.title} • {item?.brand?.name}</Text>
 
-                                        <Text style={{
-                                            fontFamily: "poppinsRegular",
-                                            fontSize: heightPercentageToDP(1.5),
-                                            color: theme.sub,
-                                            marginTop: heightPercentageToDP(1),
-                                        }}>{item?.cars?.doors} • {item?.cars?.exterior_color}</Text>
+                                            <Text style={{
+                                                fontFamily: "poppinsRegular",
+                                                fontSize: heightPercentageToDP(1.5),
+                                                color: theme.sub,
+                                                marginTop: heightPercentageToDP(1),
+                                            }}>{item?.cars?.doors} • {item?.cars?.exterior_color}</Text>
 
-                                        <View style={{
-                                            flexDirection: 'row',
-                                            alignItems: 'center',
-                                            gap: widthPercentageToDP(6),
-                                            marginTop: heightPercentageToDP(1),
-                                        }}>
+                                            <View style={{
+                                                flexDirection: 'row',
+                                                alignItems: 'center',
+                                                gap: widthPercentageToDP(6),
+                                                marginTop: heightPercentageToDP(1),
+                                            }}>
+                                                <Text style={{
+                                                    fontFamily: "poppinsRegular",
+                                                    fontSize: heightPercentageToDP(1.4),
+                                                    color: theme.textColor
+                                                }}>Year: {item?.model_year}</Text>
+                                                <Text style={{
+                                                    fontFamily: "poppinsRegular",
+                                                    fontSize: heightPercentageToDP(1.4),
+                                                    color: theme.textColor
+                                                }}>Mileage: {item?.mileage}</Text>
+                                            </View>
+
                                             <Text style={{
                                                 fontFamily: "poppinsRegular",
                                                 fontSize: heightPercentageToDP(1.4),
-                                                color: theme.textColor
-                                            }}>Year: {item?.model_year}</Text>
-                                            <Text style={{
-                                                fontFamily: "poppinsRegular",
-                                                fontSize: heightPercentageToDP(1.4),
-                                                color: theme.textColor
-                                            }}>Mileage: {item?.mileage}</Text>
+                                                color: theme.sub,
+                                                marginTop: heightPercentageToDP(1),
+                                            }}>{`${item?.location?.name} > ${item?.community?.name}`}</Text>
                                         </View>
 
-                                        <Text style={{
-                                            fontFamily: "poppinsRegular",
-                                            fontSize: heightPercentageToDP(1.4),
-                                            color: theme.sub,
-                                            marginTop: heightPercentageToDP(1),
-                                        }}>{`${item?.location?.name} > ${item?.community?.name}`}</Text>
+                                    </Pressable>
+
+                                    <View style={{
+                                        paddingHorizontal: widthPercentageToDP(4),
+                                    }}>
+
                                         <View style={{ height: 0.5, backgroundColor: colorScheme === "dark" ? "#616161" : "#DADADA", marginTop: heightPercentageToDP(2) }} />
 
                                         <View style={{
